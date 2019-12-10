@@ -1,0 +1,63 @@
+{
+  "code": 0,
+  "msg": "",
+  "chaincode_info": {"pkid":"121","channel_id": "robertfengchanneltest","languages": "golang","name": "fb14_c2c_study","1.3": "测试数据","path": "github.com/xuehuiit/fabric_cc_study/1.4","escc": "测试数据","vscc": "测试数据","txcount": "测试数据","ccstatus": "测试数据","createdt": "测试数据","remark": "测试数据"},
+  "count_info":{"peer":3,"tx":113,"keyset":121,"acccount":7},
+  "pic_struct": {
+    "orgs": [
+      {
+        "id": 3,
+        "flag": "org",
+        "name": "org1",
+        "mspid": "Org1Msp",
+        "peers": [
+          {
+            "id": 1,
+            "flag": "peer",
+            "name": "peer0",
+            "peerid": "peer0.org1.qklszzn.com",
+            "channels": [
+              {
+                "id": 3,
+                "flag": "channel",
+                "channel_id": "fabrictestchannel",
+                "blocks": 110,
+                "instanceccs": [
+                  {
+                    "id": 3,
+                    "flag": "chaincode",
+                    "name": "fb14_c2c_study",
+                    "version": "1.0"
+                  }
+                ]
+              }
+
+            ]
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "flag": "org",
+        "name": "org2",
+        "mspid": "Org2Msp"
+      },
+      {
+        "id": 3,
+        "flag": "org",
+        "name": "org3",
+        "mspid": "Org3Msp"
+      }
+    ],
+    "orderers": [
+      {
+        "id": 3,
+        "flag": "orderer",
+        "name": "ordererorg1"
+
+      }
+    ]
+  }
+}
+
+

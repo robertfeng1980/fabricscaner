@@ -1,0 +1,30 @@
+
+
+
+
+var cert = `-----BEGIN CERTIFICATE-----
+MIICOzCCAeKgAwIBAgIRAOg2TkXNVtImC5XAurrjunowCgYIKoZIzj0EAwIwgYwx
+CzAJBgNVBAYTAkNOMREwDwYDVQQIEwhTaGFuZ2hhaTERMA8GA1UEBxMIU2hhbmdo
+YWkxGTAXBgNVBAoTEG9yZzIucWtsc3p6bi5jb20xDTALBgNVBAsTBE9yZzIxLTAr
+BgNVBAMTJGNhLm9yZzIucWtsc3p6bi5jb20ub3JnMi5xa2xzenpuLmNvbTAeFw0x
+OTA3MTIxMzQyMDBaFw0yOTA3MDkxMzQyMDBaMGMxCzAJBgNVBAYTAkNOMREwDwYD
+VQQIEwhTaGFuZ2hhaTERMA8GA1UEBxMIU2hhbmdoYWkxDTALBgNVBAsTBE9yZzIx
+HzAdBgNVBAMTFnBlZXIwLm9yZzIucWtsc3p6bi5jb20wWTATBgcqhkjOPQIBBggq
+hkjOPQMBBwNCAASwn2a3QpwKghOolqNKoicmqS+jExaVOkMzgopJiPeSbAG6ipag
+zhDVo4YJmZpTHlxrB5T2geyfuXfJGxoaPkBjo00wSzAOBgNVHQ8BAf8EBAMCB4Aw
+DAYDVR0TAQH/BAIwADArBgNVHSMEJDAigCA74lRfsjL/95+pmWMcS6OkMy8lTnxs
+UB/XtKxm0bNM2TAKBggqhkjOPQQDAgNHADBEAiAjhftfEUA01XJTsLAGJ8G8pp/W
+7QP8QSQSk4R1b2/4ZQIgYkP+Nrebb5GIhPQvvGYWEZeFD55gj6lssi1vzf3jWX0=
+-----END CERTIFICATE-----
+`;
+
+////////
+
+var  x509 = require('x509');
+/////var subject = x509.getSubject(cert);
+var cert_ojb = x509.parseCert(cert);
+
+
+
+console.log(cert_ojb)
+//console.log(JSON.stringify(cert_ojb))

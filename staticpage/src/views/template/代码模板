@@ -1,0 +1,543 @@
+====  JSON 格式化工具模版  ====
+
+
+ <!-- 区块详细信息 -->
+            <div class="layui-tab-item">
+
+                <div class="HeadersRow">
+                    <textarea id="RawJson" style="display: none;"></textarea>
+                </div>
+                <div id="ControlsRow">
+                    <input type="Button" value="格式化" onclick="Process()"/>
+                    <span id="TabSizeHolder">缩进量
+                        <select id="TabSize" onchange="TabSizeChanged()">
+                          <option value="1">1</option>
+                          <option value="2" selected="true">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                        </select>
+                      </span>
+                    <label for="QuoteKeys">
+                        <input type="checkbox" id="QuoteKeys" onclick="QuoteKeysClicked()" checked="true"/>
+                        引号
+                    </label>&nbsp;
+                    <a href="javascript:void(0);" onclick="SelectAllClicked()">全选</a>
+                    <span id="CollapsibleViewHolder">
+                  <label for="CollapsibleView">
+                    <input type="checkbox" id="CollapsibleView" onclick="CollapsibleViewClicked()" checked="true"/>
+                    显示控制
+                  </label>
+              </span>
+                    <span id="CollapsibleViewDetail">
+                <a href="javascript:void(0);" onclick="ExpandAllClicked()">展开</a>
+                <a href="javascript:void(0);" onclick="CollapseAllClicked()">叠起</a>
+                <a href="javascript:void(0);" onclick="CollapseLevel(3)">2级</a>
+                <a href="javascript:void(0);" onclick="CollapseLevel(4)">3级</a>
+                <a href="javascript:void(0);" onclick="CollapseLevel(5)">4级</a>
+                <a href="javascript:void(0);" onclick="CollapseLevel(6)">5级</a>
+                <a href="javascript:void(0);" onclick="CollapseLevel(7)">6级</a>
+                <a href="javascript:void(0);" onclick="CollapseLevel(8)">7级</a>
+                <a href="javascript:void(0);" onclick="CollapseLevel(9)">8级</a>
+              </span>
+                </div>
+                <div  id="Canvas" class="Canvas" style="overflow-y:auto; overflow-x:auto; height:500px;"></div>
+
+            </div>
+
+
+<div id="divelementorg">0</div>
+<div id="divelementorderer">0</div>
+<div id="divelementfabric_ca">0</div>
+<div id="divelementpeer">0</div>
+<div id="divelementchannel">0</div>
+<div id="divelementblocks">0</div>
+<div id="divelementchaincodes">0</div>
+<div id="divelementtx">0</div>
+<div id="divelementkeyset">0</div>
+<div id="divelementacccount">0</div>
+
+
+
+
+$('#divelementorg').html(count_info['divelementorg']);
+$('#divelementorderer').html(count_info['divelementorderer']);
+$('#divelementfabric_ca').html(count_info['divelementfabric_ca']);
+$('#divelementpeer').html(count_info['divelementpeer']);
+$('#divelementchannel').html(count_info['divelementchannel']);
+$('#divelementblocks').html(count_info['divelementblocks']);
+$('#divelementchaincodes').html(count_info['divelementchaincodes']);
+$('#divelementtx').html(count_info['divelementtx']);
+$('#divelementkeyset').html(count_info['divelementkeyset']);
+$('#divelementacccount').html(count_info['divelementacccount']);
+
+
+
+
+
+<div id="divelementfabric_ca">0</div>
+<div id="divelementpeer">0</div>
+<div id="divelementchannel">0</div>
+<div id="divelementblocks">0</div>
+<div id="divelementchaincodes">0</div>
+<div id="divelementtx">0</div>
+<div id="divelementkeyset">0</div>
+<div id="divelementacccount">0</div>
+
+
+
+==============================================================详情页面的模板=================================================================
+
+
+
+包含详情，tab 切换等操作
+
+
+1、 在模块中加入 'fabricstudioutil','element','fabricnode'   和
+
+ , element = layui.element
+        , fabricstudioutil = layui.fabricstudioutil
+        , fabricnode = layui.fabricnode
+
+2 、 替换  channel_
+
+
+3、 修改页面
+
+
+============================================================================================================================================
+
+
+
+
+            /**********************************************************************************************************************************************
+             *
+             *  =============================================peer详细信息 (/views/channel/peer_detail.html)=================================================
+             *  ===========================================================================================================================================
+             *  ===========================================================================================================================================
+             *******************************************************************************************************************************************
+             */
+            , peer_detail: function () {
+
+
+
+
+                // peer节点编号
+                let peer_id = adminutil.getUrlParam("channelid");
+
+
+
+                //==========  当前channel时间线分布图  ==============
+
+
+                admin.ajaxreq({
+
+                    url: layui.setter.base + '../json/channel/peer_detail_blocktimeline.json?peer_id='+peer_id
+                    , type: 'GET'
+                    , dataType: 'json'
+                    , error: function (e) {
+                        layer.msg('系统错误');
+                    }
+                    , success: function (response) {
+
+                        //区块时间线信息
+                        let blockstimelinedata = response.peer_timeline;
+                        channel.peer_detail_timeline_pic(blockstimelinedata);
+
+                    }
+
+                });
+
+
+                // ==========  显示图例和当前组织的网络图谱  ======================
+                fabricstudioutil.display_struct_example('pic_example');
+                channel.peer_detail_struct_pic(peer_id);
+
+
+                //====================绑定peer节点证书详细信息按钮的事件====================
+
+                $('.layui-btn.layuiadmin-btn-list.layui-btn-sm').on('click', function () {
+
+                    let type = $(this).data('type');
+                    let jsonparm = type + ',' + mspid;
+
+                    //layer.msg(" the org data id is  "+mspid);
+                    layer.open({
+                        type: 2
+                        , title: 'json的详情'
+                        , content: '../json.html?c=fabricnetwork&m=json&jsonviewparm=' + jsonparm
+
+                        , area: ['950px', '750px']
+                        , btn: ['取消']
+                        , success: function (layero, index) {
+                            //在回调方法中的第2个参数“index”表示的是当前弹窗的索引。
+                            //通过layer.full方法将窗口放大。
+                            //layer.full(index);
+                        }
+                    });
+
+                });
+
+
+
+                // 绑定tab事件
+                element.render();
+
+                element.on('tab(component-tabs-brief)', function (obj) {
+
+                    //layer.msg(obj.index + '：' + this.innerHTML+': ');
+
+                    if (obj.index === 0) {
+
+                        channel.peer_detail_struct_pic(peer_id);
+
+                    } else if (obj.index === 1) {
+
+
+                        let tablesearchurl = layui.setter.base + '../json/fabricnetwork/json.json?jsonparm=1';
+                        fabricstudioutil.dispaly_json(tablesearchurl);
+
+
+                    }else if (obj.index === 2) {
+
+
+                        channel.peer_detail_blocklist(peer_id);
+
+
+
+                    }else if (obj.index === 3) {
+
+
+                        channel.peer_detail_peer(peer_id);
+
+
+
+                    }else if (obj.index === 4) {
+
+                        channel.peer_detail_chaincode(peer_id);
+
+                    }else if (obj.index === 5) {
+
+                        channel.peer_detail_tx(peer_id);
+
+
+                    }else if (obj.index === 6) {
+
+
+                        channel.peer_detail_key(peer_id);
+
+
+
+                    }else if (obj.index === 7) {
+
+
+                        channel.peer_detail_cert(peer_id);
+
+                    }
+
+
+                });
+
+            }
+
+
+
+
+            /**
+             * ========================================================channel中区块时间分布图=============================================================
+             * ===========================================================================================================================================
+             * ===========================================================================================================================================
+             * ===========================================================================================================================================
+             */
+            ,peer_detail_timeline_pic : (timelinedata)=>{
+
+
+                let vis = window.visobj;
+                // DOM element where the Timeline will be attached
+                let container = document.getElementById('blockteimeline');
+
+                // Create a DataSet (allows two way data-binding)
+                let blocks = new vis.DataSet([
+
+                    {id: 524, content: 'block 524', start: '2019-04-20 10:01:35'},
+                    {id: 525, content: 'block 525', start: '2019-04-20 10:03:17'},
+                    {id: 526, content: 'block 526', start: '2019-04-21 10:14:20'},
+                    {id: 527, content: 'block 527', start: '2019-04-21 10:16:56'},
+                    {id: 528, content: 'block 528', start: '2019-04-21 10:22:01'},
+                    {id: 529, content: 'block 529', start: '2019-04-13 13:33:43'},
+                    {id: 530, content: 'block 530', start: '2019-05-13 13:34:57'},
+                    {id: 531, content: 'block 531', start: '2019-05-13 13:34:58'},
+                    {id: 532, content: 'block 532', start: '2019-05-13 13:34:03'},
+                    {id: 533, content: 'block 533', start: '2019-05-13 13:34:05'},
+                    {id: '534##peer_iding', content: '534 (TX:12)', start: '2019-05-13 13:34:59'}
+                ]);
+
+
+                let start = new Date((new Date()).getTime() - 20 * 60 * 1000);
+                let end = new Date((new Date()).getTime() + 1 * 60 * 1000);
+
+
+                // Configuration for the Timeline
+                let options = {
+
+
+                    start: start,
+                    end: end,
+
+                    showCurrentTime: true,
+
+                    format: {
+
+                        minorLabels: {
+                            millisecond: 'SSS',
+                            second: 's',
+                            minute: 'HH:mm',
+                            hour: 'HH:mm',
+                            weekday: 'ddd D',
+                            day: 'D',
+                            week: 'w',
+                            month: 'MMM',
+                            year: 'YYYY'
+                        },
+                        majorLabels: {
+                            millisecond: 'HH:mm:ss',
+                            second: 'D MMMM HH:mm',
+                            minute: 'ddd D MMMM',
+                            hour: 'ddd D MMMM',
+                            weekday: 'MMMM YYYY',
+                            day: 'MMMM YYYY',
+                            week: 'MMMM YYYY',
+                            month: 'YYYY',
+                            year: ''
+                        }
+                    },
+
+
+                };
+
+                // 创建时间线对象
+                let timeline = new vis.Timeline(container, blocks, options);
+
+
+                timeline.on('doubleClick', function (properties) {
+                    alert('selected items: ' + properties.item);
+                });
+
+                timeline.on('rangechange', function (properties) {
+
+                    //alert('rangechange: ' + fabricstudiotpl.stringifyObject(properties));
+                });
+
+                timeline.on('rangechanged', function (properties) {
+                    //alert('rangechanged: ' + fabricstudiotpl.stringifyObject(properties));
+
+                });
+
+
+
+                timeline.on('itemout', function (properties) {
+                    alert('itemout'+ fabricstudiotpl.stringifyObject(properties));
+
+                });
+
+
+
+                timeline.on('timechange', function (properties) {
+                    alert('timechange'+ fabricstudiotpl.stringifyObject(properties));
+                });
+
+
+
+
+
+
+
+                $('#zoomIn').on('click', function () {
+
+                    timeline.zoomIn(0.2);
+
+                });
+
+
+                $('#zoomOut').on('click', function () {
+
+                    timeline.zoomOut(0.2);
+
+                });
+
+
+                $('#moveLeft').on('click', function () {
+
+                    let percentage = 0.2;
+                    let range = timeline.getWindow();
+                    let interval = range.end - range.start;
+
+                    timeline.setWindow({
+                        start: range.start.valueOf() - interval * percentage,
+                        end: range.end.valueOf() - interval * percentage
+                    });
+
+                });
+
+
+                $('#moveRight').on('click', function () {
+
+                    let percentage = -0.2;
+                    let range = timeline.getWindow();
+                    let interval = range.end - range.start;
+
+                    timeline.setWindow({
+                        start: range.start.valueOf() - interval * percentage,
+                        end: range.end.valueOf() - interval * percentage
+                    });
+
+                });
+
+
+                $('#toggleRollingMode').on('click', function () {
+
+                    //timeline.toggleRollingMode();
+
+                    let start = new Date((new Date()).getTime() - 20 * 60 * 1000);
+                    let end = new Date((new Date()).getTime() + 1 * 60 * 1000);
+
+                    timeline.setWindow({
+                        start: start,
+                        end: end
+                    });
+
+
+                });
+
+
+
+            }
+
+
+            /**
+             *
+             * channel拓扑图(同时当前channel的详细信息和channel的区块链是时间线信息)
+             *
+             */
+            , peer_detail_struct_pic: (peer_id) => {
+
+
+                // ===========  显示图例  ======================
+                fabricstudioutil.display_struct_example('pic_example');
+                // ==========  fabric网络拓扑图明细  ===============
+
+                admin.ajaxreq({
+
+                    url: layui.setter.base + '../json/channel/peer_detail.json?jsonparm=1'
+                    , type: 'GET'
+                    , dataType: 'json'
+                    , error: function (e) {
+                        layer.msg('系统错误');
+                    }
+                    , success: function (response) {
+
+                        //显示统计数据
+                        let count_info = response.count_info;
+
+                        $('#divelementorg').html(count_info['org']);
+                        $('#divelementpeer').html(count_info['peer']);
+                        $('#divelementblocks').html(count_info['blocks']);
+                        $('#divelementchaincodes').html(count_info['chaincodes']);
+                        $('#divelementtx').html(count_info['tx']);
+                        $('#divelementkeyset').html(count_info['keyset']);
+                        $('#divelementacccount').html(count_info['acccount']);
+
+                         //let data = response.data;
+                        let pic_struct = response.pic_struct;
+                        fabricstudioutil.peer_detail_struct_pic(pic_struct,'pic_struct');
+
+                    }
+
+                });
+
+            }
+
+
+
+
+
+
+            /**
+             * channel 区块信息
+             *
+             * @param mspid
+             */
+            , peer_detail_blocklist: (peer_id) => {
+
+                //layer.msg(" the org  peer_detail_orderer  data id is  ");
+                channel.peer_list(`mspid=${peer_id}`);
+
+            }
+
+
+            /**
+             * 组织中的
+             * @param mspid
+             */
+            , peer_detail_peer: (peer_id) => {
+
+                //layer.msg(" the org   peer_detail_peer   data id is  ");
+                fabricnode.peer_list(`mspid=${peer_id}`);
+
+            }
+
+
+            /**
+             * 组织中的channel
+             * @param mspid
+             */
+            , peer_detail_chaincode: (peer_id) => {
+
+
+                channel.peer_list(`mspid=${peer_id}`);
+            }
+
+
+            /**
+             *
+             *  组织中的tx
+             * @param mspid
+             *
+             */
+            , peer_detail_tx: (peer_id) => {
+
+                //layer.msg(" the org   peer_detail_tx   data id is  ");
+                channel.transaction_list(`mspid=${peer_id}`);
+
+            }
+
+
+            /**
+             *
+             * 组织中的key
+             * @param mspid
+             *
+             */
+            , peer_detail_key: (peer_id) => {
+
+                //layer.msg(" the org   peer_detail_key   data id is  ");
+                channel.peer_list(`mspid=${peer_id}`);
+
+
+            }
+
+
+            /**
+             *
+             * 组织中的account
+             * @param mspid
+             *
+             */
+            , peer_detail_cert: (peer_id) => {
+
+                //layer.msg(" the org   peer_detail_cert   data id is  ");
+                channel.accounts_list(`mspid=${peer_id}`);
+
+            }
+

@@ -1,0 +1,57 @@
+{
+
+  "orgs": [{
+    "name": "org1",
+    "mspid": "Org1MSP",
+    "peers": [
+      {
+        "name": "peer1",
+        "requests": "10.211.55.5:7051",
+        "events": "10.211.55.5:7053",
+        "serverhostname": "peer0.org1.qklszzn.com",
+        "tls_cacerts": "/project/fabric/fabric_1.4/fabricconfig/crypto-config/peerOrganizations/org1.qklszzn.com/peers/peer0.org1.qklszzn.com/tls/ca.crt"
+      }
+
+    ],
+    "admin": {
+      "key": "/project/fabric/fabric1.4_network/org1/10.211.55.5/fabricconfig/crypto-config/peerOrganizations/org1.qklszzn.com/users/Admin@org1.qklszzn.com/msp/keystore",
+      "cert": "/project/fabric/fabric1.4_network/org1/10.211.55.5/fabricconfig/crypto-config/peerOrganizations/org1.qklszzn.com/users/Admin@org1.qklszzn.com/msp/signcerts"
+    }
+  }],
+
+  "orderer": [{
+    "url": "10.211.55.5:7050",
+    "serverhostname": "orderer.qklszzn.com",
+    "tls_cacerts": "/project/huohu/fabric/fabricconfig/crypto-config/ordererOrganizations/qklszzn.com/orderers/orderer.qklszzn.com/tls/ca.crt"
+  }],
+
+
+  "host": "localhost",
+  "port": "8828",
+  "keyValueStore": "/project/ws_nodejs/fabric_studio/fabric-client-kvs",
+  "eventWaitTime": "30000",
+  "enableTls": false,
+  "ifautospider":false,
+  "spiderRate":20000,
+  "mysql": {
+    "host": "localhost",
+    "port": "3306",
+    "database": "fabric_studio",
+    "username": "root",
+    "passwd": "123456"
+  },
+  "log4jsconfig": {
+
+    "levels": {
+      "console" : "DEBUG"
+    },
+    "appenders": [
+      {
+        "type": "console",
+        "category": "console"
+      }
+    ],
+    "replaceConsole": true
+
+  }
+}

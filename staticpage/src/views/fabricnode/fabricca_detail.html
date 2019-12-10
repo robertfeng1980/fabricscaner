@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>组织明细</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../../uim/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="../../uim/style/admin.css" media="all">
+  <link rel="stylesheet" href="../../source/vis/vis.min.css" media="all">
+</head>
+<body>
+
+<style>
+  .layui-col-md2{width:16.666666666667%}
+</style>
+
+<div class="layui-fluid" id="LAY-component-grid-all">
+
+    <div class="layui-row layui-col-space10">
+
+        <div class="layui-col-xs6 layui-col-sm7 layui-col-md12">
+            <!-- 填充内容 -->
+            <div class="layui-card">
+
+                <div class="layui-card-body">
+                    <table class="layui-table">
+                        <colgroup>
+                            <col width="5%">
+                            <col width="15%">
+                            <col width="5%">
+                            <col width="15%">
+                            <col width="8%">
+                            <col width="12%">
+                            <col width="8%">
+                            <col width="12%">
+                            <col width="8%">
+                            <col width="12%">
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <td>名称</td>
+                            <td><p class="layuiadmin-big-font" style="text-align:-webkit-center;">org1</p></td>
+                            <td>mspid</td>
+                            <td><p class="layuiadmin-big-font" style="text-align:-webkit-center;">Org1MSP</p></td>
+                            <td>组织证书</td>
+                            <td><button class="layui-btn layuiadmin-btn-list layui-btn-sm" data-type="view_org_cert">点击查看</button></td>
+                            <td>admin证书</td>
+                            <td><button class="layui-btn layuiadmin-btn-list layui-btn-sm" data-type="view_admin_cert">点击查看</button></td>
+                            <td>TLS证书</td>
+                            <td><button class="layui-btn layuiadmin-btn-list layui-btn-sm" data-type="view_tls_cert">点击查看</button></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <div class="layui-row layui-col-space10">
+
+        <div class="layui-col-xs6 layui-col-sm7 layui-col-md2">
+            <!-- 填充内容 -->
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    组织里面peer节点数
+                    <span class="layui-badge layui-bg-blue layuiadmin-badge">个</span>
+                </div>
+                <div class="layui-card-body layuiadmin-card-list">
+                    <p class="layuiadmin-big-font" style="text-align:-webkit-center;color:#009688"><cite>8</cite></p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="layui-col-xs6 layui-col-sm7 layui-col-md2">
+            <!-- 填充内容 -->
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    组织共享的账本
+                    <span class="layui-badge layui-bg-blue layuiadmin-badge">个</span>
+                </div>
+                <div class="layui-card-body layuiadmin-card-list">
+                    <p class="layuiadmin-big-font" style="text-align:-webkit-center;color:#009688"><cite>8</cite></p>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-xs6 layui-col-sm7 layui-col-md2">
+            <!-- 填充内容 -->
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    组织共享的chaincode
+                    <span class="layui-badge layui-bg-blue layuiadmin-badge">个</span>
+                </div>
+                <div class="layui-card-body layuiadmin-card-list">
+                    <p class="layuiadmin-big-font" style="text-align:-webkit-center;color:#009688"><cite>8</cite></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-col-xs6 layui-col-sm7 layui-col-md2">
+            <!-- 填充内容 -->
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    组织签名的交易
+                    <span class="layui-badge layui-bg-blue layuiadmin-badge">个</span>
+                </div>
+                <div class="layui-card-body layuiadmin-card-list">
+                    <p class="layuiadmin-big-font" style="text-align:-webkit-center;color:#009688"><cite>8</cite></p>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-xs6 layui-col-sm7 layui-col-md2">
+            <!-- 填充内容 -->
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    组织包含的key
+                    <span class="layui-badge layui-bg-blue layuiadmin-badge">个</span>
+                </div>
+                <div class="layui-card-body layuiadmin-card-list">
+                    <p class="layuiadmin-big-font" style="text-align:-webkit-center;color:#009688"><cite>8</cite></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-col-xs6 layui-col-sm7 layui-col-md2">
+            <!-- 填充内容 -->
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    组织的签名账号
+                    <span class="layui-badge layui-bg-blue layuiadmin-badge">个</span>
+                </div>
+                <div class="layui-card-body layuiadmin-card-list">
+                    <p class="layuiadmin-big-font" style="text-align:-webkit-center;color:#009688"><cite>8</cite></p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+    <div class="layui-row layui-col-space10">
+
+        <div class="layui-col-xs6 layui-col-sm7 layui-col-md12">
+            <!-- 填充内容 -->
+            <div class="layui-card">
+
+                <div class="layui-card-body">
+                    <div class="layui-tab layui-tab-card" lay-filter="component-tabs-brief">
+                        <ul class="layui-tab-title">
+
+                            <li class="layui-this">组织拓扑图</li>
+                            <li>网络中的orderer</li>
+                            <li>组织里面peer节点</li>
+                            <li>组织共享的账本</li>
+                            <li>组织共享的chaincode</li>
+                            <li>组织签名的交易</li>
+                            <li>组织包含的key</li>
+                            <li>组织的签名账号</li>
+
+                        </ul>
+
+
+                        <div class="layui-tab-content">
+
+
+                            <!--  网络架构图 -->
+                            <div class="layui-tab-item layui-show">
+
+                                <div class="layui-row layui-col-space10">
+
+                                    <div class="layui-col-xs6 layui-col-sm7 layui-col-md12">
+                                        <!-- 填充内容 -->
+                                        <div class="layui-card">
+                                            <div class="layui-card-body">
+
+                                                <div class="layui-row">
+                                                    <div class="layui-col-xs1">
+                                                        <div id="pic_example" style=" width: 500px;height: 600px;"></div>
+                                                    </div>
+                                                    <div class="layui-col-xs11">
+                                                        <div id="pic_struct" style=" width: 98%;height: 600px;border:1px solid #f2f2f2"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <!-- orderer列表 -->
+                            <div class="layui-tab-item" >
+
+                                <div class="layui-card">
+                                    <div class="layui-card-body">
+                                        <div class="layui-card">
+                                            <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+                                                <div class="layui-form-item">
+                                                    <div class="layui-inline">
+                                                        <label class="layui-form-label">服务器名称</label>
+                                                        <div class="layui-input-inline">
+                                                            <input type="text" name="name1" class="layui-input" id="name1">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="layui-row">
+
+                                                    <div class="layui-col-md9">
+                                                        <div style="padding-bottom: 1px;">
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="layui-col-md3">
+                                                        <div style="padding-bottom: 1px;text-align: right">
+                                                            <button class="layui-btn layuiadmin-btn-list layui-btn-sm" lay-submit lay-filter="LAY-servers-search1">
+                                                                <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                                                            </button>
+                                                            <button type="reset" class="layui-btn layuiadmin-btn-list layui-btn-sm" lay-filter="LAY-app-contlist-reset1">重置</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="layui-card-body">
+
+
+                                                <table id="LAY-servers-list1" lay-filter="LAY-servers-list1"></table>
+                                                <script type="text/html" id="table-content-list1">
+                                                    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit">查看</a>
+                                                </script>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- orderer列表 -->
+                            <div class="layui-tab-item" lay-data=" event 3">peer</div>
+
+                            <!-- channel 列表 -->
+                            <div class="layui-tab-item" lay-data=" event 4">channel</div>
+
+                            <!-- chaincode  -->
+                            <div class="layui-tab-item" lay-data=" event 4">chaincode</div>
+
+                            <!-- transactions -->
+                            <div class="layui-tab-item" lay-data=" event 4">tx</div>
+
+                            <!-- keys -->
+                            <div class="layui-tab-item" lay-data=" event 4">key</div>
+
+                            <!-- account -->
+                            <div class="layui-tab-item" lay-data=" event 4">account</div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+</div>
+
+<script src="../../source/vis/vis.min.js"></script>
+<script>
+
+    window.visobj=vis;
+
+</script>
+
+<script src="../../uim/layui/layui.js"></script>
+<script>
+
+    layui.config({
+        base: '../../uim/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'fabricnode'], function () {
+        var fabricnode = layui.fabricnode;
+        fabricnode.fabricca_detail();
+    });
+
+</script>
+</body>
+</html>

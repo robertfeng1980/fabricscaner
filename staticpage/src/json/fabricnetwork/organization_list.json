@@ -1,0 +1,22 @@
+{
+"code": 0
+,"msg": ""
+,"count": "100"
+,"data": [
+
+{
+"pkid":"121"
+,"name": "测试数据"
+,"mspid": "Org1Msp"
+,"fabric_ca": "测试数据"
+,"peers": "测试数据"
+,"channels": "测试数据"
+,"chaincodes": "测试数据"
+,"tx": "测试数据"
+,"cert": "测试数据"
+
+}
+
+
+]
+}

@@ -1,0 +1,27 @@
+{
+"code": 0
+,"msg": ""
+,"count": "100"
+,"data": [
+
+{
+"pkid":"121"
+,"id": "测试数据"
+,"channel_id": "测试数据"
+,"blocknum": "测试数据"
+,"blockhash": "测试数据"
+,"transactionhash": "测试数据"
+,"keyname": "测试数据"
+,"isdelete": "测试数据"
+,"valuess": "测试数据"
+,"chaincode": "测试数据"
+,"trandtstr": "测试数据"
+,"transnums": "测试数据"
+,"createdt": "测试数据"
+,"remark": "测试数据"
+
+}
+
+
+]
+}

@@ -1,0 +1,102 @@
+{
+  "code": 0,
+  "msg": "",
+  "count_info": {
+    "org": 3,
+    "orderer": 1,
+    "fabric_ca": 1,
+    "peer": 3,
+    "channel": 2,
+    "blocks": 20,
+    "chaincodes": 12,
+    "tx": 113,
+    "keyset": 121,
+    "acccount": 7,
+    "org_name": "org1",
+    "mspid_dive": "Org1Msp"
+  },
+  "pic_struct": {
+    "orgs": [
+      {
+        "id": 3,
+        "flag": "org",
+        "name": "org1",
+        "mspid": "Org1Msp",
+        "peers": [
+          {
+            "id": 1,
+            "flag": "peer",
+            "name": "peer0",
+            "peerid": "peer0.org1.qklszzn.com",
+            "channels": [
+              {
+                "id": 3,
+                "flag": "channel",
+                "channel_id": "fabrictestchannel",
+                "blocks": 110,
+                "instanceccs": [
+                  {
+                    "id": 3,
+                    "flag": "chaincode",
+                    "name": "fb14_c2c_study",
+                    "version": "1.0"
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "flag": "channel",
+                "channel_id": "mytestchannel",
+                "blocks": 110,
+                "instanceccs": [
+                  {
+                    "id": 3,
+                    "flag": "chaincode",
+                    "name": "fb14_c2c_study1",
+                    "version": "1.0"
+                  }
+                ]
+              }
+            ],
+            "installcc": [
+              {
+                "id": 4,
+                "flag": "chaincode",
+                "name": "fb14_c2c1_study2",
+                "version": "1.0"
+              }
+            ]
+          }
+        ],
+        "fabric-ca": [
+          {
+            "id": 3,
+            "name": "fabric-ca",
+            "flag": "fabric_ca"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "flag": "org",
+        "name": "org2",
+        "mspid": "Org2Msp"
+      },
+      {
+        "id": 3,
+        "flag": "org",
+        "name": "org3",
+        "mspid": "Org3Msp"
+      }
+    ],
+    "orderers": [
+      {
+        "id": 3,
+        "flag": "orderer",
+        "name": "ordererorg1"
+      }
+    ]
+  }
+}
+
+

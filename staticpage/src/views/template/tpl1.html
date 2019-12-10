@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>营商环境评价分析系统-数据填报明细</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../../uim/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="../../uim/style/admin.css" media="all">
+  <link rel="stylesheet" href="../../source/vis/vis.min.css" media="all">
+</head>
+<body>
+
+
+
+<div class="layui-fluid" id="LAY-component-grid-all">
+
+  <div class="layui-row layui-col-space10">
+
+    <div class="layui-col-xs6 layui-col-sm7 layui-col-md4">
+      <!-- 填充内容 -->
+      <div class="layui-card">
+        <div class="layui-card-header">填报计划信息</div>
+        <div class="layui-card-body">
+
+
+          <div class="layui-carousel layadmin-carousel">
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+
+
+    <div class="layui-col-xs6 layui-col-sm7 layui-col-md4">
+      <!-- 填充内容 -->
+      <div class="layui-card">
+        <div class="layui-card-header">填报计划中包含的政府</div>
+        <div class="layui-card-body">
+
+
+          <div class="layui-carousel layadmin-carousel">
+
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+
+    <div class="layui-col-xs6 layui-col-sm7 layui-col-md4">
+      <!-- 填充内容 -->
+      <div class="layui-card">
+        <div class="layui-card-header">本次填报计划包含政府信息</div>
+        <div class="layui-card-body">
+
+          <div class="layui-carousel layadmin-carousel">
+
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+
+
+  <div class="layui-row layui-col-space10">
+
+    <div class="layui-col-xs6 layui-col-sm7 layui-col-md12">
+      <!-- 填充内容 -->
+      <div class="layui-card">
+        <div class="layui-card-header">fabric网络结构图</div>
+        <div class="layui-card-body">
+          <div id="mynetwork" style=" width: 1000px;height: 800px;"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+  <div class="layui-row layui-col-space10">
+
+    <div class="layui-col-xs6 layui-col-sm7 layui-col-md12">
+      <!-- 填充内容 -->
+      <div class="layui-card">
+        <div class="layui-card-header">本次填报地区排名情况</div>
+        <div class="layui-card-body">
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+  <div class="layui-row layui-col-space10">
+
+    <div class="layui-col-xs6 layui-col-sm7 layui-col-md12">
+      <!-- 填充内容 -->
+      <div class="layui-card">
+        <div class="layui-card-header">本次填报项目得分</div>
+        <div class="layui-card-body">
+          <table class="layui-table layuiadmin-page-table" lay-skin="line">
+            <thead>
+            <tr>
+              <th>填报大项</th>
+              <th>CN 2019 排名</th>
+              <th>CN 2019 营商环境便利度分数</th>
+              <th>CN 2018 营商环境便利度分数</th>
+              <th>营商环境便利度分数变化 （百分点）</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>市场开放度</span></td>
+              <td>1</i></td>
+              <td>90</td>
+              <td>90</td>
+              <td>1 <i class="layui-icon layui-icon-up"></i></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="layui-row layui-col-space10">
+
+    <div class="layui-col-xs6 layui-col-sm7 layui-col-md12">
+      <!-- 填充内容 -->
+      <div class="layui-card">
+        <div class="layui-card-header">个子项目统计信息</div>
+
+
+        <div class="layui-card-body">
+          <div class="layui-tab layui-tab-card">
+            <ul class="layui-tab-title">
+
+              <li class="layui-this">市场开放度</li>
+              <li>企业信心</li>
+              <li>开办企业</li>
+              <li>办理施工许可</li>
+
+
+            </ul>
+            <div class="layui-tab-content">
+              <div class="layui-tab-item layui-show">市场开放度</div>
+              <div class="layui-tab-item">企业信心</div>
+              <div class="layui-tab-item">开办企业</div>
+              <div class="layui-tab-item">办理施工许可</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+
+
+</div>
+
+<script src="../../source/vis/vis.min.js"></script>
+<script>
+
+    window.visobj=vis;
+
+</script>
+
+<script src="../../uim/layui/layui.js"></script>
+<script>
+
+    layui.config({
+        base: '../../uim/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'fabricnetwork'], function () {
+        var fabricnetwork = layui.fabricnetwork;
+        fabricnetwork.fabricnetwork_struct();
+    });
+
+</script>
+</body>
+</html>

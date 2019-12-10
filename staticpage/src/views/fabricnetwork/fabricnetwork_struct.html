@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>营商环境评价分析系统-数据填报明细</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../../uim/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="../../uim/style/admin.css" media="all">
+  <link rel="stylesheet" href="../../source/vis/vis.min.css" media="all">
+</head>
+<body>
+
+<style>
+  .layui-col-md2{width:10%}
+  .layadming-big-font-detailshow{text-align:-webkit-center}
+</style>
+
+<div class="layui-fluid" id="LAY-component-grid-all">
+
+  <div class="layui-row layui-col-space10">
+
+    <div class="layui-col-xs6 layui-col-sm7 layui-col-md2">
+      <!-- 填充内容 -->
+      <div class="layui-card">
+        <div class="layui-card-header">
+          组织
+          <span class="layui-badge layui-bg-blue layuiadmin-badge">个</span>
+        </div>
+        <div class="layui-card-body layuiadmin-card-list">
+            <p class="layuiadmin-big-font" style="text-align:-webkit-center;color:#009688"><cite id="divelementorg">0</cite></p>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="layui-col-xs6 layui-col-sm7 layui-col-md2">
+      <!-- 填充内容 -->
+      <div class="layui-card">
+        <div class="layui-card-header">
+          orderer
+          <span class="layui-badge layui-bg-blue layuiadmin-badge">个</span>
+        </div>
+        <div class="layui-card-body layuiadmin-card-list">
+            <p class="layuiadmin-big-font" style="text-align:-webkit-center;color:#009688"><cite id="divelementorderer">0</cite></p>
+        </div>
+      </div>
+    </div>
+    <div class="layui-col-xs6 layui-col-sm7 layui-col-md2">
+      <!-- 填充内容 -->
+      <div class="layui-card">
+        <div class="layui-card-header">
+          fabric-ca
+          <span class="layui-badge layui-bg-blue layuiadmin-badge">个</span>
+        </div>
+        <div class="layui-card-body layuiadmin-card-list">
+            <p class="layuiadmin-big-font" style="text-align:-webkit-center;color:#009688"><cite id="divelementfabric_ca">0</cite></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="layui-col-xs6 layui-col-sm7 layui-col-md2">
+      <!-- 填充内容 -->
+      <div class="layui-card">
+        <div class="layui-card-header">
+          peer
+          <span class="layui-badge layui-bg-blue layuiadmin-badge">个</span>
+        </div>
+        <div class="layui-card-body layuiadmin-card-list">
+            <p class="layuiadmin-big-font" style="text-align:-webkit-center;color:#009688"><cite id="divelementpeer">0</cite></p>
+        </div>
+      </div>
+    </div>
+    <div class="layui-col-xs6 layui-col-sm7 layui-col-md2">
+      <!-- 填充内容 -->
+      <div class="layui-card">
+        <div class="layui-card-header">
+          账本
+          <span class="layui-badge layui-bg-blue layuiadmin-badge">个</span>
+        </div>
+        <div class="layui-card-body layuiadmin-card-list">
+            <p class="layuiadmin-big-font" style="text-align:-webkit-center;color:#009688"><cite id="divelementchannel">0</cite></p>
+        </div>
+      </div>
+    </div>
+      <div class="layui-col-xs6 layui-col-sm7 layui-col-md2">
+          <!-- 填充内容 -->
+          <div class="layui-card">
+              <div class="layui-card-header">
+                  区块
+                  <span class="layui-badge layui-bg-blue layuiadmin-badge">个</span>
+              </div>
+              <div class="layui-card-body layuiadmin-card-list">
+                  <p class="layuiadmin-big-font" style="text-align:-webkit-center;color:#009688"><cite id="divelementblocks">0</cite></p>
+              </div>
+          </div>
+      </div>
+      <div class="layui-col-xs6 layui-col-sm7 layui-col-md2">
+          <!-- 填充内容 -->
+          <div class="layui-card">
+              <div class="layui-card-header">
+                  链码
+                  <span class="layui-badge layui-bg-blue layuiadmin-badge">个</span>
+              </div>
+              <div class="layui-card-body layuiadmin-card-list">
+                  <p class="layuiadmin-big-font" style="text-align:-webkit-center;color:#009688"><cite id="divelementchaincodes">0</cite></p>
+              </div>
+          </div>
+      </div>
+
+
+      <div class="layui-col-xs6 layui-col-sm7 layui-col-md2">
+          <!-- 填充内容 -->
+          <div class="layui-card">
+              <div class="layui-card-header">
+                  交易
+                  <span class="layui-badge layui-bg-blue layuiadmin-badge">个</span>
+              </div>
+              <div class="layui-card-body layuiadmin-card-list">
+                  <p class="layuiadmin-big-font" style="text-align:-webkit-center;color:#009688"><cite id="divelementtx"></cite></p>
+              </div>
+          </div>
+      </div>
+
+
+      <div class="layui-col-xs6 layui-col-sm7 layui-col-md2">
+          <!-- 填充内容 -->
+          <div class="layui-card">
+              <div class="layui-card-header">
+                  key
+                  <span class="layui-badge layui-bg-blue layuiadmin-badge">个</span>
+              </div>
+              <div class="layui-card-body layuiadmin-card-list">
+                  <p class="layuiadmin-big-font" style="text-align:-webkit-center;color:#009688"><cite id="divelementkeyset">0</cite></p>
+              </div>
+          </div>
+      </div>
+      <div class="layui-col-xs6 layui-col-sm7 layui-col-md2">
+          <!-- 填充内容 -->
+          <div class="layui-card">
+              <div class="layui-card-header">
+                  账号
+                  <span class="layui-badge layui-bg-blue layuiadmin-badge">个</span>
+              </div>
+              <div class="layui-card-body layuiadmin-card-list">
+                  <p class="layuiadmin-big-font" style="text-align:-webkit-center;color:#009688"><cite id="divelementacccount">0</cite></p>
+              </div>
+          </div>
+      </div>
+
+  </div>
+
+
+
+
+
+  <div class="layui-row layui-col-space10">
+
+    <div class="layui-col-xs6 layui-col-sm7 layui-col-md12">
+      <!-- 填充内容 -->
+      <div class="layui-card">
+        <div class="layui-card-header">fabric网络结构图</div>
+        <div class="layui-card-body">
+
+          <div class="layui-row">
+            <div class="layui-col-xs1">
+              <div id="pic_example" style=" width: 500px;height: 600px;"></div>
+            </div>
+            <div class="layui-col-xs11">
+              <div id="pic_struct" style=" width: 1200px;height: 600px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+</div>
+
+<script src="../../source/vis/vis.min.js"></script>
+<script>
+
+    window.visobj=vis;
+
+</script>
+
+<script src="../../uim/layui/layui.js"></script>
+<script>
+
+    layui.config({
+        base: '../../uim/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'fabricnetwork'], function () {
+        var fabricnetwork = layui.fabricnetwork;
+        fabricnetwork.fabricnetwork_struct();
+    });
+
+</script>
+</body>
+</html>

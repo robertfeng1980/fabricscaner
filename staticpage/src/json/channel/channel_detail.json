@@ -1,0 +1,96 @@
+{
+  "code": 0,
+  "msg": "",
+  "channelinfo":{"pkid":"121","channel_id": "ropbertchannel","originate_dt": "2019-04-12 18:16:17"},
+  "count_info":{"org":3,"orderer":1,"fabric_ca":1,"peer":3,"channel":2,"blocks":20,"chaincodes":12,"tx":113,"keyset":121,"acccount":7},
+  "channel_share_rog": [
+    {
+      "id": 1,
+      "flag": "org",
+      "name": "org1",
+      "mspid": "Org1Msp"
+    },
+    {
+      "id": 2,
+      "flag": "org",
+      "name": "org2",
+      "mspid": "Org2Msp"
+    },
+    {
+      "id": 3,
+      "flag": "org",
+      "name": "org3",
+      "mspid": "Org3Msp"
+    }
+  ],
+  "pic_struct": {
+    "orgs": [
+      {
+        "id": 3,
+        "flag": "org",
+        "name": "org1",
+        "mspid": "Org1Msp",
+        "peers": [
+          {
+            "id": 1,
+            "flag": "peer",
+            "name": "peer0",
+            "peerid": "peer0.org1.qklszzn.com",
+            "channels": [
+              {
+                "id": 3,
+                "flag": "channel",
+                "channel_id": "fabrictestchannel",
+                "blocks": 110,
+                "instanceccs": [
+                  {
+                    "id": 3,
+                    "flag": "chaincode",
+                    "name": "fb14_c2c_study",
+                    "version": "1.0"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "flag": "peer",
+            "name": "peer1",
+            "peerid": "peer1.org1.qklszzn.com",
+            "channels": [
+              {
+                "id": 3,
+                "flag": "channel",
+                "channel_id": "fabrictestchannel",
+                "blocks": 110,
+                "instanceccs": [
+                  {
+                    "id": 3,
+                    "flag": "chaincode",
+                    "name": "fb14_c2c_study",
+                    "version": "1.0"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "flag": "org",
+        "name": "org2",
+        "mspid": "Org2Msp"
+      },
+      {
+        "id": 3,
+        "flag": "org",
+        "name": "org3",
+        "mspid": "Org3Msp"
+      }
+    ]
+  }
+}
+
+

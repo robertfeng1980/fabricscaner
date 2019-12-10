@@ -1,0 +1,27 @@
+{
+"code": 0
+,"msg": ""
+,"count": "100"
+,"data": [
+
+{
+"pkid":"121"
+,"id": "测试数据"
+,"peer_name": "测试数据"
+,"channel_id": "测试数据"
+,"languages": "测试数据"
+,"name": "测试数据"
+,"version": "测试数据"
+,"path": "测试数据"
+,"escc": "测试数据"
+,"vscc": "测试数据"
+,"txcount": "测试数据"
+,"ccstatus": "测试数据"
+,"createdt": "测试数据"
+,"remark": "测试数据"
+
+}
+
+
+]
+}

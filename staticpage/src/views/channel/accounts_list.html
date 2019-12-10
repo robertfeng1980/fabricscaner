@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>营商环境评价分析系统</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../uim/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../uim/style/admin.css" media="all">
+</head>
+<style>
+    .layui-form .layui-inline{
+        width: auto;
+    }
+    .layui-form .layui-inline .layui-form-label{
+        width: auto;
+    }
+    .layui-form .layui-inline .layui-input-inline{
+        width: auto;
+    }
+</style>
+<body>
+
+<div class="layui-fluid">
+    <div class="layui-card">
+        <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+            <div class="layui-form-item">
+
+                <div class="layui-inline">
+                    <label class="layui-form-label">组织</label>
+                    <div class="layui-input-inline" id="channellist_org_select">
+
+                        <script type="text/html" id="tpl_channellist_org_select">
+                            <select name="mspid" lay-verify="required" lay-filter="channellist_org_select">
+                                <option value="-1">======无=======</option>
+                                {{# layui.each(d , (i,row) =>{ }}
+                                <option value="{{ row.mspid }}" >{{ row.commitss }}</option>
+                                {{# }); }}
+                            </select>
+                        </script>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="layui-row">
+
+                <div class="layui-col-md9">
+                    <div style="padding-bottom: 1px;">
+                    </div>
+
+                </div>
+                <div class="layui-col-md3">
+                    <div style="padding-bottom: 1px;text-align: right">
+                        <button class="layui-btn layuiadmin-btn-list" lay-submit lay-filter="LAY-accounts-search">
+                            <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                        </button>
+                        <button type="reset" class="layui-btn layuiadmin-btn-list" lay-filter="LAY-app-contlist-reset">重置</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="layui-card-body">
+
+            <table id="LAY-accounts-list" lay-filter="LAY-accounts-list"></table>
+            <script type="text/html" id="buttonTpl">
+                {{#  if(d.status){ }}
+                <button class="layui-btn layui-btn-xs" lay-event="public">已发布</button>
+                {{#  } else { }}
+                <button class="layui-btn layui-btn-primary layui-btn-xs" lay-event="premodify">待修改</button>
+                {{#  } }}
+            </script>
+            <script type="text/html" id="table-content-list">
+                <a class="layui-btn layui-btn-xs" lay-event="detail">详情</a>
+            </script>
+        </div>
+    </div>
+</div>
+
+<script src="../../uim/layui/layui.js"></script>
+<script>
+
+    layui.config({
+        base: '../../uim/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index' , 'channel'], function () {
+
+        var channel = layui.channel;
+        channel.accounts_list();
+
+    });
+</script>
+</body>
+</html>

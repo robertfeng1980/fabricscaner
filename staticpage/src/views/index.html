@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>FABRICSCAN</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../uim/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../uim/style/admin.css" media="all">
+    <link rel="icon" href="../source/img/fabricscan.png" type="image/x-icon"/>
+    <script>
+        /^http(s*):\/\//.test(location.href) || alert('请先部署到 localhost 下再访问');
+    </script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="//cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="//cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body class="layui-layout-body">
+
+<div id="LAY_app">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <!-- 头部区域 -->
+            <ul class="layui-nav layui-layout-left">
+                <li class="layui-nav-item layadmin-flexible" lay-unselect>
+                    <a href="javascript:;" layadmin-event="flexible" title="侧边伸缩">
+                        <i class="layui-icon layui-icon-shrink-right" id="LAY_app_flexible"></i>
+                    </a>
+                </li>
+                <!--
+                <li class="layui-nav-item layui-hide-xs" lay-unselect>
+                  <a href="http://www.layui.com/admin/" target="_blank" title="前台">
+                    <i class="layui-icon layui-icon-website"></i>
+                  </a>
+                </li>
+                -->
+                <li class="layui-nav-item" lay-unselect>
+                    <a href="javascript:;" layadmin-event="refresh" title="刷新">
+                        <i class="layui-icon layui-icon-refresh-3"></i>
+                    </a>
+                </li>
+                <!--
+                <li class="layui-nav-item layui-hide-xs" lay-unselect>
+                  <input type="text" placeholder="搜索..." autocomplete="off" class="layui-input layui-input-search" layadmin-event="serach" lay-action="template/search.html?keywords=">
+                </li>
+                -->
+            </ul>
+            <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
+
+                <!--
+                <li class="layui-nav-item" lay-unselect>
+                  <a lay-href="app/message/index.html" layadmin-event="message" lay-text="消息中心">
+                    <i class="layui-icon layui-icon-notice"></i>
+
+                    <span class="layui-badge-dot"></span>
+                  </a>
+                </li>
+                -->
+                <li class="layui-nav-item layui-hide-xs" lay-unselect>
+                    <a href="javascript:;" layadmin-event="theme">
+                        <i class="layui-icon layui-icon-theme"></i>
+                    </a>
+                </li>
+                <!--
+                <li class="layui-nav-item layui-hide-xs" lay-unselect>
+                  <a href="javascript:;" layadmin-event="note">
+                    <i class="layui-icon layui-icon-note"></i>
+                  </a>
+                </li>
+                -->
+                <li class="layui-nav-item layui-hide-xs" lay-unselect>
+                    <a href="javascript:;" layadmin-event="fullscreen">
+                        <i class="layui-icon layui-icon-screen-full"></i>
+                    </a>
+                </li>
+                <li class="layui-nav-item" lay-unselect>
+                    <a href="javascript:;">
+                        <cite>操作员</cite>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd layadmin-event="logout" style="text-align: center;"><a>退出</a></dd>
+                    </dl>
+                </li>
+
+
+                <li class="layui-nav-item layui-hide-xs" lay-unselect>
+                    <a href="javascript:;" layadmin-event="about"><i class="layui-icon layui-icon-more-vertical"></i></a>
+                </li>
+
+                <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-unselect>
+                    <a href="javascript:;" layadmin-event="more"><i class="layui-icon layui-icon-more-vertical"></i></a>
+                </li>
+
+            </ul>
+        </div>
+
+        <!-- 侧边菜单 -->
+        <div class="layui-side layui-side-menu">
+            <div class="layui-side-scroll">
+                <div class="layui-logo" lay-href="fabricnetwork/fabricnetwork_struct.html">
+                    <span>FABRICSCANER</span>
+                </div>
+
+                <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu">
+
+
+                    <li data-name="fabricnetwork" class="layui-nav-item layui-nav-itemed">
+                        <a href="javascript:;" lay-tips="fabric网络" lay-direction="2">
+                            <i class="layui-icon layui-icon-home"></i>
+                            <cite>fabric网络</cite>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd data-name="fabricnetwork_struct" class="layui-this">
+                                <a lay-href="fabricnetwork/fabricnetwork_struct.html">fabric网络架构图</a>
+                            </dd>
+                            <dd data-name="organization_list">
+                                <a lay-href="fabricnetwork/organization_list.html">网络中的组织列表</a>
+                            </dd>
+                        </dl>
+                    </li>
+
+                    <li data-name="channel" class="layui-nav-item">
+                        <a href="javascript:;" lay-tips="账本" lay-direction="2">
+                            <i class="layui-icon layui-icon-component"></i>
+                            <cite>数据</cite>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd data-name="channel_list">
+                                <a lay-href="channel/channel_list.html">账本</a>
+                            </dd>
+                        </dl>
+                        <dl class="layui-nav-child">
+                            <dd data-name="block_list">
+                                <a lay-href="channel/blocks_list.html">区块</a>
+                            </dd>
+                        </dl>
+                        <dl class="layui-nav-child">
+                            <dd data-name="chaincode_list">
+                                <a lay-href="channel/chaincodes_list.html">chaincode</a>
+                            </dd>
+                        </dl>
+                        <dl class="layui-nav-child">
+                            <dd data-name="transaction_list">
+                                <a lay-href="channel/transaction_list.html">交易</a>
+                            </dd>
+                        </dl>
+                        <dl class="layui-nav-child">
+                            <dd data-name="key_list">
+                                <a lay-href="channel/keyset_list.html">key</a>
+                            </dd>
+                        </dl>
+                        <dl class="layui-nav-child">
+                            <dd data-name="account_list">
+                                <a lay-href="channel/accounts_list.html">账号</a>
+                            </dd>
+                        </dl>
+                    </li>
+
+
+                    <li data-name="fabricnode" class="layui-nav-item">
+                        <a href="javascript:;" lay-tips="PEER节点" lay-direction="2">
+                            <i class="layui-icon layui-icon-app"></i>
+                            <cite>fabric节点</cite>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd data-name="peer_list">
+                                <a lay-href="fabricnode/peer_list.html">peer</a>
+                            </dd>
+                        </dl>
+                        <dl class="layui-nav-child">
+                            <dd data-name="orderer_list">
+                                <a lay-href="fabricnode/orderer_list.html">orderer</a>
+                            </dd>
+                        </dl>
+                        <dl class="layui-nav-child">
+                            <dd data-name="fabricca_list">
+                                <a lay-href="fabricnode/fabricca_list.html">fabric-ca</a>
+                            </dd>
+                        </dl>
+                    </li>
+
+                    <li data-name="manager" class="layui-nav-item">
+                    <li data-name="manager" class="layui-nav-item">
+                        <a href="javascript:;" lay-tips="系统设置" lay-direction="2">
+                            <i class="layui-icon layui-icon-set"></i>
+                            <cite>系统设置</cite>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd data-name="servers_list">
+                                <a lay-href="manager/servers_list.html">网络中的服务器</a>
+                            </dd>
+                        </dl>
+                        <dl class="layui-nav-child">
+                            <dd data-name="servers_list">
+                                <a lay-href="template/tpl.html">测试模版</a>
+                            </dd>
+                        </dl>
+                        <!--
+                        <dl class="layui-nav-child">
+                            <dd data-name="orderer_list">
+                                <a lay-href="manager/orderer_list.html">orderer</a>
+                            </dd>
+                        </dl>
+                        <dl class="layui-nav-child">
+                            <dd data-name="fabricca_list">
+                                <a lay-href="manager/fabricca_list.html">fabric-ca</a>
+                            </dd>
+                        </dl>
+                        -->
+                    </li>
+
+                </ul>
+
+
+            </div>
+        </div>
+
+        <!-- 页面标签 -->
+        <div class="layadmin-pagetabs" id="LAY_app_tabs">
+            <div class="layui-icon layadmin-tabs-control layui-icon-prev" layadmin-event="leftPage"></div>
+            <div class="layui-icon layadmin-tabs-control layui-icon-next" layadmin-event="rightPage"></div>
+            <div class="layui-icon layadmin-tabs-control layui-icon-down">
+                <ul class="layui-nav layadmin-tabs-select" lay-filter="layadmin-pagetabs-nav">
+                    <li class="layui-nav-item" lay-unselect>
+                        <a href="javascript:;"></a>
+                        <dl class="layui-nav-child layui-anim-fadein">
+                            <dd layadmin-event="closeThisTabs"><a href="javascript:;">关闭当前标签页</a></dd>
+                            <dd layadmin-event="closeOtherTabs"><a href="javascript:;">关闭其它标签页</a></dd>
+                            <dd layadmin-event="closeAllTabs"><a href="javascript:;">关闭全部标签页</a></dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+            <div class="layui-tab" lay-unauto lay-allowClose="true" lay-filter="layadmin-layout-tabs">
+                <ul class="layui-tab-title" id="LAY_app_tabsheader">
+                    <li lay-id="fabricnetwork/fabricnetwork_struct.html" lay-attr="fabricnetwork/fabricnetwork_struct.html" class="layui-this"><i
+                            class="layui-icon layui-icon-home"></i></li>
+                </ul>
+            </div>
+        </div>
+
+
+        <!-- 主体内容（默认页面） -->
+        <div class="layui-body" id="LAY_app_body">
+            <div class="layadmin-tabsbody-item layui-show">
+                <iframe src="fabricnetwork/fabricnetwork_struct.html" frameborder="0" class="layadmin-iframe"></iframe>
+            </div>
+        </div>
+
+        <!-- 辅助元素，一般用于移动设备下遮罩 -->
+        <div class="layadmin-body-shade" layadmin-event="shade"></div>
+    </div>
+</div>
+
+<script src="../uim/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '../uim/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use('index');
+</script>
+</body>
+</html>
+
+

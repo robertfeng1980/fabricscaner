@@ -1,0 +1,29 @@
+{
+"code": 0
+,"msg": ""
+,"count": "100"
+,"data": {
+
+     "pkid":1424
+    ,"checkv":"ddddddd"
+    ,"id":"测试数据"
+    ,"ipaddress":"测试数据"
+    ,"docker_service_port":"测试数据"
+    ,"name":"测试数据"
+    ,"remark":"测试数据"
+
+}
+,"select1":{ "selected":9,"selectdata":[
+{"value":1,"test":"虚拟主机"}
+,{"value":2,"test":"独立物理机托管"}
+,{"value":3,"test":"域名业务"}
+,{"value":7,"test":"独立物理机租用7"}
+,{"value":8,"test":"独立物理机租用8"}
+,{"value":9,"test":"独立物理机租用9"}
+,{"value":10,"test":"独立物理机租用10"}
+,{"value":12,"test":"独立物理机租用11"}
+,{"value":18,"test":"独立物理机租用18888888"}
+,{"value":19,"test":"独立物理机租用19"}
+] }
+,"select2":"<select name=\"label1\"><option value=\"\">标签2</option><option value=\"美食\">美食-1</option><option value=\"新闻\">新闻-1</option><option value=\"八卦\">八卦-1</option><option value=\"体育\">体育-1</option><option value=\"音乐\">音乐-1</option></select>"
+}

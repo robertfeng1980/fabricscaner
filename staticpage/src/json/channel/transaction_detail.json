@@ -1,0 +1,74 @@
+{
+  "code": 0,
+  "msg": "",
+  "txinfo": {"pkid":"121","channel_id": "channe","blocknum": "3","txhash": "2412412412daasdfgtredfvgredfgredfgtrfgredfrwedfeqwdf","txcreatedt": "2019-05-23 11:26:36","chaincodename": "cc_test_d1"},
+  "count_info": {"org": 3, "orderer": 1, "fabric_ca": 1, "peer": 3, "channel": 2, "blocks": 20, "chaincodes": 12, "tx": 113, "keyset": 121, "acccount": 7
+  },
+  "pic_struct": {
+    "orgs": [
+      {
+        "id": 3,
+        "flag": "org",
+        "name": "org1",
+        "mspid": "Org1Msp",
+        "peers": [
+          {
+            "id": 1,
+            "flag": "peer",
+            "name": "peer0",
+            "peerid": "peer0.org1.qklszzn.com",
+            "channels": [
+              {
+                "id": 3,
+                "flag": "channel",
+                "channel_id": "fabrictestchannel",
+                "blocknums": 110,
+                "blocks": [
+                  {
+                    "id": 11,
+                    "flag": "block",
+                    "blocknum": 13,
+                    "blockhansh": "qewrsdasfwqerewiucuiqcnriqouneru81-247un1234choifnunu38",
+                    "transactions": [{
+                      "id": 13,
+                      "name":"1234;lkj1234kj12l123l4kj12lk34j",
+                      "flag": "transaction",
+                      "txhash": "",
+                      "chaincode": {
+                        "id": 3,
+                        "flag": "chaincode",
+                        "name": "fb14_c2c_study",
+                        "version": "1.0"
+                      }
+                    }]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "flag": "org",
+        "name": "org2",
+        "mspid": "Org2Msp"
+      },
+      {
+        "id": 3,
+        "flag": "org",
+        "name": "org3",
+        "mspid": "Org3Msp"
+      }
+    ],
+    "orderers": [
+      {
+        "id": 3,
+        "flag": "orderer",
+        "name": "ordererorg1"
+      }
+    ]
+  }
+}
+
+

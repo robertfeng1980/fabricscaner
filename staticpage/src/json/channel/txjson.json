@@ -1,0 +1,9 @@
+
+{
+    "code": 0
+    ,"msg": ""
+    ,"count": "100"
+    ,"data":"{\"version\":2,\"subject\":{\"countryName\":\"US\",\"stateOrProvinceName\":\"California\",\"localityName\":\"San Francisco\",\"commonName\":\"Admin@org1.qklszzn.com\"},\"issuer\":{\"countryName\":\"US\",\"stateOrProvinceName\":\"California\",\"localityName\":\"San Francisco\",\"organizationName\":\"org1.qklszzn.com\",\"commonName\":\"ca.org1.qklszzn.com\"},\"serial\":\"4C630572B086E2F57534BE545FF44846\",\"notBefore\":\"2019-01-11T02:39:00.000Z\",\"notAfter\":\"2029-01-08T02:39:00.000Z\",\"subjectHash\":\"5724717e\",\"signatureAlgorithm\":\"ecdsa-with-SHA256\",\"fingerPrint\":\"41:A0:3D:24:17:87:8F:80:DB:4F:78:B3:77:6B:45:AC:06:7A:1F:FA\",\"publicKey\":{\"algorithm\":\"id-ecPublicKey\"},\"altNames\":[],\"extensions\":{\"keyUsage\":\"Digital Signature\",\"basicConstraints\":\"CA:FALSE\",\"authorityKeyIdentifier\":\"keyid:3F:FF:06:7B:CD:F3:47:E5:D5:A9:BE:55:71:77:FF:AF:E6:25:71:78:51:22:CA:E4:55:53:94:8A:9D:3B:1E:06\"}}"
+}
+
+

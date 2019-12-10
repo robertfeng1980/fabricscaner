@@ -1,0 +1,222 @@
+{
+  "code": 0,
+  "msg": "",
+  "count_info": {
+    "fabric_ca": 0,
+    "peer": 1,
+    "channel": 2,
+    "blocks": 211,
+    "chaincodes": 16,
+    "tx": 246,
+    "keyset": 35,
+    "acccount": 14,
+    "org": 3,
+    "orderer": 0
+  },
+  "pic_struct": {
+    "orgs": [
+      {
+        "id": 1,
+        "name": "org1",
+        "mspid": "Org1MSP",
+        "flag": "org",
+        "peers": [
+          {
+            "id": 3,
+            "mspid": "Org1MSP",
+            "name": "peer0",
+            "flag": "peer",
+            "channels": [
+              {
+                "peer_name": "peer0",
+                "channel_id": "fabrictestchannel",
+                "flag": "channel",
+                "instanceccs": [
+                  {
+                    "id": 308,
+                    "flag": "chaincodeinstance",
+                    "name": "fb14_c2c_study3",
+                    "version": "1.0",
+                    "channel_id": "fabrictestchannel",
+                    "peer_name": "peer0"
+                  },
+                  {
+                    "id": 319,
+                    "flag": "chaincodeinstance",
+                    "name": "test_cc_beijin_0322",
+                    "version": "1.0",
+                    "channel_id": "fabrictestchannel",
+                    "peer_name": "peer0"
+                  },
+                  {
+                    "id": 320,
+                    "flag": "chaincodeinstance",
+                    "name": "test_cc_shanghai_0419",
+                    "version": "1.0",
+                    "channel_id": "fabrictestchannel",
+                    "peer_name": "peer0"
+                  }
+                ],
+                "id": 31,
+                "blocks": 110
+              },
+              {
+                "peer_name": "peer0",
+                "channel_id": "mytestchannel",
+                "flag": "channel",
+                "instanceccs": [
+                  {
+                    "id": 301,
+                    "flag": "chaincodeinstance",
+                    "name": "busenv_report",
+                    "version": "1.0",
+                    "channel_id": "mytestchannel",
+                    "peer_name": "peer0"
+                  },
+                  {
+                    "id": 306,
+                    "flag": "chaincodeinstance",
+                    "name": "fb14_c2c_study",
+                    "version": "1.4",
+                    "channel_id": "mytestchannel",
+                    "peer_name": "peer0"
+                  },
+                  {
+                    "id": 307,
+                    "flag": "chaincodeinstance",
+                    "name": "fb14_c2c_study2",
+                    "version": "1.0",
+                    "channel_id": "mytestchannel",
+                    "peer_name": "peer0"
+                  },
+                  {
+                    "id": 309,
+                    "flag": "chaincodeinstance",
+                    "name": "fb14_cc_java_study4",
+                    "version": "1.0",
+                    "channel_id": "mytestchannel",
+                    "peer_name": "peer0"
+                  },
+                  {
+                    "id": 312,
+                    "flag": "chaincodeinstance",
+                    "name": "fb14_cc_java_studynew888",
+                    "version": "1.0",
+                    "channel_id": "mytestchannel",
+                    "peer_name": "peer0"
+                  },
+                  {
+                    "id": 313,
+                    "flag": "chaincodeinstance",
+                    "name": "fb14_cc_sh_0420_study",
+                    "version": "1.0",
+                    "channel_id": "mytestchannel",
+                    "peer_name": "peer0"
+                  },
+                  {
+                    "id": 314,
+                    "flag": "chaincodeinstance",
+                    "name": "fb14_cc_study_sh_pd",
+                    "version": "1.0",
+                    "channel_id": "mytestchannel",
+                    "peer_name": "peer0"
+                  },
+                  {
+                    "id": 315,
+                    "flag": "chaincodeinstance",
+                    "name": "fb14_cc_study_sh_pd_1",
+                    "version": "1.0",
+                    "channel_id": "mytestchannel",
+                    "peer_name": "peer0"
+                  },
+                  {
+                    "id": 317,
+                    "flag": "chaincodeinstance",
+                    "name": "fb14_cc_study_sh_pd_3",
+                    "version": "1.0",
+                    "channel_id": "mytestchannel",
+                    "peer_name": "peer0"
+                  },
+                  {
+                    "id": 318,
+                    "flag": "chaincodeinstance",
+                    "name": "fb14_test_cc2",
+                    "version": "1.0",
+                    "channel_id": "mytestchannel",
+                    "peer_name": "peer0"
+                  }
+                ],
+                "id": 32,
+                "blocks": 101
+              }
+            ],
+            "installcc": [
+              {
+                "id": 302,
+                "flag": "chaincodeinstall",
+                "name": "fb14_c2c_study",
+                "version": "1.0",
+                "peer_name": "peer0"
+              },
+              {
+                "id": 303,
+                "flag": "chaincodeinstall",
+                "name": "fb14_c2c_study",
+                "version": "1.1",
+                "peer_name": "peer0"
+              },
+              {
+                "id": 304,
+                "flag": "chaincodeinstall",
+                "name": "fb14_c2c_study",
+                "version": "1.2",
+                "peer_name": "peer0"
+              },
+              {
+                "id": 305,
+                "flag": "chaincodeinstall",
+                "name": "fb14_c2c_study",
+                "version": "1.3",
+                "peer_name": "peer0"
+              },
+              {
+                "id": 310,
+                "flag": "chaincodeinstall",
+                "name": "fb14_cc_java_studynew1",
+                "version": "1.0",
+                "peer_name": "peer0"
+              },
+              {
+                "id": 311,
+                "flag": "chaincodeinstall",
+                "name": "fb14_cc_java_studynew88",
+                "version": "1.0",
+                "peer_name": "peer0"
+              },
+              {
+                "id": 316,
+                "flag": "chaincodeinstall",
+                "name": "fb14_cc_study_sh_pd_2",
+                "version": "1.0",
+                "peer_name": "peer0"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": null,
+        "mspid": "Org2MSP",
+        "flag": "org"
+      },
+      {
+        "id": 3,
+        "name": null,
+        "mspid": "Org3MSP",
+        "flag": "org"
+      }
+    ],
+    "orderers": []
+  }
+}

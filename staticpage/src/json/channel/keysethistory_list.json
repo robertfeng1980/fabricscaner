@@ -1,0 +1,20 @@
+{
+  "code": 0,
+  "msg": "",
+  "count": "100",
+  "data": [
+    {
+      "channel_id": "001",
+      "blocknum": "001",
+      "blockhash": "001",
+      "transactionhash": "001",
+      "keyname": "001",
+      "valuess": "001",
+      "trandtstr": "001",
+      "chaincode_name": "001",
+      "createdt": "001",
+      "remark": "001"
+    }
+  ]
+}
+

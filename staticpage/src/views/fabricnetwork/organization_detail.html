@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>组织明细</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../../uim/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="../../uim/style/admin.css" media="all">
+  <link rel="stylesheet" href="../../source/vis/vis.min.css" media="all">
+</head>
+<body>
+
+<style>
+  .layui-col-md2{width:14.285714285714%}
+  .layadming-big-font-detailshow{text-align:-webkit-center}
+</style>
+
+<div class="layui-fluid" id="LAY-component-grid-all">
+
+    <div class="layui-row layui-col-space10">
+
+        <div class="layui-col-xs6 layui-col-sm7 layui-col-md12">
+            <!-- 填充内容 -->
+            <div class="layui-card">
+
+                <div class="layui-card-body">
+                    <table class="layui-table">
+                        <colgroup>
+                            <col width="5%">
+                            <col width="15%">
+                            <col width="5%">
+                            <col width="15%">
+                            <col width="8%">
+                            <col width="12%">
+                            <col width="8%">
+                            <col width="12%">
+                            <col width="8%">
+                            <col width="12%">
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <td>名称</td>
+                            <td><p class="layuiadmin-big-font" style="text-align:-webkit-center;" id="org_name_divelement">org1</p></td>
+                            <td>mspid</td>
+                            <td><p class="layuiadmin-big-font" style="text-align:-webkit-center;" id="mspid_div_element">Org1MSP</p></td>
+                            <td>组织证书</td>
+                            <td class="layadming-big-font-detailshow"><button class="layui-btn layuiadmin-btn-list layui-btn-sm" data-type="view_org_cert">点击查看</button></td>
+                            <td>admin证书</td>
+                            <td class="layadming-big-font-detailshow"><button class="layui-btn layuiadmin-btn-list layui-btn-sm" data-type="view_admin_cert">点击查看</button></td>
+                            <td>TLS证书</td>
+                            <td class="layadming-big-font-detailshow"><button class="layui-btn layuiadmin-btn-list layui-btn-sm" data-type="view_tls_cert">点击查看</button></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <div class="layui-row layui-col-space10">
+
+        <div class="layui-col-xs6 layui-col-sm7 layui-col-md2">
+            <!-- 填充内容 -->
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    fabric-ca
+                    <span class="layui-badge layui-bg-blue layuiadmin-badge">个</span>
+                </div>
+                <div class="layui-card-body layuiadmin-card-list">
+                    <p class="layuiadmin-big-font" style="text-align:-webkit-center;color:#009688"><cite id="divelementfabric_ca">0</cite></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-col-xs6 layui-col-sm7 layui-col-md2">
+            <!-- 填充内容 -->
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    peer
+                    <span class="layui-badge layui-bg-blue layuiadmin-badge">个</span>
+                </div>
+                <div class="layui-card-body layuiadmin-card-list">
+                    <p class="layuiadmin-big-font" style="text-align:-webkit-center;color:#009688"><cite id="divelementpeer">0</cite></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-col-xs6 layui-col-sm7 layui-col-md2">
+            <!-- 填充内容 -->
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    账本
+                    <span class="layui-badge layui-bg-blue layuiadmin-badge">个</span>
+                </div>
+                <div class="layui-card-body layuiadmin-card-list">
+                    <p class="layuiadmin-big-font" style="text-align:-webkit-center;color:#009688"><cite id="divelementchannel">0</cite></p>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-xs6 layui-col-sm7 layui-col-md2">
+            <!-- 填充内容 -->
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    链码
+                    <span class="layui-badge layui-bg-blue layuiadmin-badge">个</span>
+                </div>
+                <div class="layui-card-body layuiadmin-card-list">
+                    <p class="layuiadmin-big-font" style="text-align:-webkit-center;color:#009688"><cite id="divelementchaincodes">0</cite></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-col-xs6 layui-col-sm7 layui-col-md2">
+            <!-- 填充内容 -->
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    交易
+                    <span class="layui-badge layui-bg-blue layuiadmin-badge">个</span>
+                </div>
+                <div class="layui-card-body layuiadmin-card-list">
+                    <p class="layuiadmin-big-font" style="text-align:-webkit-center;color:#009688"><cite id="divelementtx">0</cite></p>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-xs6 layui-col-sm7 layui-col-md2">
+            <!-- 填充内容 -->
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    keyset
+                    <span class="layui-badge layui-bg-blue layuiadmin-badge">个</span>
+                </div>
+                <div class="layui-card-body layuiadmin-card-list">
+                    <p class="layuiadmin-big-font" style="text-align:-webkit-center;color:#009688"><cite id="divelementkeyset">0</cite></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-col-xs6 layui-col-sm7 layui-col-md2">
+            <!-- 填充内容 -->
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    certs
+                    <span class="layui-badge layui-bg-blue layuiadmin-badge">个</span>
+                </div>
+                <div class="layui-card-body layuiadmin-card-list">
+                    <p class="layuiadmin-big-font" style="text-align:-webkit-center;color:#009688"><cite id="divelementacccount">0</cite></p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+    <div class="layui-row layui-col-space10">
+
+        <div class="layui-col-xs6 layui-col-sm7 layui-col-md12">
+            <!-- 填充内容 -->
+            <div class="layui-card">
+
+                <div class="layui-card-body">
+                    <div class="layui-tab layui-tab-card" lay-filter="component-tabs-brief">
+                        <ul class="layui-tab-title">
+
+                            <li class="layui-this">组织拓扑图</li>
+                            <li>网络中orderer</li>
+                            <li>fabric-ca</li>
+                            <li>peer节点</li>
+                            <li>channel</li>
+                            <li>chaincode</li>
+                            <li>交易</li>
+                            <li>keykey</li>
+                            <li>签名账号</li>
+
+                        </ul>
+
+
+                        <div class="layui-tab-content">
+
+
+                            <!--  网络架构图 -->
+                            <div class="layui-tab-item layui-show">
+
+                                <div class="layui-row layui-col-space10">
+
+                                    <div class="layui-col-xs6 layui-col-sm7 layui-col-md12">
+                                        <!-- 填充内容 -->
+                                        <div class="layui-card">
+                                            <div class="layui-card-body">
+
+                                                <div class="layui-row">
+                                                    <div class="layui-col-xs1">
+                                                        <div id="pic_example" style=" width: 500px;height: 600px;"></div>
+                                                    </div>
+                                                    <div class="layui-col-xs11">
+                                                        <div id="pic_struct" style=" width: 98%;height: 600px;border:1px solid #f2f2f2"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+
+                            <!-- orderer列表-->
+
+                            <div class="layui-tab-item" >
+
+                                <div class="layui-card">
+                                    <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+                                        <div class="layui-form-item">
+                                            <div class="layui-inline">
+                                                <label class="layui-form-label">名称</label>
+                                                <div class="layui-input-inline">
+                                                    <input type="text" name="id" placeholder="请输入" autocomplete="off" class="layui-input">
+                                                </div>
+                                            </div>
+                                            <div class="layui-inline">
+                                                <div style="padding-bottom: 1px;text-align: right">
+                                                    <button class="layui-btn layuiadmin-btn-list" lay-submit lay-filter="LAY-orderer-search">
+                                                        <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="layui-card-body">
+
+                                        <table id="LAY-orderer-list" lay-filter="LAY-orderer-list"></table>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <!-- fabric-ca  -->
+                            <div class="layui-tab-item" >
+
+                                <div class="layui-card">
+                                    <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+                                        <div class="layui-form-item">
+                                            <div class="layui-inline">
+                                                <label class="layui-form-label">名称</label>
+                                                <div class="layui-input-inline">
+                                                    <input type="text" name="id" placeholder="请输入" autocomplete="off" class="layui-input">
+                                                </div>
+                                            </div>
+                                            <div class="layui-inline">
+                                                <div style="padding-bottom: 1px;text-align: right">
+                                                    <button class="layui-btn layuiadmin-btn-list" lay-submit lay-filter="LAY-fabricca-search">
+                                                        <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="layui-card-body">
+
+                                        <table id="LAY-fabricca-list" lay-filter="LAY-fabricca-list"></table>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- peer列表列表 -->
+                            <div class="layui-tab-item" lay-data=" event 3">
+
+
+                                <div class="layui-card">
+                                    <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+                                        <div class="layui-form-item">
+                                            <div class="layui-inline">
+                                                <label class="layui-form-label">名称</label>
+                                                <div class="layui-input-inline">
+                                                    <input type="text" name="id" placeholder="请输入" autocomplete="off" class="layui-input">
+                                                </div>
+                                            </div>
+                                            <div class="layui-inline">
+                                                <div style="padding-bottom: 1px;text-align: right">
+                                                    <button class="layui-btn layuiadmin-btn-list" lay-submit lay-filter="LAY-peer-search">
+                                                        <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="layui-card-body">
+
+                                        <table id="LAY-peer-list" lay-filter="LAY-peer-list"></table>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- channel 列表 -->
+                            <div class="layui-tab-item" lay-data=" event 4">
+
+                                <div class="layui-card">
+                                    <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+                                        <div class="layui-form-item">
+                                            <div class="layui-inline">
+                                                <label class="layui-form-label">名称</label>
+                                                <div class="layui-input-inline">
+                                                    <input type="text" name="id" placeholder="请输入" autocomplete="off" class="layui-input">
+                                                </div>
+                                            </div>
+                                            <div class="layui-inline">
+                                                <div style="padding-bottom: 1px;text-align: right">
+                                                    <button class="layui-btn layuiadmin-btn-list" lay-submit lay-filter="LAY-channel-search">
+                                                        <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="layui-card-body">
+
+                                        <table id="LAY-channel-list" lay-filter="LAY-channel-list"></table>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- chaincode  -->
+                            <div class="layui-tab-item">
+
+                                <div class="layui-card">
+                                    <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+                                        <div class="layui-form-item">
+                                            <div class="layui-inline">
+                                                <label class="layui-form-label">名称</label>
+                                                <div class="layui-input-inline">
+                                                    <input type="text" name="id" placeholder="请输入" autocomplete="off" class="layui-input">
+                                                </div>
+                                            </div>
+                                            <div class="layui-inline">
+                                                <div style="padding-bottom: 1px;text-align: right">
+                                                    <button class="layui-btn layuiadmin-btn-list" lay-submit lay-filter="LAY-chaincodes-search">
+                                                        <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-card-body">
+
+                                        <table id="LAY-chaincodes-list" lay-filter="LAY-chaincodes-list"></table>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- transactions -->
+                            <div class="layui-tab-item">
+
+                                <div class="layui-card">
+                                    <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+                                        <div class="layui-form-item">
+                                            <div class="layui-inline">
+                                                <label class="layui-form-label">名称</label>
+                                                <div class="layui-input-inline">
+                                                    <input type="text" name="id" placeholder="请输入" autocomplete="off" class="layui-input">
+                                                </div>
+                                            </div>
+                                            <div class="layui-inline">
+                                                <div style="padding-bottom: 1px;text-align: right">
+                                                    <button class="layui-btn layuiadmin-btn-list" lay-submit lay-filter="LAY-transaction-search">
+                                                        <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-card-body"><table id="LAY-transaction-list" lay-filter="LAY-transaction-list"></table></div>
+                                </div>
+
+
+                            </div>
+
+                            <!-- keys -->
+                            <div class="layui-tab-item">
+
+                                <div class="layui-card">
+                                    <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+                                        <div class="layui-form-item">
+                                            <div class="layui-inline">
+                                                <label class="layui-form-label">名称</label>
+                                                <div class="layui-input-inline">
+                                                    <input type="text" name="id" placeholder="请输入" autocomplete="off" class="layui-input">
+                                                </div>
+                                            </div>
+                                            <div class="layui-inline">
+                                                <div style="padding-bottom: 1px;text-align: right">
+                                                    <button class="layui-btn layuiadmin-btn-list" lay-submit lay-filter="LAY-keyset-search">
+                                                        <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-card-body">
+                                        <table id="LAY-keyset-list" lay-filter="LAY-keyset-list"></table>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- account -->
+                            <div class="layui-tab-item">
+
+                                <div class="layui-card">
+
+                                    <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+                                        <div class="layui-form-item">
+                                            <div class="layui-inline">
+                                                <label class="layui-form-label">名称</label>
+                                                <div class="layui-input-inline">
+                                                    <input type="text" name="id" placeholder="请输入" autocomplete="off" class="layui-input">
+                                                </div>
+                                            </div>
+                                            <div class="layui-inline">
+                                                <div style="padding-bottom: 1px;text-align: right">
+                                                    <button class="layui-btn layuiadmin-btn-list" lay-submit lay-filter="LAY-accounts-search">
+                                                        <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="layui-card-body">
+                                        <table id="LAY-accounts-list" lay-filter="LAY-accounts-list"></table>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+</div>
+
+<script src="../../source/vis/vis.min.js"></script>
+<script>
+
+    window.visobj=vis;
+
+</script>
+
+<script src="../../uim/layui/layui.js"></script>
+<script>
+
+    layui.config({
+        base: '../../uim/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'fabricnetwork'], function () {
+        var fabricnetwork = layui.fabricnetwork;
+        fabricnetwork.organization_detail();
+    });
+
+</script>
+</body>
+</html>
