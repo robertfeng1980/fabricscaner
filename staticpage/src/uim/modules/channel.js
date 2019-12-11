@@ -79,7 +79,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
 
 
 
-                    admin.ajaxreq({
+                    adminutil.ajaxreq({
 
                         url: layui.setter.base + '../json/manager/com_update.json?pkid=' + data.pkid+"&fildvalue="+value+"&module=ledge"
                         , type: 'GET'
@@ -170,7 +170,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
                 /** org查询条件下拉列表 */
 
 
-                admin.ajaxreq({
+                adminutil.ajaxreq({
 
                     url: layui.setter.base + '../json/channel/channel_org_select.json'
                     , type: 'GET'
@@ -217,7 +217,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
 
 
                 //==========  当前channel时间线分布图  ==============
-                admin.ajaxreq({
+                adminutil.ajaxreq({
 
                     url: layui.setter.base + '../json/channel/channel_detail_blocktimeline.json?channel_id='+channel_id+'&pkid='+channel_pkid
                     , type: 'GET'
@@ -546,7 +546,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
                 fabricstudioutil.display_struct_example('pic_example');
                 // ==========  fabric网络拓扑图明细  ===============
 
-                admin.ajaxreq({
+                adminutil.ajaxreq({
 
                     url: layui.setter.base + '../json/channel/channel_detail.json?channel_id='+channel_id
                     , type: 'GET'
@@ -746,7 +746,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
 
 
 
-                    admin.ajaxreq({
+                    adminutil.ajaxreq({
 
                         url: layui.setter.base + '../json/manager/com_update.json?pkid=' + data.pkid+"&fildvalue="+value+"&module=cc"
                         , type: 'GET'
@@ -832,7 +832,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
 
 
                 /**请求组织下来列表的数据*/
-                admin.ajaxreq({
+                adminutil.ajaxreq({
 
                     url: layui.setter.base + '../json/channel/channel_org_select.json'
                     , type: 'GET'
@@ -864,7 +864,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
                     let mspid = data.value;
 
                     /*绑定批量删除和添加等按钮的操作事件*/
-                    admin.ajaxreq({
+                    adminutil.ajaxreq({
 
                         url: layui.setter.base + `../json/channel/block_org_channel_select.json?mspid=${mspid}`
                         , type: 'GET'
@@ -1173,7 +1173,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
                 fabricstudioutil.display_struct_example('pic_example');
                 // ==========  fabric网络拓扑图明细  ===============
 
-                admin.ajaxreq({
+                adminutil.ajaxreq({
 
                     url: layui.setter.base + '../json/channel/chaincodes_detail.json?chaincodes_pkid='+chaincodes_id
                     , type: 'GET'
@@ -1384,7 +1384,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
                 });
 
                 /**请求组织下拉列表的数据*/
-                admin.ajaxreq({
+                adminutil.ajaxreq({
 
                     url: layui.setter.base + '../json/channel/channel_org_select.json'
                     , type: 'GET'
@@ -1416,7 +1416,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
                     let mspid = data.value;
 
                     /*绑定批量删除和添加等按钮的操作事件*/
-                    admin.ajaxreq({
+                    adminutil.ajaxreq({
 
                         url: layui.setter.base + `../json/channel/block_org_channel_select.json?mspid=${mspid}`
                         , type: 'GET'
@@ -1547,7 +1547,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
                 // ==========  fabric网络拓扑图明细  ===============
 
 
-                admin.ajaxreq({
+                adminutil.ajaxreq({
 
                     url: layui.setter.base + '../json/channel/transaction_detail.json?pkid='+transaction_id
                     , type: 'GET'
@@ -1743,7 +1743,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
                 });
 
                 /**请求组织下拉列表的数据*/
-                admin.ajaxreq({
+                adminutil.ajaxreq({
 
                     url: layui.setter.base + '../json/channel/channel_org_select.json'
                     , type: 'GET'
@@ -1775,7 +1775,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
                     let mspid = data.value;
 
                     /*绑定批量删除和添加等按钮的操作事件*/
-                    admin.ajaxreq({
+                    adminutil.ajaxreq({
 
                         url: layui.setter.base + `../json/channel/block_org_channel_select.json?mspid=${mspid}`
                         , type: 'GET'
@@ -1830,7 +1830,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
                 //==========  当前keyset时间线分布图  ==============
 
 
-               /* admin.ajaxreq({
+               /* adminutil.ajaxreq({
 
                     url: layui.setter.base + '../json/channel/keyset_detail_blocktimeline.json?keyset_id='+keyset_id
                     , type: 'GET'
@@ -2093,7 +2093,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
                 fabricstudioutil.display_struct_example('pic_example');
                 // ==========  fabric网络拓扑图明细  ===============
 
-                admin.ajaxreq({
+                adminutil.ajaxreq({
 
                     url: layui.setter.base + '../json/channel/keyset_detail.json?pkid='+keyset_id
                     , type: 'GET'
@@ -2281,7 +2281,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
 
 
                 /*绑定批量删除和添加等按钮的操作事件*/
-                admin.ajaxreq({
+                adminutil.ajaxreq({
 
                     url: layui.setter.base + '../json/channel/channel_org_select.json'
                     , type: 'GET'
@@ -2313,7 +2313,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
                     let mspid = data.value;
 
                     /*绑定批量删除和添加等按钮的操作事件*/
-                    admin.ajaxreq({
+                    adminutil.ajaxreq({
 
                         url: layui.setter.base + `../json/channel/block_org_channel_select.json?mspid=${mspid}`
                         , type: 'GET'
@@ -2465,7 +2465,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
                 fabricstudioutil.display_struct_example('pic_example');
                 // ==========  fabric网络拓扑图明细  ===============
 
-                admin.ajaxreq({
+                adminutil.ajaxreq({
 
                     url: layui.setter.base + '../json/channel/block_detail.json?pkid='+blocks_id
                     , type: 'GET'
@@ -2673,7 +2673,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
                 });
 
                 /**请求组织下拉列表的数据*/
-                admin.ajaxreq({
+                adminutil.ajaxreq({
 
                     url: layui.setter.base + '../json/channel/channel_org_select.json'
                     , type: 'GET'
@@ -2726,7 +2726,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
 
 
 
-                admin.ajaxreq({
+                adminutil.ajaxreq({
 
                     url: layui.setter.base + '../json/channel/account_detail.json?pkid='+account_id+"&certsmd5="+certsmd5
                     , type: 'GET'
@@ -2842,7 +2842,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
                 fabricstudioutil.display_struct_example('pic_example');
                 // ==========  fabric网络拓扑图明细  ===============
 
-                admin.ajaxreq({
+                adminutil.ajaxreq({
 
                     url: layui.setter.base + '../json/channel/account_detail.json?jsonparm=1'
                     , type: 'GET'

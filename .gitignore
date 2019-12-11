@@ -68,3 +68,4 @@ log.log
 artifacts/crypto-config/*
 .DS_Store
 fabric-client-kvs/*
+logs/*

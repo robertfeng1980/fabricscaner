@@ -85,7 +85,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','channel','fabri
                             obj.del();
 
                             /**批量删除已经选中的数据 data:data.field*/
-                            admin.ajaxreq({
+                            adminutil.ajaxreq({
 
                                 url: layui.setter.base + '../json/fabricnode/peer_del.json?id=' + data.pkid, /*模拟批量删除接口接口,*/
                                 type: 'GET',
@@ -223,7 +223,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','channel','fabri
 
 
                             /*批量删除已经选中的数据*/
-                            admin.ajaxreq({
+                            adminutil.ajaxreq({
 
                                 url: layui.setter.base + '../json/fabricnode/peer_batchdel.json', /*模拟批量删除接口接口,*/
                                 type: 'POST',
@@ -314,7 +314,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','channel','fabri
                      */
 
                     /*data:JSON.stringify(data.field),*/
-                    admin.ajaxreq({
+                    adminutil.ajaxreq({
 
                         url: layui.setter.base + '../json/fabricnode/peer_save.json',
                         type: 'POST',
@@ -355,7 +355,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','channel','fabri
                     data:JSON.stringify(data.field),
                     data:data.field,
                     */
-                    admin.ajaxreq({
+                    adminutil.ajaxreq({
 
                         url: formrenderurl,
                         type: 'GET',
@@ -390,7 +390,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','channel','fabri
                     data:JSON.stringify(data.field),
                     data:data.field,
                     */
-                    admin.ajaxreq({
+                    adminutil.ajaxreq({
 
                         url: formrenderurl,
                         type: 'GET',
@@ -543,7 +543,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','channel','fabri
                 fabricstudioutil.display_struct_example('pic_example');
                 // ==========  fabric网络拓扑图明细  ===============
 
-                admin.ajaxreq({
+                adminutil.ajaxreq({
 
                     url: layui.setter.base + '../json/fabricnode/peer_detail.json?jsonparm=1'
                     , type: 'GET'
@@ -723,7 +723,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','channel','fabri
                             obj.del();
 
                             /*批量删除已经选中的数据 data:data.field*/
-                            admin.ajaxreq({
+                            adminutil.ajaxreq({
 
                                 url: layui.setter.base + '../json/fabricnode/orderer_del.json?id=' + data.pkid, /*模拟批量删除接口接口,*/
                                 type: 'GET',
@@ -829,7 +829,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','channel','fabri
 
 
                             /*批量删除已经选中的数据*/
-                            admin.ajaxreq({
+                            adminutil.ajaxreq({
 
                                 url: layui.setter.base + '../json/fabricnode/orderer_batchdel.json', /*模拟批量删除接口接口,*/
                                 type: 'POST',
@@ -918,7 +918,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','channel','fabri
                      */
 
                     /*data:JSON.stringify(data.field),*/
-                    admin.ajaxreq({
+                    adminutil.ajaxreq({
 
                         url: layui.setter.base + '../json/fabricnode/orderer_save.json',
                         type: 'POST',
@@ -959,7 +959,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','channel','fabri
                     data:JSON.stringify(data.field),
                     data:data.field,
                     */
-                    admin.ajaxreq({
+                    adminutil.ajaxreq({
 
                         url: formrenderurl,
                         type: 'GET',
@@ -1043,7 +1043,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','channel','fabri
                     data:JSON.stringify(data.field),
                     data:data.field,
                     */
-                    admin.ajaxreq({
+                    adminutil.ajaxreq({
 
                         url: formrenderurl,
                         type: 'GET',
@@ -1183,7 +1183,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','channel','fabri
                             obj.del();
 
                             /*批量删除已经选中的数据 data:data.field*/
-                            admin.ajaxreq({
+                            adminutil.ajaxreq({
 
                                 url: layui.setter.base + '../json/fabricnode/fabricca_del.json?id=' + data.pkid, /*模拟批量删除接口接口,*/
                                 type: 'GET',
@@ -1308,7 +1308,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','channel','fabri
 
 
                             /*批量删除已经选中的数据*/
-                            admin.ajaxreq({
+                            adminutil.ajaxreq({
 
                                 url: layui.setter.base + '../json/fabricnode/fabricca_batchdel.json', /*模拟批量删除接口接口,*/
                                 type: 'POST',
@@ -1397,7 +1397,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','channel','fabri
                      */
 
                     /*data:JSON.stringify(data.field),*/
-                    admin.ajaxreq({
+                    adminutil.ajaxreq({
 
                         url: layui.setter.base + '../json/fabricnode/fabricca_save.json',
                         type: 'POST',
@@ -1438,7 +1438,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','channel','fabri
                     data:JSON.stringify(data.field),
                     data:data.field,
                     */
-                    admin.ajaxreq({
+                    adminutil.ajaxreq({
 
                         url: formrenderurl,
                         type: 'GET',
@@ -1522,7 +1522,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','channel','fabri
                     data:JSON.stringify(data.field),
                     data:data.field,
                     */
-                    admin.ajaxreq({
+                    adminutil.ajaxreq({
 
                         url: formrenderurl,
                         type: 'GET',

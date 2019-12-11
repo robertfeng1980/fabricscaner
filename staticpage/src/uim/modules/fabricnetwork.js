@@ -39,7 +39,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
 
                 // ==========  fabric网络拓扑图明细  ===============
 
-                admin.ajaxreq({
+                adminutil.ajaxreq({
 
                     url: layui.setter.base + '../json/fabricnetwork/fabricnetwork_struct.json'
                     , type: 'GET'
@@ -156,7 +156,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
 
 
 
-                    admin.ajaxreq({
+                    adminutil.ajaxreq({
 
                         url: layui.setter.base + '../json/manager/com_update.json?pkid=' + data.pkid+"&fildvalue="+value+"&module=org"
                         , type: 'GET'
@@ -250,7 +250,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
 
                 // ==========  fabric网络拓扑图明细  ===============
 
-                admin.ajaxreq({
+                adminutil.ajaxreq({
 
                     url: layui.setter.base + '../json/fabricnetwork/fabricnetwork_struct.json?jsonparm=1'
                     , type: 'GET'
@@ -398,7 +398,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
 
                 // ==========  fabric网络拓扑图明细  ===============
 
-                admin.ajaxreq({
+                adminutil.ajaxreq({
 
                     url: layui.setter.base + '../json/fabricnetwork/organization_detail.json?mspid='+mspid
                     , type: 'GET'
@@ -594,7 +594,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
                 let methord = adminutil.getUrlParam('m');
                 let postvalue = adminutil.getUrlParam('jsonviewparm');
 
-                admin.ajaxreq({
+                adminutil.ajaxreq({
 
                     url: layui.setter.base + '../json/' + controller + '/' + methord + '.json?jsonviewparm=' + postvalue
                     , type: 'GET'

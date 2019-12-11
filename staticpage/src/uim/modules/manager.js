@@ -72,7 +72,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil','laydate'], function (expor
                             obj.del();
 
                             /*批量删除已经选中的数据 data:data.field*/
-                            admin.ajaxreq({
+                            adminutil.ajaxreq({
 
                                 url: layui.setter.base + '../json/manager/servers_del.json?id=' + data.pkid, /*模拟批量删除接口接口,*/
                                 type: 'GET',
@@ -179,7 +179,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil','laydate'], function (expor
 
 
                             /*批量删除已经选中的数据*/
-                            admin.ajaxreq({
+                            adminutil.ajaxreq({
 
                                 url: layui.setter.base + '../json/manager/servers_batchdel.json', /*模拟批量删除接口接口,*/
                                 type: 'POST',
@@ -270,7 +270,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil','laydate'], function (expor
                      */
 
                     /*data:JSON.stringify(data.field),*/
-                    admin.ajaxreq({
+                    adminutil.ajaxreq({
 
                         url: layui.setter.base + '../json/manager/servers_save.json',
                         type: 'POST',
@@ -312,7 +312,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil','laydate'], function (expor
                     data:JSON.stringify(data.field),
                     data:data.field,
                     */
-                    admin.ajaxreq({
+                    adminutil.ajaxreq({
 
                         url: formrenderurl,
                         type: 'GET',
@@ -396,7 +396,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil','laydate'], function (expor
                     data:JSON.stringify(data.field),
                     data:data.field,
                     */
-                    admin.ajaxreq({
+                    adminutil.ajaxreq({
 
                         url: formrenderurl,
                         type: 'GET',

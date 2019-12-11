@@ -1131,8 +1131,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate'], function (expo
 
 
     //初始化，可以在此处放置初始化代码
-    !function () {
-    }
+    !function () {}
 
 
     exports('fabricstudiotpl', fabricstudiotpl);

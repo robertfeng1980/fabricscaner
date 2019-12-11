@@ -806,7 +806,7 @@ layui.define(['table', 'form', 'adminutil'], function (exports) {
             {
 
 
-                admin.ajaxreq({
+                adminutil.ajaxreq({
 
                     url: url
                     , type: 'GET'
@@ -837,7 +837,7 @@ layui.define(['table', 'form', 'adminutil'], function (exports) {
             {
 
 
-                admin.ajaxreq({
+                adminutil.ajaxreq({
 
                     url: url
                     , type: 'GET'

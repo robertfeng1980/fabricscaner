@@ -27,7 +27,7 @@ layui.define(['channel', 'fabricnode', 'fabricnetwork'], function (exports) {
              *
              */
 
-            ,organization_detail:  ()
+            ,organization_detail: function ()
             {
 
             }
