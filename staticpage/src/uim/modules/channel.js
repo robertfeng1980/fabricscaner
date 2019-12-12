@@ -55,7 +55,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
                         ,{field: 'channel_id', title: '账本名称',width:'22%'}
                         ,{field: 'commitss', edit: 'text',title: '注释',width:'23%'}
                         ,{field: 'originate_dt', title: '创建时间',width:'15%'}
-                        ,{field: 'blocks', title: '区块数',width:'7%'}
+                        ,{field: 'countblocks', title: '区块数',width:'7%'}
                         ,{field: 'chaincodes', title: '链码',width:'7%'}
                         ,{field: 'txcount', title: '交易数',width:'7%'}
                         ,{field: 'keysets', title: 'keyset',width:'7%'}
@@ -539,7 +539,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
              * channel拓扑图(同时当前channel的详细信息和channel的区块链是时间线信息)
              *
              */
-            , channel_detail_struct_pic: (channel_id) => {
+            , channel_detail_struct_pic: (channel_id,flag) => {
 
 
                 // ===========  显示图例  ======================
@@ -569,18 +569,18 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
 
                         //channel网络拓扑图数据结构
                         let pic_struct = response.pic_struct;
-                        fabricstudioutil.channel_detail_struct_pic(pic_struct,'pic_struct');
+                        fabricstudioutil.channel_detail_struct_pic( pic_struct , 'pic_struct' );
 
                         //channel详细信息
                         let channelinfo = response.channelinfo;
-                        $('#channel_id_div_element').html(channelinfo['channel_id']);
+                        $('#channel_id_div_element').html( channelinfo['channel_id'] );
                         $('#channel_createdt_div_element').html(channelinfo['originate_dt']);
 
 
 
                         //共享channel的组织
                         let channel_share_rog = response.channel_share_org;
-
+                        $('#channel_share_org').empty();
                         for (let ind = 0 ; ind<channel_share_rog.length ; ind++ ){
 
                             let share_org = channel_share_rog[ind];
@@ -718,15 +718,15 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
                     , cols: [[
 
                          {field: 'pkid', title: 'PKID', hide: true}
-                        , {field: 'peer_name', title: 'peer节点'}
-                        , {field: 'channel_id', title: '账本名称'}
-                        , {field: 'languages', title: '开发语言'}
+                       /* , {field: 'peer_name', title: 'peer节点'}
+                        , {field: 'channel_id', title: '账本名称'}*/
                         , {field: 'name', title: '名称'}
+                        , {field: 'languages', title: '开发语言'}
                         , {field: 'commitss', edit: 'text',title: '注释(可编辑)'}
                         , {field: 'version', title: '版本'}
                         , {field: 'path', title: '路径'}
                         , {field: 'txcount', title: '交易数'}
-                        , {field: 'ccstatus', title: '状态'}
+                        , {field: 'ccstatus', title: '状态',templet: '#ccstatusTpl'}
                         , {field: 'cccreatedt', title: '创建时间'}
                         , {title: '操作', width: 80, align: 'center', fixed: 'right', toolbar: '#table-content-list'}
                     ]]
@@ -1310,7 +1310,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
                         , {field: 'txhash', title: '交易哈希值'}
                         , {field: 'txcreatedt', title: '交易创建时间'}
                         , {field: 'chaincode_name', title: '链码名称'}
-                        , {field: 'validationcode', title: '交易状态'}
+                        , {field: 'validationcode', title: '交易状态',templet: '#txvalidationcodeTpl'}
                         , {title: '操作', width: 80, align: 'center', fixed: 'right', toolbar: '#table-content-list'}
                     ]]
                     , page: true
@@ -1668,7 +1668,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
                         , {field: 'blocknum', title: '区块编号'}
                         , {field: 'transactionhash', title: '交易哈希值'}
                         , {field: 'keyname', title: 'key名称'}
-                        , {field: 'isdelete', title: '是否删除'}
+                        , {field: 'isdelete', title: '是否删除' , templet: '#isdeleteTpl',}
                         , {field: 'valuess', title: '值'}
                         , {field: 'chaincode_name', title: '链码'}
                         , {field: 'createdt', title: '创建时间'}
@@ -2591,7 +2591,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
                           {field: 'pkid', title: 'PKID', hide: true}
                         , {field: 'mspid', title: '组织编号'}
                         , {field: 'name', title: '账号名称'}
-                        , {field: 'account_type', title: '签名用户的类型（0-背书  1-发起交易）'}
+                        , {field: 'account_type', title: '签名用户的类型（0-背书  1-发起交易）', templet:'#account_typeTpl'}
                         , {field: 'effective_dt', title: '生效时间'}
                         , {field: 'invalid_dt', title: '失效时间'}
                         , {title: '操作', width: 80, align: 'center', fixed: 'right', toolbar: '#table-content-list'}

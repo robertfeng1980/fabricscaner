@@ -108,11 +108,11 @@
             </div>
 
             <table id="LAY-transaction-list" lay-filter="LAY-transaction-list"></table>
-            <script type="text/html" id="buttonTpl">
-                {{#  if(d.status){ }}
-                <button class="layui-btn layui-btn-xs" lay-event="public">已发布</button>
+            <script type="text/html" id="txvalidationcodeTpl">
+                {{#  if(d.validationcode==0){ }}
+                <button class="layui-btn layui-btn-xs" >成功</button>
                 {{#  } else { }}
-                <button class="layui-btn layui-btn-primary layui-btn-xs" lay-event="premodify">待修改</button>
+                <button class="layui-btn layui-btn-xs layui-btn-danger">失败</button>
                 {{#  } }}
             </script>
             <script type="text/html" id="table-content-list">
