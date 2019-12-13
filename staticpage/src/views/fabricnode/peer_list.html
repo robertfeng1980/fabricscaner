@@ -49,11 +49,11 @@
             </div>
 
             <table id="LAY-peer-list" lay-filter="LAY-peer-list"></table>
-            <script type="text/html" id="buttonTpl">
-                {{#  if(d.status){ }}
-                <button class="layui-btn layui-btn-xs" lay-event="public">已发布</button>
+            <script type="text/html" id="runtypeTpl">
+                {{#  if(d.runtype==0){ }}
+                <button class="layui-btn layui-btn-xs" lay-event="public">原生</button>
                 {{#  } else { }}
-                <button class="layui-btn layui-btn-primary layui-btn-xs" lay-event="premodify">待修改</button>
+                <button class="layui-btn layui-btn-primary layui-btn-xs" lay-event="premodify">Docker</button>
                 {{#  } }}
             </script>
             <script type="text/html" id="table-content-list">

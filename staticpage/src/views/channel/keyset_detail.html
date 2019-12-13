@@ -60,7 +60,13 @@
                             <th>名称</th>
                             <th><p class="layuiadmin-big-font layadming-big-font-detailshow" id="key_name_div_element">set</p></th>
                             <th>背书组织</th>
-                            <th colspan="5"><button class="layui-btn layuiadmin-btn-list layui-btn-sm" data-type="Org1Msp">Org1MSP</button><button class="layui-btn layuiadmin-btn-list layui-btn-sm" data-type="Org2Msp">Org2MSP</button><button class="layui-btn layuiadmin-btn-list layui-btn-sm" data-type="Or32Msp">Org3MSP</button></th>
+                            <th colspan="5" class="layadming-big-font-detailshow">
+
+                                <div id="key_share_org">
+
+                                </div>
+
+                            </th>
                         </tr>
                         </tbody>
                     </table>
@@ -114,7 +120,7 @@
 
                             <li class="layui-this">存储分布图</li>
                             <li>历史记录</li>
-                            <li>操作签名</li>
+                            <li>操作KEY的证书</li>
 
 
                         </ul>
@@ -204,6 +210,15 @@
                                     <div class="layui-card-body">
                                         <table id="LAY-accounts-list" lay-filter="LAY-accounts-list"></table>
                                     </div>
+                                    <script type="text/html" id="account_typeTpl">
+                                        {{#  if( d.account_type ==0  ){ }}
+                                        <button class="layui-btn  layui-btn-xs" lay-event="public">背书</button>
+                                        {{#  } else if (d.account_type ==1)  { }}
+                                        <button class="layui-btn layui-btn-normal layui-btn-xs" lay-event="public">发起交易</button>
+                                        {{#  } else { }}
+                                        <button class="layui-btn layui-btn-warm layui-btn-xs" lay-event="public">排序</button>
+                                        {{#  } }}
+                                    </script>
 
                                 </div>
 

@@ -147,7 +147,7 @@ router.get('/accounts_list.json', async function (req, res) {
     /**
      * 从通道页面发送过来的消息
      */
-    if (req.query.channel_id != undefined && req.query.channel_id != '') {
+    if (req.query.channel_id !== undefined && req.query.channel_id !== '') {
         where = where + `and certs_md5 in (select DISTINCT(account_cert_md5) from trans_ref_account where channel_id = '${req.query.channel_id}' ) `;
     }
 
@@ -1029,12 +1029,22 @@ router.get('/keyset_detail.json', async function (req, res) {
     let sql_keyset_info = await mysql.getRowsBySQlCase(sql_keyset);
 
 
+    let keyname = sql_keyset_info['keyname'];
+
+
+
+    let sql_orgs = `select * from  organization  where  mspid in ( select mspid from accounts where certs_md5 in ( select account_cert_md5 from trans_ref_account where account_types = 0 and   transhash  in  ( select transactionhash from keyset_history  where keyname = '${keyname}' ) ))`;
+
+
+    let sql_orgs_info = await mysql.getRowsByFullSQl(sql_orgs);
+
     let pic_struct = await bcexplorerservice.get_fabric_keyset_struct(keyset_pkid);
 
 
     res.send({
                 "code": 0,
                 "msg": "",
+                "key_share_org": sql_orgs_info,
                 "keysetinfo": {"pkid":"121","channel_id": sql_keyset_info['channel_id'],"blocknum": sql_keyset_info['blocknum'],"transactionhash":sql_keyset_info['transactionhash'],"keyname": sql_keyset_info['keyname'],"isdelete": sql_keyset_info['isdelete'],"valuess": sql_keyset_info['valuess'],"chaincode": sql_keyset_info['chaincode'],"trandtstr": sql_keyset_info['trandtstr']},
                 "count_info": {"org": 3, "orderer": 1, "fabric_ca": 1, "peer": 3, "channel": 2, "blocks": 20, "chaincodes": 12, "tx": 113, "keyset": 121, "acccount": 7},
                 "pic_struct": pic_struct
@@ -1291,18 +1301,19 @@ router.get('/keysethistory_list.json', async function (req, res) {
     let where = " (1=1) ";
 
 
-    /**根据客户端发送的查询参数，拼接查询条件*/
+    /**根据客户端(keyset)发送的查询参数，拼接查询条件*/
 
     let keysetpkid = req.query.keysetpkid;
 
     if (keysetpkid !== undefined && keysetpkid !== '' && keysetpkid !=='-1') {
 
-        let keyset = await mysql.getRowByPk( 'keyset', 'transactionhash,channel_id,chaincode_name', 'pkid', keysetpkid );
+        let keyset = await mysql.getRowByPk( 'keyset', 'transactionhash,channel_id,chaincode_name,keyname', 'pkid', keysetpkid );
+        let keyname = keyset['keyname'];
         let txhash = keyset['transactionhash'];
         let channel_id = keyset['channel_id'];
         let chaincode_name = keyset['chaincode_name'];
 
-        where = where + `and transactionhash = '${txhash}' and chaincode_name = '${chaincode_name}' and channel_id = '${channel_id}' `;
+        where = where + `and keyname = '${keyname}' and chaincode_name = '${chaincode_name}' and channel_id = '${channel_id}' `;
 
     }
 

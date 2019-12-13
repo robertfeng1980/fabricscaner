@@ -126,15 +126,15 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
 
                         , {field: 'pkid', title: 'PKID', hide: true}
                         , {field: 'name', title: '名称'}
-                        , {field: 'commitss', edit: 'text',title: '注释'}
+                        , {field: 'commitss', edit: 'text',title: '注释*'}
                         , {field: 'mspid', title: 'MPSID'}
                         , {field: 'fabric_ca', title: 'FABRIC-CA'}
                         , {field: 'peers', title: 'PEERS'}
-                        , {field: 'channels', title: 'CHANNELS'}
-                        , {field: 'chaincodes', title: 'CHAINCODES'}
+                        , {field: 'channels', title: '通道'}
+                        , {field: 'chaincodes', title: '链码'}
                         , {field: 'txcount', title: '交易'}
-                        , {field: 'keysets', title: 'keyset'}
-                        , {field: 'account_certs', title: '签名'}
+                        , {field: 'keysets', title: 'KEY'}
+                        , {field: 'account_certs', title: '证书'}
                         , {title: '操作', width:80, align: 'center', fixed: 'right', toolbar: '#table-content-list'}
                     ]]
                     , page: false

@@ -46,7 +46,7 @@
             </colgroup>
             <tbody>
             <tr>
-              <td>channel编号</td>
+              <td>账本编号</td>
               <td><p class="layuiadmin-big-font layadming-big-font-detailshow" id="channel_id_div_element">ropbertfengtestchannel</p></td>
                 <td>创建时间</td>
                 <td><p class="layuiadmin-big-font layadming-big-font-detailshow" id="channel_createdt_div_element">2019-04-12 18:16:17</p></td>
@@ -84,7 +84,7 @@
       <!-- 填充内容 -->
       <div class="layui-card">
         <div class="layui-card-header">
-          peer
+            PEER
           <span class="layui-badge layui-bg-blue layuiadmin-badge">个</span>
         </div>
         <div class="layui-card-body layuiadmin-card-list">
@@ -134,7 +134,7 @@
       <!-- 填充内容 -->
       <div class="layui-card">
         <div class="layui-card-header">
-          keyset
+          KEY
           <span class="layui-badge layui-bg-blue layuiadmin-badge">个</span>
         </div>
         <div class="layui-card-body layuiadmin-card-list">
@@ -148,7 +148,7 @@
       <!-- 填充内容 -->
       <div class="layui-card">
         <div class="layui-card-header">
-          certs
+          证书
           <span class="layui-badge layui-bg-blue layuiadmin-badge">个</span>
         </div>
         <div class="layui-card-body layuiadmin-card-list">
@@ -201,14 +201,14 @@
         <div class="layui-card-body">
           <div class="layui-tab layui-tab-card" lay-filter="component-tabs-brief">
             <ul class="layui-tab-title">
-              <li class="layui-this">channel结构图</li>
-              <li>channel配置信息</li>
+              <li class="layui-this">账本结构图</li>
+              <li>账本配置信息</li>
               <li>区块列表</li>
-              <li>加入channel的peer节点</li>
-              <li>channel中的chaincode</li>
-              <li>channel中的交易</li>
-              <li>channel中的keyset</li>
-              <li>channel中的签名</li>
+              <li>加入账本的peer节点</li>
+              <li>账本中的链码</li>
+              <li>账本中的交易</li>
+              <li>账本中的KEY</li>
+              <li>账本中的签名</li>
             </ul>
 
 
@@ -226,11 +226,12 @@
                       <div class="layui-card-body">
 
                         <div class="layui-row">
+
                           <div class="layui-col-xs1">
                             <div id="pic_example" style=" width: 500px;height: 600px;"></div>
                           </div>
                           <div class="layui-col-xs11">
-                            <div id="pic_struct" style=" width: 98%;height: 600px;border:1px solid #f2f2f2"></div>
+                            <div id="pic_struct" style=" width: 98%;height: 600px;border:5px solid #f2f2f2"></div>
                           </div>
                         </div>
                       </div>
@@ -348,7 +349,6 @@
                       </div>
 
                       <div class="layui-card-body">
-
 
                           <table id="LAY-chaincodes-list" lay-filter="LAY-chaincodes-list"></table>
                           <script type="text/html" id="table-content-list1">

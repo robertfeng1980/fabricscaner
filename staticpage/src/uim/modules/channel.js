@@ -58,8 +58,8 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
                         ,{field: 'countblocks', title: '区块数',width:'7%'}
                         ,{field: 'chaincodes', title: '链码',width:'7%'}
                         ,{field: 'txcount', title: '交易数',width:'7%'}
-                        ,{field: 'keysets', title: 'keyset',width:'7%'}
-                        ,{field: 'account_certs', title: '签名账号',width:'7%'}
+                        ,{field: 'keysets', title: 'KEY',width:'7%'}
+                        ,{field: 'account_certs', title: '证书',width:'7%'}
                         ,{title: '操作', width:'6%' ,align: 'center', fixed: 'right', toolbar: '#table-content-list'}
                     ]]
                     , page: true
@@ -114,7 +114,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
                     let channel_id = data.channel_id
                     /*获取当前操作的数据记录，注意，这里获取的是整个记录的数据*/
 
-                     if (obj.event == 'detail') {  /*其他表格中单行数据的操作*/
+                     if (obj.event === 'detail') {  /*其他表格中单行数据的操作*/
 
                          //parent.layui.index.openTabsPage('channel/channel_detail.html?pkid=' +pkid, '账本 [ ' + channel_id + ' ] 详情');
 
@@ -789,7 +789,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
 
                         layer.open({
                             type: 2
-                            , title: 'chaincode [ ' + cc_name + ' ] 详情'
+                            , title: '链码 [ ' + cc_name + ' ] 详情'
                             , content: 'chaincode_detail.html?pkid=' +pkid
                             , maxmin: true
                             , area: ['650px', '650px']
@@ -1450,12 +1450,12 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
             }
 
 
-            /**
+            /**************************************************************************************************************************************************
              *
-             *  ===================================通道（账本) 详细信息 (/views/channel/transaction_detail.html)=================================================
+             *  ===================================通道（账本) 详细信息 (/views/channel/transaction_detail.html)==============================================
              *  ===========================================================================================================================================
              *  ===========================================================================================================================================
-             *
+             ***************************************************************************************************************************************************
              */
             , transaction_detail: function () {
 
@@ -1464,7 +1464,6 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
                 // peer节点编号
                 let transaction_id = adminutil.getUrlParam("pkid");
                 let transaction_hash = adminutil.getUrlParam("txhash");
-
 
 
                 // ==========  显示图例和当前组织的网络图谱  ======================
@@ -1585,7 +1584,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
 
 
                         let tx_share_rog = response.tx_share_org;
-
+                        $('#tx_share_org').empty();
                         for (let ind = 0 ; ind<tx_share_rog.length ; ind++ ){
 
                             let share_org = tx_share_rog[ind];
@@ -1594,8 +1593,6 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
 
 
                         }
-
-
 
 
                     }
@@ -1813,8 +1810,8 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
             /**
              *
              *  ===================================keyset详细信息 (/views/channel/keyset_detail.html)=================================================
-             *  ===========================================================================================================================================
-             *  ===========================================================================================================================================
+             *  =====================================================================================================================================
+             *  =====================================================================================================================================
              *
              */
             , keyset_detail: function () {
@@ -2125,6 +2122,18 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
                         $('#keyset_cc_div_element').html(keysetinfo['chaincode']);
                         $('#keyset_tx_hash_div_element').html(keysetinfo['transactionhash']);
                         $('#key_name_div_element').html(keysetinfo['keyname']);
+
+
+                        let key_share_org = response.key_share_org;
+                        $('#key_share_org').empty();
+
+                        for (let ind = 0 ; ind<key_share_org.length ; ind++ ){
+
+                            let share_org = key_share_org[ind];
+                            $('#key_share_org').append(`<button class="layui-btn layuiadmin-btn-list layui-btn-sm" data-type="${share_org['mspid']}">${share_org['commitss']}</button>`);
+
+                        }
+
 
 
 

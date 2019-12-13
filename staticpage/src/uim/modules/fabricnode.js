@@ -59,7 +59,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','channel','fabri
                         , {field: 'requests', title: '请求地址'}
                         , {field: 'events', title: '事件地址'}
                         , {field: 'serverhostname', title: 'peer服务器主机名'}
-                        , {field: 'runtype', title: '运行方式'}
+                        , {field: 'runtype', title: '运行方式' , templet:'#runtypeTpl'}
                         , {title: '操作', width: 160, align: 'center', fixed: 'right', toolbar: '#table-content-list'}
                     ]]
                     , page: true
