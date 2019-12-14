@@ -1,4 +1,5 @@
-/*
+/**
+
  Copyright ONECHAIN 2019-2021 All Rights Reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,15 +13,12 @@
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
- */
 
-/**
- * Created by fengxiang on 2017/6/21.
- *
- *
- * 关于数据库的调用有一个奇葩的属性   http://www.cnblogs.com/youlechang123/p/6321757.html
- * 没有时间讨论了,暂时先记录下来吧!
- *
+ @Name：fabricscaner
+ @Author：robert.feng(老冯)
+ @Site：http://www.fabricscaner.com  https://www.blockchainbrother.com/
+ @License：APACHE2.0
+
  */
 
 

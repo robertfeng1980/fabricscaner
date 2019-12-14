@@ -1,4 +1,5 @@
-/*
+/**
+
  Copyright ONECHAIN 2019-2021 All Rights Reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,9 +13,13 @@
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
+
+ @Name：fabricscaner
+ @Author：robert.feng(老冯)
+ @Site：http://www.fabricscaner.com  https://www.blockchainbrother.com/
+ @License：APACHE2.0
+
  */
-
-
 var bcexplorerservice = require('./bcexplorerservice');
 
 

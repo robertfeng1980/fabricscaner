@@ -1,5 +1,6 @@
-/*
- Copyright ONECHAIN 2017 All Rights Reserved.
+/**
+
+ Copyright ONECHAIN 2019-2021 All Rights Reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -12,8 +13,13 @@
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
- */
 
+ @Name：fabricscaner
+ @Author：robert.feng(老冯)
+ @Site：http://www.fabricscaner.com  https://www.blockchainbrother.com/
+ @License：APACHE2.0
+
+ */
 var sql=require('../db/mysqlservice.js')
 var query=require('../app/query.js')
 var helper=require('../app/helper.js')
