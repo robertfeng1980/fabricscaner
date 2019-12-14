@@ -30,7 +30,7 @@ var mysql = require('../db/mysqlservice4pool')
 //==========    saveRow() ===========
 
 
-async  function  save() {
+/*async  function  save() {
 
     var sys_users = {
 
@@ -41,7 +41,7 @@ async  function  save() {
     await  mysql.saveRow('sys_users',sys_users);
 }
 
-save();
+save();*/
 
 
 
@@ -266,9 +266,8 @@ mysql.getSQL2Map( 'select * from bc_company where id = 389','id'  ).then( update
 
 
 /////// ===================   getSQL2Map  ===================
-
 /*
-mysql.getSQL2Map4Arr( 'select * from bc_company where id = 389','id'  ).then( updaterows=>{
+mysql.getSQL2Map4Arr( 'select * from  channel_ref_instantiatedcc ','chaincodename'  ).then( updaterows=>{
 
     console.log( `the getSQL2Map4Arr is ${ JSON.stringify(updaterows.get(389)) } ` )
 
@@ -281,6 +280,32 @@ mysql.getSQL2Map4Arr( 'select * from bc_company where id = 389','id'  ).then( up
     console.log(err)
     mysql.closeconnection()
 
-} )
-*/
+} )*//*
+mysql.getSQL2Map4Arr( 'select * from  channel_ref_instantiatedcc ','chaincode_name'  ).then( updaterows=>{
 
+    console.log( `the getSQL2Map4Arr is ${ JSON.stringify(updaterows.get(389)) } ` )
+
+}).then(()=>{
+
+    mysql.closeconnection()
+
+}).catch( err=>{
+
+    console.log(err)
+    mysql.closeconnection()
+
+} )*/
+
+
+
+async  function  getSQL2Map4Arr() {
+
+
+    let result =   await  mysql.getSQL2Map4Arr('select * from  channel_ref_instantiatedcc ','chaincode_name');
+
+    console.log( `the getSQL2Map4Arr is ${ JSON.stringify(result) } ` )
+
+}
+
+
+getSQL2Map4Arr();

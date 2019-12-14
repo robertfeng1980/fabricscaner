@@ -20,7 +20,7 @@ var schedule = require("node-schedule");
  *
  */
 
-//app.use('/staticpage/src/json',express.static('staticpage/src/json'));
+app.use('/staticpage/src/json',express.static('staticpage/src/json'));
 
 app.use('/staticpage/src/source',express.static('staticpage/src/source'));
 app.use('/staticpage/src/uim',express.static('staticpage/src/uim'));

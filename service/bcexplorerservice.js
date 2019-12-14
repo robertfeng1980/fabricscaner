@@ -168,7 +168,7 @@ let getPeer = function (orgname, peername) {
  *
  * 获取fabric网络结构图
  *
- * @returns {Promise<{orgs, orderers}>}
+ *
  *
  */
 let get_fabric_network_struct = async ()=>{
@@ -197,10 +197,232 @@ let get_fabric_network_struct = async ()=>{
     let sql_channelinfo = ` select blocks, pkid as id , comments  ,channel_id,originate_dt,"channel" as flag from  channel   `;
     let sql_channelinfo_map = await mysql.getSQL2Map(sql_channelinfo,"channel_id");
 
-    let sql_cc_install = `select pkid as id , "chaincodeinstall" as flag , comments ,name, version ,peer_name from  chaincodes where ccstatus = 0  `;
+    let sql_cc_install = `select pkid as id , "chaincodeinstall" as flag , comments ,name, version ,peer_name from  chaincodes where  ccstatus = 0  `;
     let sql_cc_install_map = await mysql.getSQL2Map4Arr(sql_cc_install,"peer_name");
 
-    let sql_cc_instance = ` select pkid as id , "chaincodeinstance" as flag , comments ,name, version , channel_id,peer_name  from  chaincodes where ccstatus = 1  `;
+    let sql_cc_instance = ` select pkid as id , "chaincodeinstance" as flag , comments ,name, version , channel_id,peer_name  from  chaincodes where  ccstatus = 1  `;
+    let sql_cc_instance_info = await mysql.getRowsByFullSQl(sql_cc_instance);
+    let sql_cc_instance_map = await  mysql.getSQL2Map('select CONCAT(name,version) as searchindex, pkid as id , "chaincodeinstance" as flag , comments ,name, version , channel_id,peer_name  from  chaincodes where  ccstatus = 1  ','searchindex');
+
+    let sql_tx_count = `select channel_id , count(pkid) as txnums from transactions group by channel_id   `;
+    let sql_tx_count_map = await mysql.getSQL2Map(sql_tx_count,"channel_id");
+
+    //=====
+
+    let sql_keyset_count = `select channel_id , count(pkid) as keysetnums from keyset group by channel_id  `;
+    let sql_keyset_count_map = await mysql.getSQL2Map(sql_keyset_count,"channel_id");
+
+
+    //instance的chainchde和channel的关系
+    //let ccname_ref_channel =   await  mysql.getSQL2Map4Arr('select * from  channel_ref_instantiatedcc ','chaincode_name');
+
+    let channel_include_instancecc =   await  mysql.getSQL2Map4Arr('select  CONCAT(chaincode_name,chaincode_version) as searchindex , cerfinstance.* from  channel_ref_instantiatedcc cerfinstance','channel_id');
+
+    logger.debug(JSON.stringify(channel_include_instancecc));
+
+
+    //将chaincode 按照peer 和 channel分成数组
+    let cc_instance_map = {};
+
+    if( sql_cc_instance_info !== null && sql_cc_instance_info!== '' || sql_cc_instance_info !== undefined ){
+
+
+        for( let ccinstanceind = 0 ; ccinstanceind < sql_cc_instance_info.length;ccinstanceind++ ){
+
+            let cc_instance = sql_cc_instance_info[ccinstanceind];
+            let cc_peer = cc_instance['peer_name'];
+            /**
+             * 在最新数据库中已经不存在channel_id字段，所以这里需要修改
+             */
+            let cc_channel_id = cc_instance['channel_id'];
+
+            let cc_peer_channels = cc_instance_map[cc_peer];
+
+            if( cc_peer_channels === '' || cc_peer_channels === '' || cc_peer_channels === undefined  ){
+                cc_peer_channels = {};
+            }
+
+            let cc_peer_channels_cc = cc_peer_channels[cc_channel_id];
+
+            if( cc_peer_channels_cc === '' || cc_peer_channels_cc === '' || cc_peer_channels_cc === undefined  ){
+                cc_peer_channels_cc = [];
+
+            }
+
+            cc_peer_channels_cc.push(cc_instance);
+            cc_peer_channels[cc_channel_id] = cc_peer_channels_cc;
+
+            cc_instance_map[cc_peer] = cc_peer_channels;
+
+        }
+
+
+    }
+
+
+
+    /*let sql_chaincodeinfo = `select  peer_name,channel_id,languages,name,version,path,ccstatus from  chaincodes`;
+    let sql_chaincodeinfo_info = await mysql.getRowsBySQl( sql_chaincodeinfo , '' , '' , '');*/
+
+
+    logger.debug(JSON.stringify(sql_channelinfo_map));
+
+
+    let count_info = sql_count_info[0];
+    count_info['org'] = sql_org_info.length;
+    count_info['orderer'] = sql_orderer_info == null ? 0 : sql_orderer_info.length;
+
+    for( let oind = 0 ; oind < sql_org_info.length;oind++){
+
+        let curr_orgmspid = sql_org_info[oind]['mspid'];
+        let org_peers = sql_peer_map[curr_orgmspid];
+        if( org_peers !== null && org_peers!=='' && org_peers!==undefined ){
+
+
+            //设置每个peer的channel
+            for( let pind = 0 ; pind<org_peers.length ;  pind++ ){
+
+                let peer_name = org_peers[pind]['name'];
+                let peer_channels = sql_channel_map[peer_name];
+                let peer = org_peers[pind];
+
+
+                //绑定peer节点中包含的channel中的chaincode信息
+                if( peer_channels !== null && peer_channels!=='' && peer_channels!==undefined ) {
+
+                    //设置每个peer的channel
+                    for (let channelind = 0; channelind < peer_channels.length; channelind++) {
+
+                        let channel = peer_channels[channelind];
+                        let channel_id = channel['channel_id']
+
+                        let channel_instace_cc_full = [];
+                        let channel_instace_cc = channel_include_instancecc[channel_id] ;
+
+                        /*if( cc_instance_map[peer_name] !== null && cc_instance_map[peer_name] !== undefined ){
+
+                            let dd  = cc_instance_map[peer_name];
+                            channel_instace_cc = cc_instance_map[peer_name][channel_id];
+                            channel['instanceccs'] = channel_instace_cc;
+
+                        }*/
+
+
+                        if(  channel_instace_cc !== null  &&  channel_instace_cc  !== undefined ){
+
+
+                            for(  let channelind = 0 ; channelind < channel_instace_cc.length;channelind++  ){
+
+                                let ccinstance_full = sql_cc_instance_map[channel_instace_cc[channelind]['searchindex']];
+
+                                channel_instace_cc_full.push(ccinstance_full);
+                            }
+
+                            channel['instanceccs'] = channel_instace_cc_full;
+
+                        }
+
+
+                        let channel_detail = sql_channelinfo_map[channel_id];
+                        channel['id'] = channel_detail['id'];
+                        channel['blocknumbers'] = channel_detail['blocks'];
+                        channel['comments'] = channel_detail['comments'];
+
+                        channel['txnums'] = sql_tx_count_map[channel_id]['txnums'];
+
+                        let parm_channel_id =  sql_keyset_count_map[channel_id];
+                        if( parm_channel_id !== null && parm_channel_id !== '' && parm_channel_id !== undefined  )
+                            channel['keysetnums'] = parm_channel_id['keysetnums'];
+
+
+                    }
+                }
+
+                //设置peer的channel属性
+                peer['channels']=peer_channels;
+
+                //设置peer的install状态chaincode属性。
+                peer['installcc'] = sql_cc_install_map[peer_name];
+
+
+
+
+
+            }
+
+            sql_org_info[oind]['peers'] = org_peers;
+
+
+        }
+
+    }
+
+
+    let pic_struct = {'orgs': sql_org_info, "orderers": sql_orderer_info};
+
+
+    let http_reponse = {
+        "code": 0
+        , "msg": ""
+        , "count_info":count_info
+        , "pic_struct": pic_struct
+    }
+
+    logger.debug(JSON.stringify(http_reponse));
+    return pic_struct;
+
+}
+
+
+/**
+ *
+ * 获取fabric网络中某个组织的网络结构图
+ *
+ * @returns
+ *
+ */
+let get_fabric_org_struct = async (mspid)=>{
+
+    //let sql_count = `select sum(fabric_cas) as fabric_ca ,sum(peers) as peer ,sum(channels) as channel ,sum(blocks) as block ,sum(chaincodes) as chaincodes,sum(txcount) as tx,sum(keysets) as keyset,sum(account_certs) as acccount from organization  `;
+
+    let sql_count = `select  fabric_cas as fabric_ca , peers as peer , channels as channel , blocks as blocks , chaincodes as chaincodes, txcount as tx, keysets as keyset, account_certs as acccount from fabricnetwork where pkid = 1 `;
+
+    let sql_count_info = await mysql.getRowsByFullSQl(sql_count);
+
+    let sql_org = ` select pkid as id ,name,mspid , comments , "org" as flag from organization  where  mspid in (  select mspid  from  org_ref_channel  where channel_id in ( select  channel_id from org_ref_channel where mspid = '${mspid}')     )    `;
+    let sql_org_info = await mysql.getRowsByFullSQl(sql_org);
+
+    let sql_ca = ` select pkid as id  , mspid,org_name,ca_name ,"fabric_ca" as flag from fabricca  where mspid = ${mspid} `;
+    let sql_ca_info = await mysql.getRowsByFullSQl(sql_ca);
+
+    let sql_orderer = `select  pkid as id ,orderer_mspid as name ,"orderer" as flag from  orderer  `;
+    let sql_orderer_info = await mysql.getRowsByFullSQl(sql_orderer);
+
+    let sql_peer = ` select  pkid as id ,mspid,name ,"peer" as flag from  peer where mspid = ${mspid}  `;
+    let sql_peer_map = await mysql.getSQL2Map4Arr(sql_peer,"mspid");
+
+    let sql_channel = ` select  peer_name,channel_id,"channel" as flag from  peer_ref_channel where peer_name in ( select name from  peer where mspid = ${mspid} )  `;
+    let sql_channel_map = await mysql.getSQL2Map4Arr(sql_channel,"peer_name");
+
+    let sql_channelinfo = ` select blocks, pkid as id , comments  ,channel_id,originate_dt,"channel" as flag from  channel  where  channel_id  in ( select  channel_id from org_ref_channel where mspid = '${mspid}')   `;
+    let sql_channelinfo_map = await mysql.getSQL2Map(sql_channelinfo,"channel_id");
+
+
+    /**
+     *   let sql_cc_install = `select pkid as id , "chaincodeinstall" as flag , comments ,name, version ,peer_name from  chaincodes where  name not in (  select chaincode_name from channel_ref_instantiatedcc where channel_id in ( select  channel_id from org_ref_channel where mspid = '${mspid}') ) )    `;
+     *    let sql_cc_install_map = await mysql.getSQL2Map4Arr(sql_cc_install,"peer_name");
+     *
+     *   let sql_cc_instance = ` select pkid as id , "chaincodeinstance" as flag , comments ,name, version , channel_id,peer_name  from  chaincodes where name  in (  select chaincode_name from channel_ref_instantiatedcc where channel_id in ( select  channel_id from org_ref_channel where mspid = '${mspid}')   )  )  `;
+     *   let sql_cc_instance_info = await mysql.getRowsByFullSQl(sql_cc_instance);
+     *
+     * @type {string}
+     */
+
+
+    let sql_cc_install = `select pkid as id , "chaincodeinstall" as flag , comments ,name, version ,peer_name from  chaincodes where  name not in (  select chaincode_name from channel_ref_instantiatedcc where channel_id in ( select  channel_id from org_ref_channel where mspid = '${mspid}') ) )    `;
+    let sql_cc_install_map = await mysql.getSQL2Map4Arr(sql_cc_install,"peer_name");
+
+    let sql_cc_instance = ` select pkid as id , "chaincodeinstance" as flag , comments ,name, version , channel_id,peer_name  from  chaincodes where name  in (  select chaincode_name from channel_ref_instantiatedcc where channel_id in ( select  channel_id from org_ref_channel where mspid = '${mspid}')   )  )  `;
     let sql_cc_instance_info = await mysql.getRowsByFullSQl(sql_cc_instance);
 
 
@@ -355,7 +577,7 @@ let get_fabric_network_struct = async ()=>{
  * 通道网络结构图
  *
  * @param channel_id
- * @returns {Promise<{orgs, orderers}>}
+ *
  *
  */
 let get_fabric_channel_struct = async ( channel_id )=>{
@@ -536,7 +758,7 @@ let get_fabric_channel_struct = async ( channel_id )=>{
  * 区块网络结构图
  *
  * @param channel_id
- * @returns {Promise<{orgs, orderers}>}
+ *
  *
  */
 let get_fabric_block_struct = async ( blockpkid )=>{
@@ -716,7 +938,7 @@ let get_fabric_block_struct = async ( blockpkid )=>{
  * chaincode网络结构图
  *
  * @param channel_id
- * @returns {Promise<{orgs, orderers}>}
+ *
  *
  */
 let get_fabric_cc_struct = async ( chaincodes_pkid )=>{
@@ -898,7 +1120,7 @@ let get_fabric_cc_struct = async ( chaincodes_pkid )=>{
  * 交易网络结构图
  *
  * @param channel_id
- * @returns {Promise<{orgs, orderers}>}
+ *
  *
  */
 let get_fabric_tx_struct = async ( txpkid )=>{
@@ -1080,7 +1302,7 @@ let get_fabric_tx_struct = async ( txpkid )=>{
  * 交易网络结构图
  *
  * @param channel_id
- * @returns {Promise<{orgs, orderers}>}
+ *
  *
  */
 let get_fabric_keyset_struct = async ( keysetpkid )=>{
@@ -3111,6 +3333,7 @@ exports.get_fabric_block_struct = get_fabric_block_struct;
 exports.get_fabric_cc_struct = get_fabric_cc_struct;
 exports.get_fabric_tx_struct = get_fabric_tx_struct;
 exports.get_fabric_keyset_struct = get_fabric_keyset_struct;
+exports.get_fabric_org_struct = get_fabric_org_struct;
 
 
 

@@ -1,90 +1,260 @@
 {
   "code": 0,
   "msg": "",
-  "count_info":{"org":3,"orderer":1,"fabric_ca":1,"peer":3,"channel":2,"blocks":20,"chaincodes":12,"tx":113,"keyset":121,"acccount":7},
+  "count_info": {
+    "fabric_ca": 0,
+    "peer": 1,
+    "channel": 7,
+    "blocks": 42,
+    "chaincodes": 10,
+    "tx": 42,
+    "keyset": 12,
+    "acccount": 7,
+    "org": 4,
+    "orderer": 0
+  },
   "pic_struct": {
     "orgs": [
       {
-        "id": 3,
-        "flag": "org",
+        "id": 1,
         "name": "org1",
-        "mspid": "Org1Msp",
+        "mspid": "Org1MSP",
+        "comments": "银行",
+        "flag": "org",
         "peers": [
           {
-            "id": 1,
-            "flag": "peer",
+            "id": 3,
+            "mspid": "Org1MSP",
             "name": "peer0",
-            "peerid": "peer0.org1.qklszzn.com",
+            "flag": "peer",
             "channels": [
               {
-                "id": 3,
+                "peer_name": "peer0",
+                "channel_id": "robertfengchannel",
                 "flag": "channel",
-                "channel_id": "fabrictestchannel",
-                "blocks": 110,
-                "instanceccs": [
-                  {
-                    "id": 3,
-                    "flag": "chaincode",
-                    "name": "fb14_c2c_study",
-                    "version": "1.0"
-                  }
-                ]
+                "id": 450,
+                "blocknumbers": 0,
+                "comments": "robertfengchannel_test",
+                "txnums": 1
               },
               {
-                "id": 3,
+                "peer_name": "peer0",
+                "channel_id": "robertfengchannel1",
                 "flag": "channel",
+                "id": 451,
+                "blocknumbers": 0,
+                "comments": "robertfengchannel1",
+                "txnums": 1
+              },
+              {
+                "peer_name": "peer0",
+                "channel_id": "robertfengchannel2",
+                "flag": "channel",
+                "id": 452,
+                "blocknumbers": 0,
+                "comments": "robertfengchannel2",
+                "txnums": 1
+              },
+              {
+                "peer_name": "peer0",
+                "channel_id": "robertfengchannel3",
+                "flag": "channel",
+                "id": 453,
+                "blocknumbers": 0,
+                "comments": "robertfengchannel3",
+                "txnums": 1
+              },
+              {
+                "peer_name": "peer0",
                 "channel_id": "mytestchannel",
-                "blocks": 110,
+                "flag": "channel",
                 "instanceccs": [
                   {
-                    "id": 3,
-                    "flag": "chaincode",
-                    "name": "fb14_c2c_study1",
-                    "version": "1.0"
+                    "searchindex": "fabricscan_cc_09241.4",
+                    "id": 1228,
+                    "flag": "chaincodeinstance",
+                    "comments": "fabricscan_cc_0924",
+                    "name": "fabricscan_cc_0924",
+                    "version": "1.4",
+                    "channel_id": "",
+                    "peer_name": "peer0"
+                  },
+                  {
+                    "searchindex": "fb14_cc_study1.0",
+                    "id": 1230,
+                    "flag": "chaincodeinstance",
+                    "comments": "fb14_cc_study",
+                    "name": "fb14_cc_study",
+                    "version": "1.0",
+                    "channel_id": "",
+                    "peer_name": "peer0"
+                  },
+                  {
+                    "searchindex": "fb14_cc_study_cq_1026_1_and1.0",
+                    "id": 1232,
+                    "flag": "chaincodeinstance",
+                    "comments": "fb14_cc_study_cq_1026_1_and",
+                    "name": "fb14_cc_study_cq_1026_1_and",
+                    "version": "1.0",
+                    "channel_id": "",
+                    "peer_name": "peer0"
+                  },
+                  {
+                    "searchindex": "fb14_cc_study_cq_1026and1.0",
+                    "id": 1233,
+                    "flag": "chaincodeinstance",
+                    "comments": "fb14_cc_study_cq_1026and",
+                    "name": "fb14_cc_study_cq_1026and",
+                    "version": "1.0",
+                    "channel_id": "",
+                    "peer_name": "peer0"
+                  },
+                  {
+                    "searchindex": "fb14_cc_study_net_09231.0",
+                    "id": 1235,
+                    "flag": "chaincodeinstance",
+                    "comments": "fb14_cc_study_net_0923",
+                    "name": "fb14_cc_study_net_0923",
+                    "version": "1.0",
+                    "channel_id": "",
+                    "peer_name": "peer0"
+                  },
+                  {
+                    "searchindex": "fb14_cc_study_net_0923_11.0",
+                    "id": 1236,
+                    "flag": "chaincodeinstance",
+                    "comments": "fb14_cc_study_net_0923_1",
+                    "name": "fb14_cc_study_net_0923_1",
+                    "version": "1.0",
+                    "channel_id": "",
+                    "peer_name": "peer0"
+                  },
+                  {
+                    "searchindex": "fb14_test_cc09231.0",
+                    "id": 1237,
+                    "flag": "chaincodeinstance",
+                    "comments": "fb14_test_cc0923",
+                    "name": "fb14_test_cc0923",
+                    "version": "1.0",
+                    "channel_id": "",
+                    "peer_name": "peer0"
                   }
-                ]
+                ],
+                "id": 454,
+                "blocknumbers": 30,
+                "comments": "mytestchannel",
+                "txnums": 31,
+                "keysetnums": 14
+              },
+              {
+                "peer_name": "peer0",
+                "channel_id": "robertfeng1and2",
+                "flag": "channel",
+                "id": 455,
+                "blocknumbers": 0,
+                "comments": "robertfeng1and2",
+                "txnums": 1
+              },
+              {
+                "peer_name": "peer0",
+                "channel_id": "robertfeng1and2new",
+                "flag": "channel",
+                "instanceccs": [
+                  {
+                    "searchindex": "fabricscan_cc_09241.3",
+                    "id": 1227,
+                    "flag": "chaincodeinstance",
+                    "comments": "fabricscan_cc_0924",
+                    "name": "fabricscan_cc_0924",
+                    "version": "1.3",
+                    "channel_id": "",
+                    "peer_name": "peer0"
+                  },
+                  {
+                    "searchindex": "fabricscan_cc_1a2_09241.0",
+                    "id": 1229,
+                    "flag": "chaincodeinstance",
+                    "comments": "fabricscan_cc_1a2_0924",
+                    "name": "fabricscan_cc_1a2_0924",
+                    "version": "1.0",
+                    "channel_id": "",
+                    "peer_name": "peer0"
+                  }
+                ],
+                "id": 456,
+                "blocknumbers": 5,
+                "comments": "robertfeng1and2new",
+                "txnums": 6,
+                "keysetnums": 3
               }
             ],
             "installcc": [
               {
-                "id": 4,
-                "flag": "chaincode",
-                "name": "fb14_c2c1_study2",
-                "version": "1.0"
+                "id": 1224,
+                "flag": "chaincodeinstall",
+                "comments": "fabricscan_cc_0924",
+                "name": "fabricscan_cc_0924",
+                "version": "1.0",
+                "peer_name": "peer0"
+              },
+              {
+                "id": 1225,
+                "flag": "chaincodeinstall",
+                "comments": "fabricscan_cc_0924",
+                "name": "fabricscan_cc_0924",
+                "version": "1.1",
+                "peer_name": "peer0"
+              },
+              {
+                "id": 1226,
+                "flag": "chaincodeinstall",
+                "comments": "fabricscan_cc_0924",
+                "name": "fabricscan_cc_0924",
+                "version": "1.2",
+                "peer_name": "peer0"
+              },
+              {
+                "id": 1231,
+                "flag": "chaincodeinstall",
+                "comments": "fb14_cc_study_26",
+                "name": "fb14_cc_study_26",
+                "version": "1.0",
+                "peer_name": "peer0"
+              },
+              {
+                "id": 1234,
+                "flag": "chaincodeinstall",
+                "comments": "fb14_cc_study_net_0716",
+                "name": "fb14_cc_study_net_0716",
+                "version": "1.0",
+                "peer_name": "peer0"
               }
             ]
-          }
-        ],
-        "fabric-ca": [
-          {
-            "id": 3,
-            "name": "fabric-ca",
-            "flag": "fabric_ca"
           }
         ]
       },
       {
         "id": 2,
-        "flag": "org",
         "name": "org2",
-        "mspid": "Org2Msp"
+        "mspid": "Org2MSP",
+        "comments": "企业",
+        "flag": "org"
       },
       {
         "id": 3,
-        "flag": "org",
         "name": "org3",
-        "mspid": "Org3Msp"
+        "mspid": "Org3MSP",
+        "comments": "机构",
+        "flag": "org"
+      },
+      {
+        "id": 4,
+        "name": "org4",
+        "mspid": "Org4MSP",
+        "comments": "监管方",
+        "flag": "org"
       }
     ],
-    "orderers": [
-      {
-        "id": 3,
-        "flag": "orderer",
-        "name": "ordererorg1"
-
-      }
-    ]
+    "orderers": []
   }
 }
-
-

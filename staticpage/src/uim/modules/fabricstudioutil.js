@@ -16,7 +16,8 @@
 
  @Name：fabricscaner
  @Author：robert.feng(老冯)
- @Site：http://www.fabricscaner.com  https://www.blockchainbrother.com/
+ @Site：http://www.fabricscaner.com  https://www.blockchainbrother.com
+ @email: 411321681@qq.com
  @License：APACHE2.0
 
  */
@@ -28,8 +29,6 @@ layui.define(['table', 'form', 'adminutil'], function (exports) {
         , admin = layui.admin
         , adminutil = layui.adminutil
         , fabricnetwork1 = layui.fabricnetwork
-
-
 
 
         , fabricstudioutil =
@@ -71,21 +70,21 @@ layui.define(['table', 'form', 'adminutil'], function (exports) {
                 let y = -mynetwork1.clientHeight + 50;
                 let step = 80;
 
-                nodes.push({id: 1000, x: x, y: y, label: 'Org1Msp', group: 'org', value: 1, fixed: true, physics: true});
-                nodes.push({id: 1001, x: x, y: y + step, label: 'orderer', group: 'orderer', value: 1, fixed: true, physics: false});
-                nodes.push({id: 1002, x: x, y: y + 2 * step,label: 'peer', group: 'peer', value: 1, fixed: true, physics: false});
-                nodes.push({id: 1003, x: x, y: y + 3 * step, label: 'fabric-ca', group: 'fabric_ca', value: 1, fixed: true, physics: false});
-                nodes.push({id: 1004, x: x, y: y + 4 * step, label: 'channel', group: 'channel', value: 1, fixed: true, physics: false});
+                nodes.push({id: 1000, x: x, y: y, label: '组织', group: 'org', value: 1, fixed: true, physics: true});
+                nodes.push({id: 1001, x: x, y: y + step, label: 'ORDERER', group: 'orderer', value: 1, fixed: true, physics: false});
+                nodes.push({id: 1002, x: x, y: y + 2 * step,label: 'PEER', group: 'peer', value: 1, fixed: true, physics: false});
+                nodes.push({id: 1003, x: x, y: y + 3 * step, label: 'CA', group: 'fabric_ca', value: 1, fixed: true, physics: false});
+                nodes.push({id: 1004, x: x, y: y + 4 * step, label: '账本', group: 'channel', value: 1, fixed: true, physics: false});
 
-                nodes.push({id: 10021, x: x, y: y + 5 * step, label: 'block', group: 'block', value: 1, fixed: true, physics: false});
+                nodes.push({id: 10021, x: x, y: y + 5 * step, label: '区块', group: 'block', value: 1, fixed: true, physics: false});
 
-                nodes.push({id: 1005, x: x, y: y + 6 * step, label: 'chaincode(install)', group: 'chaincodeinstall', value: 1, fixed: true, physics: false});
-                nodes.push({id: 1006, x: x, y: y + 7 * step, label: 'chaincode(instance)', group: 'chaincodeinstance', value: 1, fixed: true, physics: false});
+                nodes.push({id: 1005, x: x, y: y + 6 * step, label: '链码(install)', group: 'chaincodeinstall', value: 1, fixed: true, physics: false});
+                nodes.push({id: 1006, x: x, y: y + 7 * step, label: '链码(instance)', group: 'chaincodeinstance', value: 1, fixed: true, physics: false});
 
-                nodes.push({id: 1007, x: x, y: y + 8 * step, label: 'account', group: 'account', value: 1, fixed: true, physics: false});
+                nodes.push({id: 1007, x: x, y: y + 8 * step, label: '证书', group: 'account', value: 1, fixed: true, physics: false});
 
-                nodes.push({id: 1008, x: x, y: y + 9 * step, label: 'transaction', group: 'transaction', value: 1, fixed: true, physics: false});
-                nodes.push({id: 1009, x: x, y: y + 10 * step, label: 'keyset', group: 'keyset', value: 1, fixed: true, physics: false});
+                nodes.push({id: 1008, x: x, y: y + 9 * step, label: '交易', group: 'transaction', value: 1, fixed: true, physics: false});
+                nodes.push({id: 1009, x: x, y: y + 10 * step, label: 'KEY', group: 'keyset', value: 1, fixed: true, physics: false});
 
 
                 let container1 = document.getElementById(divelementid);
@@ -192,6 +191,12 @@ layui.define(['table', 'form', 'adminutil'], function (exports) {
                                /*nodes.push({id: "installccs", label:"状态为install的chaincode", group: "chaincode" });
                                edges.push({from: peer_pic_id, to: "installccs", length: LENGTH_MAIN-LENGTH_SUB*2, width: WIDTH_SCALE *4 });*/
 
+
+                               //为了显示更加清晰，将所有的install的cc归结到一个总分类
+                               nodes.push({id: 'installccallid', label: `install链码组`, group: 'chaincodeinstall'});
+                               edges.push({from: peer_pic_id, to: 'installccallid', length: LENGTH_MAIN-LENGTH_SUB*3, width: WIDTH_SCALE * 2});
+
+
                                let installccs = peer['installcc'];
                                if( installccs !== null && installccs !== undefined && installccs !== '' ){
 
@@ -201,12 +206,20 @@ layui.define(['table', 'form', 'adminutil'], function (exports) {
                                        let installcc_pic_id = installcc['id']+"##"+"chaincode"+"##"+installcc['name']+ "##" + adminutil.getRandInt(1,10000)
 
                                        nodes.push( { id: installcc_pic_id, label:installcc['comments'], group:installcc['flag'] } );
-                                       edges.push({from: peer_pic_id, to: installcc_pic_id, length: LENGTH_MAIN-LENGTH_SUB*3, width: WIDTH_SCALE * 3 });
+                                       edges.push({from: 'installccallid', to: installcc_pic_id, length: LENGTH_MAIN-LENGTH_SUB*3, width: WIDTH_SCALE * 3 });
 
                                    }
 
 
                                }
+
+
+
+
+                               //为了显示更加清晰，将所有的channel的cc归结到一个总分类
+                               nodes.push({id: 'channelallid', label: `channel组`, group: 'channel'});
+                               edges.push({from: peer_pic_id, to: 'channelallid', length: LENGTH_MAIN-LENGTH_SUB*3, width: WIDTH_SCALE * 2});
+
 
                                //channel处理
                                let channels = peer['channels'];
@@ -221,7 +234,7 @@ layui.define(['table', 'form', 'adminutil'], function (exports) {
                                        let channel_pic_id = channel['id'] + "##" + "channel" + "##" + channel['channel_id']+ "##" + adminutil.getRandInt(1,10000);
 
                                        nodes.push({id: channel_pic_id, label: channel['comments'], group: channel['flag']});
-                                       edges.push({from: peer_pic_id, to: channel_pic_id, length: LENGTH_MAIN-LENGTH_SUB*4, width: WIDTH_SCALE * 2});
+                                       edges.push({from: "channelallid", to: channel_pic_id, length: LENGTH_MAIN-LENGTH_SUB*4, width: WIDTH_SCALE * 2});
 
 
                                        //如果存在通道的总区块数，则显示
@@ -250,18 +263,12 @@ layui.define(['table', 'form', 'adminutil'], function (exports) {
                                                    nodes.push({id: channel_block_tx_keysets_pic_id, label: `keyset总数[${channel_block_tx_keysets}]`, group: 'keyset'});
                                                    edges.push({from: channel_block_tx_keysets_pic_id, to: channel_block_txs_pic_id, length: LENGTH_MAIN-LENGTH_SUB*6, width: WIDTH_SCALE * 2});
 
-
                                                    //如果存在keyset的总数，则显示
-
 
 
                                                }
 
-
-
-
                                            }
-
 
                                        }
 

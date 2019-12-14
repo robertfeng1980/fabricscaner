@@ -164,7 +164,7 @@ router.get('/organization_detail.json', async function (req, res) {
 
     let count_info = sql_org_info;
 
-    let pic_struct = await bcexplorerservice.get_fabric_network_struct();
+    let pic_struct = await bcexplorerservice.get_fabric_org_struct(mspid);
 
 
     res.send({
