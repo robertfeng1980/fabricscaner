@@ -1,3 +1,18 @@
+/*
+ Copyright ONECHAIN 2019-2021 All Rights Reserved.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
 var log4js = require('log4js');
 var express = require('express');
 var router = express.Router();
@@ -178,7 +193,7 @@ router.get('/accounts_list.json', async function (req, res) {
     logger.debug(searchparm);
     logger.debug(where);
 
-    let sql = `select  pkid,mspid,name,account_type,certs_md5, DATE_FORMAT(createdt,'%Y-%m-%d %H:%i:%S') as createdt , DATE_FORMAT(effective_dt,'%Y-%m-%d %H:%i:%S') as effective_dt , DATE_FORMAT(invalid_dt,'%Y-%m-%d %H:%i:%S') as invalid_dt from accounts  where ${where} `;
+    let sql = `select  comments,pkid,mspid,name,account_type,certs_md5, DATE_FORMAT(createdt,'%Y-%m-%d %H:%i:%S') as createdt , DATE_FORMAT(effective_dt,'%Y-%m-%d %H:%i:%S') as effective_dt , DATE_FORMAT(invalid_dt,'%Y-%m-%d %H:%i:%S') as invalid_dt from accounts  where ${where} `;
     let sql_count = ` select count(pkid) as nums from  accounts  where ${where} `;
 
     let accounts_counts = await mysql.getRowCount4Sql(sql_count, 'nums');
@@ -396,7 +411,7 @@ router.get('/chaincodes_detail.json', async function (req, res) {
 
 
 
-    let sql_org = ` select pkid as id ,name,mspid , commitss , "org" as flag from organization where  mspid in ( select mspid from org_ref_channel where channel_id = '${channel_id}' )  `;
+    let sql_org = ` select pkid as id ,name,mspid , comments , "org" as flag from organization where  mspid in ( select mspid from org_ref_channel where channel_id = '${channel_id}' )  `;
     let sql_org_info = await mysql.getRowsByFullSQl(sql_org);
 
 
@@ -518,7 +533,7 @@ router.get('/chaincodes_list.json', async function (req, res) {
     logger.debug(searchparm);
     logger.debug(where);
 
-    let sql = `select  pkid, commitss,DATE_FORMAT(cccreatedt,'%Y-%m-%d %H:%i:%S') as  cccreatedt, peer_name,channel_id,languages,name,version,path,escc,vscc,peers,txcount,keysets,account_certs,ccstatus from chaincodes where  ${where}  `;
+    let sql = `select  pkid, comments,DATE_FORMAT(cccreatedt,'%Y-%m-%d %H:%i:%S') as  cccreatedt, peer_name,channel_id,languages,name,version,path,escc,vscc,peers,txcount,keysets,account_certs,ccstatus from chaincodes where  ${where}  `;
     let sql_count = ` select count(pkid) as nums from  chaincodes  where ${where} `;
 
    /* if(  req.query.mspid != undefined && req.query.mspid != ''  && req.query.mspid !== '-1'){
@@ -867,7 +882,7 @@ router.get('/channel_list.json', async function (req, res) {
     logger.debug(searchparm);
     logger.debug(where);
 
-    let sql = `select   pkid,channel_id, commitss,DATE_FORMAT(originate_dt,'%Y-%m-%d %H:%i:%S') as originate_dt,blocks,countblocks,chaincodes,txcount,keysets,account_certs,createdt from channel where ${where}  `;
+    let sql = `select   pkid,channel_id, comments,DATE_FORMAT(originate_dt,'%Y-%m-%d %H:%i:%S') as originate_dt,blocks,countblocks,chaincodes,txcount,keysets,account_certs,createdt from channel where ${where}  `;
     let sql_count = ` select count(pkid) as nums from  channel  where ${where} `;
 
     let channel_counts = await mysql.getRowCount4Sql(sql_count, 'nums');
@@ -898,7 +913,7 @@ router.get('/channel_list.json', async function (req, res) {
 
 router.get('/channel_org_select.json', async function (req, res) {
 
-    let sql_org = ` select commitss , mspid , name from organization  `;
+    let sql_org = ` select comments , mspid , name from organization  `;
     let sql_org_info = await mysql.getRowsByFullSQl(sql_org);
 
     res.send({
@@ -924,7 +939,7 @@ router.get('/channel_detail.json', async function (req, res) {
 
     let channelinfo = await mysql.getRowByPkOne(`select pkid,channel_id, DATE_FORMAT(originate_dt,'%Y-%m-%d %H:%i:%S') as originate_dt,countblocks ,chaincodes ,txcount ,keysets ,account_certs  from channel where channel_id = '${channel_id}' `);
 
-    let sql_org = ` select pkid as id ,name,mspid , commitss , "org" as flag from organization where  mspid in ( select mspid from org_ref_channel where channel_id = '${channel_id}' )  `;
+    let sql_org = ` select pkid as id ,name,mspid , comments , "org" as flag from organization where  mspid in ( select mspid from org_ref_channel where channel_id = '${channel_id}' )  `;
     let sql_org_info = await mysql.getRowsByFullSQl(sql_org);
 
 

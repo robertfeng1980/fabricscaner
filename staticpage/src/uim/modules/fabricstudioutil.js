@@ -129,7 +129,7 @@ layui.define(['table', 'form', 'adminutil'], function (exports) {
 
                     let org = orgs[ind];
                     let org_pic_id = org['id'] + "##" + "org" + "##" +org['mspid'] + "##" + adminutil.getRandInt(1,10000);
-                    nodes.push({id: org_pic_id, label:org['commitss'], group: org['flag'], value: org['id']});
+                    nodes.push({id: org_pic_id, label:org['comments'], group: org['flag'], value: org['id']});
 
 
                     //fabric-ca绑定和绘制
@@ -186,7 +186,7 @@ layui.define(['table', 'form', 'adminutil'], function (exports) {
                                        let installcc = installccs[installccind];
                                        let installcc_pic_id = installcc['id']+"##"+"chaincode"+"##"+installcc['name']+ "##" + adminutil.getRandInt(1,10000)
 
-                                       nodes.push( { id: installcc_pic_id, label:installcc['commitss'], group:installcc['flag'] } );
+                                       nodes.push( { id: installcc_pic_id, label:installcc['comments'], group:installcc['flag'] } );
                                        edges.push({from: peer_pic_id, to: installcc_pic_id, length: LENGTH_MAIN-LENGTH_SUB*3, width: WIDTH_SCALE * 3 });
 
                                    }
@@ -206,7 +206,7 @@ layui.define(['table', 'form', 'adminutil'], function (exports) {
                                        let channel = channels[cind];
                                        let channel_pic_id = channel['id'] + "##" + "channel" + "##" + channel['channel_id']+ "##" + adminutil.getRandInt(1,10000);
 
-                                       nodes.push({id: channel_pic_id, label: channel['commitss'], group: channel['flag']});
+                                       nodes.push({id: channel_pic_id, label: channel['comments'], group: channel['flag']});
                                        edges.push({from: peer_pic_id, to: channel_pic_id, length: LENGTH_MAIN-LENGTH_SUB*4, width: WIDTH_SCALE * 2});
 
 
@@ -263,7 +263,7 @@ layui.define(['table', 'form', 'adminutil'], function (exports) {
                                                let instancecc = instanceccs[cind];
                                                let instancecc_pic_id = instancecc['id'] + "##" + "chaincode" + "##" + instancecc['name']+ "##" + adminutil.getRandInt(1,10000);
 
-                                               nodes.push( { id: instancecc_pic_id, label:instancecc['commitss'], group:instancecc['flag'] } );
+                                               nodes.push( { id: instancecc_pic_id, label:instancecc['comments'], group:instancecc['flag'] } );
                                                edges.push({from: channel_pic_id, to: instancecc_pic_id, length: LENGTH_MAIN-LENGTH_SUB*5, width: WIDTH_SCALE * 3 });
 
                                            }

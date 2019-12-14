@@ -1,3 +1,18 @@
+/*
+ Copyright ONECHAIN 2019-2021 All Rights Reserved.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
 var log4js = require('log4js');
 //var logger = log4js.getLogger('controllers');
 var express = require('express');
@@ -105,7 +120,7 @@ router.get('/organization_list.json', async function (req, res) {
     logger.debug(searchparm);
     logger.debug(where);
 
-    let sql = `select  pkid,commitss,name,mspid,createdt,fabric_cas,peers,channels,blocks,chaincodes,txcount,keysets,account_certs from organization where ${where} `;
+    let sql = `select  pkid,comments,name,mspid,createdt,fabric_cas,peers,channels,blocks,chaincodes,txcount,keysets,account_certs from organization where ${where} `;
     let sql_count = ` select count(pkid) as nums from  organization  where ${where} `;
 
     let organization_counts = await mysql.getRowCount4Sql(sql_count, 'nums');

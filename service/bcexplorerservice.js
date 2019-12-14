@@ -1,5 +1,5 @@
 /*
- Copyright ONECHAIN 2018-2020 All Rights Reserved.
+ Copyright ONECHAIN 2019-2021 All Rights Reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -85,7 +85,7 @@ let saveOrg = async (org) => {
         let organization = {
 
             'name': org.name,
-            'commitss': org.name,
+            'comments': org.name,
             'mspid': org.mspid,
             'adminkey': org.admin.key,
             'admincert': org.admin.cert
@@ -172,7 +172,7 @@ let get_fabric_network_struct = async ()=>{
 
     let sql_count_info = await mysql.getRowsByFullSQl(sql_count);
 
-    let sql_org = ` select pkid as id ,name,mspid , commitss , "org" as flag from organization  `;
+    let sql_org = ` select pkid as id ,name,mspid , comments , "org" as flag from organization  `;
     let sql_org_info = await mysql.getRowsByFullSQl(sql_org);
 
     let sql_ca = ` select pkid as id  , mspid,org_name,ca_name ,"fabric_ca" as flag from fabricca `;
@@ -187,13 +187,13 @@ let get_fabric_network_struct = async ()=>{
     let sql_channel = ` select  peer_name,channel_id,"channel" as flag from  peer_ref_channel `;
     let sql_channel_map = await mysql.getSQL2Map4Arr(sql_channel,"peer_name");
 
-    let sql_channelinfo = ` select blocks, pkid as id , commitss  ,channel_id,originate_dt,"channel" as flag from  channel   `;
+    let sql_channelinfo = ` select blocks, pkid as id , comments  ,channel_id,originate_dt,"channel" as flag from  channel   `;
     let sql_channelinfo_map = await mysql.getSQL2Map(sql_channelinfo,"channel_id");
 
-    let sql_cc_install = `select pkid as id , "chaincodeinstall" as flag , commitss ,name, version ,peer_name from  chaincodes where ccstatus = 0  `;
+    let sql_cc_install = `select pkid as id , "chaincodeinstall" as flag , comments ,name, version ,peer_name from  chaincodes where ccstatus = 0  `;
     let sql_cc_install_map = await mysql.getSQL2Map4Arr(sql_cc_install,"peer_name");
 
-    let sql_cc_instance = ` select pkid as id , "chaincodeinstance" as flag , commitss ,name, version , channel_id,peer_name  from  chaincodes where ccstatus = 1  `;
+    let sql_cc_instance = ` select pkid as id , "chaincodeinstance" as flag , comments ,name, version , channel_id,peer_name  from  chaincodes where ccstatus = 1  `;
     let sql_cc_instance_info = await mysql.getRowsByFullSQl(sql_cc_instance);
 
 
@@ -295,7 +295,7 @@ let get_fabric_network_struct = async ()=>{
                         let channel_detail = sql_channelinfo_map[channel_id];
                         channel['id'] = channel_detail['id'];
                         channel['blocknumbers'] = channel_detail['blocks'];
-                        channel['commitss'] = channel_detail['commitss'];
+                        channel['comments'] = channel_detail['comments'];
 
                         channel['txnums'] = sql_tx_count_map[channel_id]['txnums'];
 
@@ -356,7 +356,7 @@ let get_fabric_channel_struct = async ( channel_id )=>{
     //let sql_count = `select sum(fabric_cas) as fabric_ca ,sum(peers) as peer ,sum(channels) as channel ,sum(blocks) as block ,sum(chaincodes) as chaincodes,sum(txcount) as tx,sum(keysets) as keyset,sum(account_certs) as acccount from organization  `;
 
 
-    let sql_org = ` select pkid as id ,name,mspid , commitss , "org" as flag from organization where  mspid in ( select mspid from org_ref_channel where channel_id = '${channel_id}' )  `;
+    let sql_org = ` select pkid as id ,name,mspid , comments , "org" as flag from organization where  mspid in ( select mspid from org_ref_channel where channel_id = '${channel_id}' )  `;
     let sql_org_info = await mysql.getRowsByFullSQl(sql_org);
 
 
@@ -369,13 +369,13 @@ let get_fabric_channel_struct = async ( channel_id )=>{
     let sql_channel = ` select  peer_name,channel_id,"channel" as flag from  peer_ref_channel where channel_id = '${channel_id}'  `;
     let sql_channel_map = await mysql.getSQL2Map4Arr(sql_channel,"peer_name");
 
-    let sql_channelinfo = ` select blocks, pkid as id , commitss  ,channel_id,originate_dt,"channel" as flag from  channel where channel_id = '${channel_id}'   `;
+    let sql_channelinfo = ` select blocks, pkid as id , comments  ,channel_id,originate_dt,"channel" as flag from  channel where channel_id = '${channel_id}'   `;
     let sql_channelinfo_map = await mysql.getSQL2Map(sql_channelinfo,"channel_id");
 
-    let sql_cc_install = `select pkid as id , "chaincodeinstall" as flag , commitss ,name, version ,peer_name from  chaincodes where ccstatus = 0 and channel_id = '${channel_id}' `;
+    let sql_cc_install = `select pkid as id , "chaincodeinstall" as flag , comments ,name, version ,peer_name from  chaincodes where ccstatus = 0 and channel_id = '${channel_id}' `;
     let sql_cc_install_map = await mysql.getSQL2Map4Arr(sql_cc_install,"peer_name");
 
-    let sql_cc_instance = ` select pkid as id , "chaincodeinstance" as flag , commitss ,name, version , channel_id,peer_name  from  chaincodes where ccstatus = 1 and channel_id = '${channel_id}'  `;
+    let sql_cc_instance = ` select pkid as id , "chaincodeinstance" as flag , comments ,name, version , channel_id,peer_name  from  chaincodes where ccstatus = 1 and channel_id = '${channel_id}'  `;
     let sql_cc_instance_info = await mysql.getRowsByFullSQl(sql_cc_instance);
 
 
@@ -473,7 +473,7 @@ let get_fabric_channel_struct = async ( channel_id )=>{
                         let channel_detail = sql_channelinfo_map[channel_id];
                         channel['id'] = channel_detail['id'];
                         channel['blocknumbers'] = channel_detail['blocks'];
-                        channel['commitss'] = channel_detail['commitss'];
+                        channel['comments'] = channel_detail['comments'];
 
                         channel['txnums'] = sql_tx_count_map[channel_id]['txnums'];
 
@@ -540,7 +540,7 @@ let get_fabric_block_struct = async ( blockpkid )=>{
     let sql_block_info = await mysql.getRowsBySQlCase(sql_block);
     let channel_id = sql_block_info['channel_id'];
 
-    let sql_org = ` select pkid as id ,name,mspid , commitss , "org" as flag from organization where  mspid in ( select mspid from org_ref_channel where channel_id = '${channel_id}' )  `;
+    let sql_org = ` select pkid as id ,name,mspid , comments , "org" as flag from organization where  mspid in ( select mspid from org_ref_channel where channel_id = '${channel_id}' )  `;
     let sql_org_info = await mysql.getRowsByFullSQl(sql_org);
 
     let sql_orderer = `select  pkid as id ,orderer_mspid as name ,"orderer" as flag from  orderer  `;
@@ -552,13 +552,13 @@ let get_fabric_block_struct = async ( blockpkid )=>{
     let sql_channel = ` select  peer_name,channel_id,"channel" as flag from  peer_ref_channel where channel_id = '${channel_id}'  `;
     let sql_channel_map = await mysql.getSQL2Map4Arr(sql_channel,"peer_name");
 
-    let sql_channelinfo = ` select blocks, pkid as id , commitss  ,channel_id,originate_dt,"channel" as flag from  channel where channel_id = '${channel_id}'   `;
+    let sql_channelinfo = ` select blocks, pkid as id , comments  ,channel_id,originate_dt,"channel" as flag from  channel where channel_id = '${channel_id}'   `;
     let sql_channelinfo_map = await mysql.getSQL2Map(sql_channelinfo,"channel_id");
 
-    let sql_cc_install = `select pkid as id , "chaincodeinstall" as flag , commitss ,name, version ,peer_name from  chaincodes where ccstatus = 0 and channel_id = '${channel_id}' `;
+    let sql_cc_install = `select pkid as id , "chaincodeinstall" as flag , comments ,name, version ,peer_name from  chaincodes where ccstatus = 0 and channel_id = '${channel_id}' `;
     let sql_cc_install_map = await mysql.getSQL2Map4Arr(sql_cc_install,"peer_name");
 
-    let sql_cc_instance = ` select pkid as id , "chaincodeinstance" as flag , commitss ,name, version , channel_id,peer_name  from  chaincodes where ccstatus = 1 and channel_id = '${channel_id}'  `;
+    let sql_cc_instance = ` select pkid as id , "chaincodeinstance" as flag , comments ,name, version , channel_id,peer_name  from  chaincodes where ccstatus = 1 and channel_id = '${channel_id}'  `;
     let sql_cc_instance_info = await mysql.getRowsByFullSQl(sql_cc_instance);
 
     let sql_tx_count = `select channel_id , count(pkid) as txnums from transactions  where channel_id = '${channel_id}'  group by channel_id     `;
@@ -654,7 +654,7 @@ let get_fabric_block_struct = async ( blockpkid )=>{
                         let channel_detail = sql_channelinfo_map[channel_id];
                         channel['id'] = channel_detail['id'];
                         channel['blocknumbers'] = channel_detail['blocks'];
-                        channel['commitss'] = channel_detail['commitss'];
+                        channel['comments'] = channel_detail['comments'];
 
                         channel['txnums'] = sql_tx_count_map[channel_id]['txnums'];
 
@@ -722,7 +722,7 @@ let get_fabric_cc_struct = async ( chaincodes_pkid )=>{
     let channel_id = sql_cc_info['channel_id'];
 
 
-    let sql_org = ` select pkid as id ,name,mspid , commitss , "org" as flag from organization where  mspid in ( select mspid from org_ref_channel where channel_id = '${channel_id}' )  `;
+    let sql_org = ` select pkid as id ,name,mspid , comments , "org" as flag from organization where  mspid in ( select mspid from org_ref_channel where channel_id = '${channel_id}' )  `;
     let sql_org_info = await mysql.getRowsByFullSQl(sql_org);
 
     let sql_orderer = `select  pkid as id ,orderer_mspid as name ,"orderer" as flag from  orderer  `;
@@ -734,13 +734,13 @@ let get_fabric_cc_struct = async ( chaincodes_pkid )=>{
     let sql_channel = ` select  peer_name,channel_id,"channel" as flag from  peer_ref_channel where channel_id = '${channel_id}'  `;
     let sql_channel_map = await mysql.getSQL2Map4Arr(sql_channel,"peer_name");
 
-    let sql_channelinfo = ` select blocks, pkid as id , commitss  ,channel_id,originate_dt,"channel" as flag from  channel where channel_id = '${channel_id}'   `;
+    let sql_channelinfo = ` select blocks, pkid as id , comments  ,channel_id,originate_dt,"channel" as flag from  channel where channel_id = '${channel_id}'   `;
     let sql_channelinfo_map = await mysql.getSQL2Map(sql_channelinfo,"channel_id");
 
-    let sql_cc_install = `select pkid as id , "chaincodeinstall" as flag , commitss ,name, version ,peer_name from  chaincodes where ccstatus = 0 and channel_id = '${channel_id}' `;
+    let sql_cc_install = `select pkid as id , "chaincodeinstall" as flag , comments ,name, version ,peer_name from  chaincodes where ccstatus = 0 and channel_id = '${channel_id}' `;
     let sql_cc_install_map = await mysql.getSQL2Map4Arr(sql_cc_install,"peer_name");
 
-    let sql_cc_instance = ` select pkid as id , "chaincodeinstance" as flag , commitss ,name, version , channel_id,peer_name  from  chaincodes where ccstatus = 1 and channel_id = '${channel_id}'  `;
+    let sql_cc_instance = ` select pkid as id , "chaincodeinstance" as flag , comments ,name, version , channel_id,peer_name  from  chaincodes where ccstatus = 1 and channel_id = '${channel_id}'  `;
     let sql_cc_instance_info = await mysql.getRowsByFullSQl(sql_cc_instance);
 
     let sql_tx_count = `select channel_id , count(pkid) as txnums from transactions  where channel_id = '${channel_id}'  group by channel_id     `;
@@ -836,7 +836,7 @@ let get_fabric_cc_struct = async ( chaincodes_pkid )=>{
                         let channel_detail = sql_channelinfo_map[channel_id];
                         channel['id'] = channel_detail['id'];
                         channel['blocknumbers'] = channel_detail['blocks'];
-                        channel['commitss'] = channel_detail['commitss'];
+                        channel['comments'] = channel_detail['comments'];
 
                         channel['txnums'] = sql_tx_count_map[channel_id]['txnums'];
 
@@ -906,7 +906,7 @@ let get_fabric_tx_struct = async ( txpkid )=>{
     let chaincode_name = sql_tx_info['chaincode_name'];
 
 
-    let sql_org = ` select pkid as id ,name,mspid , commitss , "org" as flag from organization where  mspid in ( select mspid from org_ref_channel where channel_id = '${channel_id}' )  `;
+    let sql_org = ` select pkid as id ,name,mspid , comments , "org" as flag from organization where  mspid in ( select mspid from org_ref_channel where channel_id = '${channel_id}' )  `;
     let sql_org_info = await mysql.getRowsByFullSQl(sql_org);
 
     let sql_orderer = `select  pkid as id ,orderer_mspid as name ,"orderer" as flag from  orderer  `;
@@ -918,11 +918,11 @@ let get_fabric_tx_struct = async ( txpkid )=>{
     let sql_channel = ` select  peer_name,channel_id,"channel" as flag from  peer_ref_channel where channel_id = '${channel_id}'  `;
     let sql_channel_map = await mysql.getSQL2Map4Arr(sql_channel,"peer_name");
 
-    let sql_channelinfo = ` select blocks, pkid as id , commitss  ,channel_id,originate_dt,"channel" as flag from  channel where channel_id = '${channel_id}'   `;
+    let sql_channelinfo = ` select blocks, pkid as id , comments  ,channel_id,originate_dt,"channel" as flag from  channel where channel_id = '${channel_id}'   `;
     let sql_channelinfo_map = await mysql.getSQL2Map(sql_channelinfo,"channel_id");
 
 
-    let sql_cc_instance = ` select pkid as id , "chaincodeinstance" as flag , commitss ,name, version , channel_id,peer_name  from  chaincodes where ccstatus = 1 and channel_id = '${channel_id}' and name = '${chaincode_name}'  `;
+    let sql_cc_instance = ` select pkid as id , "chaincodeinstance" as flag , comments ,name, version , channel_id,peer_name  from  chaincodes where ccstatus = 1 and channel_id = '${channel_id}' and name = '${chaincode_name}'  `;
     let sql_cc_instance_info = await mysql.getRowsByFullSQl(sql_cc_instance);
 
     let sql_tx_count = `select channel_id , count(pkid) as txnums from transactions  where pkid = ${txpkid}   group by channel_id     `;
@@ -1018,7 +1018,7 @@ let get_fabric_tx_struct = async ( txpkid )=>{
                         let channel_detail = sql_channelinfo_map[channel_id];
                         channel['id'] = channel_detail['id'];
                         channel['blocknumbers'] = channel_detail['blocks'];
-                        channel['commitss'] = channel_detail['commitss'];
+                        channel['comments'] = channel_detail['comments'];
 
                         channel['txnums'] = sql_tx_count_map[channel_id]['txnums'];
 
@@ -1088,7 +1088,7 @@ let get_fabric_keyset_struct = async ( keysetpkid )=>{
     let chaincode_name = sql_tx_info['chaincode_name'];
 
 
-    let sql_org = ` select pkid as id ,name,mspid , commitss , "org" as flag from organization where  mspid in ( select mspid from org_ref_channel where channel_id = '${channel_id}' )  `;
+    let sql_org = ` select pkid as id ,name,mspid , comments , "org" as flag from organization where  mspid in ( select mspid from org_ref_channel where channel_id = '${channel_id}' )  `;
     let sql_org_info = await mysql.getRowsByFullSQl(sql_org);
 
     let sql_orderer = `select  pkid as id ,orderer_mspid as name ,"orderer" as flag from  orderer  `;
@@ -1100,11 +1100,11 @@ let get_fabric_keyset_struct = async ( keysetpkid )=>{
     let sql_channel = ` select  peer_name,channel_id,"channel" as flag from  peer_ref_channel where channel_id = '${channel_id}'  `;
     let sql_channel_map = await mysql.getSQL2Map4Arr(sql_channel,"peer_name");
 
-    let sql_channelinfo = ` select blocks, pkid as id , commitss  ,channel_id,originate_dt,"channel" as flag from  channel where channel_id = '${channel_id}'   `;
+    let sql_channelinfo = ` select blocks, pkid as id , comments  ,channel_id,originate_dt,"channel" as flag from  channel where channel_id = '${channel_id}'   `;
     let sql_channelinfo_map = await mysql.getSQL2Map(sql_channelinfo,"channel_id");
 
 
-    let sql_cc_instance = ` select pkid as id , "chaincodeinstance" as flag , commitss ,name, version , channel_id,peer_name  from  chaincodes where ccstatus = 1 and channel_id = '${channel_id}' and name = '${chaincode_name}'  `;
+    let sql_cc_instance = ` select pkid as id , "chaincodeinstance" as flag , comments ,name, version , channel_id,peer_name  from  chaincodes where ccstatus = 1 and channel_id = '${channel_id}' and name = '${chaincode_name}'  `;
     let sql_cc_instance_info = await mysql.getRowsByFullSQl(sql_cc_instance);
 
     let sql_tx_count = `select channel_id , count(pkid) as txnums from transactions  where txhash = '${transactionhash}'   group by channel_id     `;
@@ -1200,7 +1200,7 @@ let get_fabric_keyset_struct = async ( keysetpkid )=>{
                         let channel_detail = sql_channelinfo_map[channel_id];
                         channel['id'] = channel_detail['id'];
                         channel['blocknumbers'] = channel_detail['blocks'];
-                        channel['commitss'] = channel_detail['commitss'];
+                        channel['comments'] = channel_detail['comments'];
 
                         channel['txnums'] = sql_tx_count_map[channel_id]['txnums'];
 
@@ -1781,7 +1781,7 @@ let modify_install_chaincode = async (peers, fabricservice) => {
                 'peer_name': peer_name,
                 'channel_id': '',
                 'name': name,
-                'commitss': name,
+                'comments': name,
                 'version': version,
                 'path': path,
                 'escc': escc,
@@ -1908,7 +1908,7 @@ let save_channel = async (channel_id) => {
 
         let channel = {
             'channel_id': channel_id,
-            'commitss': channel_id,
+            'comments': channel_id,
             'blocks': 0,
             'txcount': 0,
             'remark': '',
@@ -2677,10 +2677,12 @@ let saveAccount = async (account) => {
     account['effective_dt'] = getDateStr4Date(new Date(account['effective_dt']), 'yyyy-MM-dd hh:mm:ss.S');
     account['invalid_dt'] = getDateStr4Date(new Date(account['invalid_dt']), 'yyyy-MM-dd hh:mm:ss.S');
 
+    account['comments'] = accounts['name'];
 
-    if (org_check == null && (mspid !== '' && mspid !== null && mspid !== undefined)) {
 
-        let org_result = await sql.saveRow('accounts', account);
+    if ( org_check == null && (mspid !== '' && mspid !== null && mspid !== undefined ) ) {
+
+        let org_result = await sql.saveRow( 'accounts' , account );
 
     }
 

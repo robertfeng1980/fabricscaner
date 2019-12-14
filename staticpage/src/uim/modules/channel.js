@@ -53,7 +53,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
                     , cols: [[
                         {field: 'pkid', title: 'PKID',hide: true}
                         ,{field: 'channel_id', title: '账本名称',width:'22%'}
-                        ,{field: 'commitss', edit: 'text',title: '注释',width:'23%'}
+                        ,{field: 'comments', edit: 'text',title: '注释*',width:'23%'}
                         ,{field: 'originate_dt', title: '创建时间',width:'15%'}
                         ,{field: 'countblocks', title: '区块数',width:'7%'}
                         ,{field: 'chaincodes', title: '链码',width:'7%'}
@@ -585,7 +585,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
 
                             let share_org = channel_share_rog[ind];
 
-                            $('#channel_share_org').append(`<button class="layui-btn layuiadmin-btn-list layui-btn-sm" data-type="${share_org['mspid']}">${share_org['commitss']}</button>`);
+                            $('#channel_share_org').append(`<button class="layui-btn layuiadmin-btn-list layui-btn-sm" data-type="${share_org['mspid']}">${share_org['comments']}</button>`);
 
 
                         }
@@ -722,7 +722,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
                         , {field: 'channel_id', title: '账本名称'}*/
                         , {field: 'name', title: '名称'}
                         , {field: 'languages', title: '开发语言'}
-                        , {field: 'commitss', edit: 'text',title: '注释(可编辑)'}
+                        , {field: 'comments', edit: 'text',title: '注释*'}
                         , {field: 'version', title: '版本'}
                         , {field: 'path', title: '路径'}
                         , {field: 'txcount', title: '交易数'}
@@ -1589,7 +1589,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
 
                             let share_org = tx_share_rog[ind];
 
-                            $('#tx_share_org').append(`<button class="layui-btn layuiadmin-btn-list layui-btn-sm" data-type="${share_org['mspid']}">${share_org['commitss']}</button>`);
+                            $('#tx_share_org').append(`<button class="layui-btn layuiadmin-btn-list layui-btn-sm" data-type="${share_org['mspid']}">${share_org['comments']}</button>`);
 
 
                         }
@@ -2130,7 +2130,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
                         for (let ind = 0 ; ind<key_share_org.length ; ind++ ){
 
                             let share_org = key_share_org[ind];
-                            $('#key_share_org').append(`<button class="layui-btn layuiadmin-btn-list layui-btn-sm" data-type="${share_org['mspid']}">${share_org['commitss']}</button>`);
+                            $('#key_share_org').append(`<button class="layui-btn layuiadmin-btn-list layui-btn-sm" data-type="${share_org['mspid']}">${share_org['comments']}</button>`);
 
                         }
 
@@ -2582,9 +2582,11 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
 
             , accounts_list: function (searchparm='') {
 
-                /***
+                /***************************************************************************************************************
                  *  =========================================组织中的账号管理 ==================================================
                  *    , sort: true, hide: true ,toolbar: true  width: 100
+                 *
+                 ****************************************************************************************************************
                  */
 
                 let tablesearchurl = layui.setter.base + '../json/channel/accounts_list.json';
@@ -2599,8 +2601,9 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
                     , cols: [[
                           {field: 'pkid', title: 'PKID', hide: true}
                         , {field: 'mspid', title: '组织编号'}
-                        , {field: 'name', title: '账号名称'}
-                        , {field: 'account_type', title: '签名用户的类型（0-背书  1-发起交易）', templet:'#account_typeTpl'}
+                        , {field: 'name', title: '名称'}
+                        , {field: 'comments', edit: 'text', title: '注释'}
+                        , {field: 'account_type', title: '签名类型', templet:'#account_typeTpl'}
                         , {field: 'effective_dt', title: '生效时间'}
                         , {field: 'invalid_dt', title: '失效时间'}
                         , {title: '操作', width: 80, align: 'center', fixed: 'right', toolbar: '#table-content-list'}
@@ -2611,6 +2614,43 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
                     , title: "组织中的账号表"
                     , text: {none: '暂无相关数据'}
                 });
+
+
+
+                //编辑列表的字段
+                table.on('edit(LAY-accounts-list)', function(obj){
+                    var value = obj.value //得到修改后的值
+                        ,data = obj.data //得到所在行所有键值
+                        ,field = obj.field; //得到字段
+
+
+
+                    adminutil.ajaxreq({
+
+                        url: layui.setter.base + '../json/manager/com_update.json?pkid=' + data.pkid+"&fildvalue="+value+"&module=account"
+                        , type: 'GET'
+                        , dataType: 'json'
+                        //,data:JSON.stringify(data.field)
+                        //,data: data.field
+
+                        , error: function (e) {
+                            layer.msg('系统错误');
+                        }
+
+                        , success: function (response) {
+
+                            let data1 = response.data;
+                            layer.msg('[ID: '+ data.pkid +'] ' + field + ' 字段更改为：'+ value, {offset: '15px'});
+
+
+                        }
+
+                    });
+
+
+
+                });
+
 
 
                 /*监听工具条事件（绑定表格内针对某一条数据的具体操作，比如：编辑或者改变状态，该事见中会自动传入当前操作的数据，所以和通常所见的通过?id=xxx的方式不一样）*/

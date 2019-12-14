@@ -1,3 +1,18 @@
+/*
+ Copyright ONECHAIN 2019-2021 All Rights Reserved.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
 var log4js = require('log4js');
 var express = require('express');
 var router = express.Router();
@@ -390,16 +405,20 @@ router.get('/com_update.json' ,async function(req, res) {
 
     if( module === 'org' ){
 
-        sql_update =   ` update organization set commitss= '${fildvalue}' where pkid = ${pkid} `;
+        sql_update =   ` update organization set comments= '${fildvalue}' where pkid = ${pkid} `;
 
     }else if(  module === 'ledge'  ){
 
-        sql_update =   ` update channel set commitss= '${fildvalue}' where pkid = ${pkid} `;
+        sql_update =   ` update channel set comments= '${fildvalue}' where pkid = ${pkid} `;
 
 
     }else if (module === 'cc') {
 
-        sql_update =   ` update chaincodes set commitss= '${fildvalue}' where pkid = ${pkid}  `;
+        sql_update =   ` update chaincodes set comments= '${fildvalue}' where pkid = ${pkid}  `;
+
+    }else if (module === 'account') {
+
+        sql_update =   ` update accounts set comments= '${fildvalue}' where pkid = ${pkid}  `;
 
     }
 
@@ -407,7 +426,7 @@ router.get('/com_update.json' ,async function(req, res) {
     logger.debug(req.query);
     logger.debug(sql_update);
 
-    if (sql_update !== '' && sql_update !== undefined && sql_update !== null) {
+    if (sql_update !== '' && sql_update !== 'undefined' && sql_update != null) {
 
         let updateresult = await mysql.updateBySql( sql_update );
 

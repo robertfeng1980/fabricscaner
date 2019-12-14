@@ -126,7 +126,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
 
                         , {field: 'pkid', title: 'PKID', hide: true}
                         , {field: 'name', title: '名称'}
-                        , {field: 'commitss', edit: 'text',title: '注释*'}
+                        , {field: 'comments', edit: 'text',title: '注释*'}
                         , {field: 'mspid', title: 'MPSID'}
                         , {field: 'fabric_ca', title: 'FABRIC-CA'}
                         , {field: 'peers', title: 'PEERS'}
