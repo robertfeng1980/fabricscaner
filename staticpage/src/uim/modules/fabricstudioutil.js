@@ -217,7 +217,7 @@ layui.define(['table', 'form', 'adminutil'], function (exports) {
 
 
                                //为了显示更加清晰，将所有的channel的cc归结到一个总分类
-                               nodes.push({id: 'channelallid', label: `channel组`, group: 'channel'});
+                               nodes.push({id: 'channelallid', label: ``, group: 'channel'});
                                edges.push({from: peer_pic_id, to: 'channelallid', length: LENGTH_MAIN-LENGTH_SUB*3, width: WIDTH_SCALE * 2});
 
 
@@ -274,18 +274,26 @@ layui.define(['table', 'form', 'adminutil'], function (exports) {
 
 
 
-                                       //处理已经instance的chaincode
+                                       //处理已经instance的chaincode instancesccallsid
+
 
                                        let instanceccs = channel['instanceccs'];
                                        if( instanceccs !== null && instanceccs !== undefined && instanceccs !== '' ){
+
+
+
+                                           let instancesccallsid = channel_pic_id+"instancesccallsid"
+                                           nodes.push( { id: instancesccallsid , label:'', group:'chaincodeinstance' } );
+                                           edges.push({from: channel_pic_id , to: instancesccallsid, length: LENGTH_MAIN-LENGTH_SUB*5, width: WIDTH_SCALE * 3 });
+
 
                                            for ( let cind = 0 ; cind<instanceccs.length; cind++) {
 
                                                let instancecc = instanceccs[cind];
                                                let instancecc_pic_id = instancecc['id'] + "##" + "chaincode" + "##" + instancecc['name']+ "##" + adminutil.getRandInt(1,10000);
 
-                                               nodes.push( { id: instancecc_pic_id, label:instancecc['comments'], group:instancecc['flag'] } );
-                                               edges.push({from: channel_pic_id, to: instancecc_pic_id, length: LENGTH_MAIN-LENGTH_SUB*5, width: WIDTH_SCALE * 3 });
+                                               nodes.push( { id: instancecc_pic_id , label:instancecc['comments'] , group:instancecc['flag'] } );
+                                               edges.push({from: instancesccallsid , to: instancecc_pic_id , length: LENGTH_MAIN-LENGTH_SUB*5 , width: WIDTH_SCALE * 3 } );
 
                                            }
 
