@@ -192,13 +192,17 @@ layui.define(['table', 'form', 'adminutil'], function (exports) {
                                edges.push({from: peer_pic_id, to: "installccs", length: LENGTH_MAIN-LENGTH_SUB*2, width: WIDTH_SCALE *4 });*/
 
 
-                               //为了显示更加清晰，将所有的install的cc归结到一个总分类
-                               nodes.push({id: 'installccallid', label: `install链码组`, group: 'chaincodeinstall'});
-                               edges.push({from: peer_pic_id, to: 'installccallid', length: LENGTH_MAIN-LENGTH_SUB*3, width: WIDTH_SCALE * 2});
+
 
 
                                let installccs = peer['installcc'];
                                if( installccs !== null && installccs !== undefined && installccs !== '' ){
+
+
+                                   //为了显示更加清晰，将所有的install的cc归结到一个总分类
+                                   nodes.push({id: 'installccallid', label: ``, group: 'chaincodeinstall'});
+                                   edges.push({from: peer_pic_id, to: 'installccallid', length: LENGTH_MAIN-LENGTH_SUB*3, width: WIDTH_SCALE * 2});
+
 
                                    for ( let installccind = 0 ; installccind<installccs.length; installccind++){
 
@@ -216,15 +220,16 @@ layui.define(['table', 'form', 'adminutil'], function (exports) {
 
 
 
-                               //为了显示更加清晰，将所有的channel的cc归结到一个总分类
-                               nodes.push({id: 'channelallid', label: ``, group: 'channel'});
-                               edges.push({from: peer_pic_id, to: 'channelallid', length: LENGTH_MAIN-LENGTH_SUB*3, width: WIDTH_SCALE * 2});
-
-
                                //channel处理
                                let channels = peer['channels'];
 
                                if( channels !== null && channels !== undefined && channels !== '' ){
+
+
+                                   //为了显示更加清晰，将所有的channel的cc归结到一个总分类
+                                   nodes.push({id: 'channelallid', label: ``, group: 'channel'});
+                                   edges.push({from: peer_pic_id, to: 'channelallid', length: LENGTH_MAIN-LENGTH_SUB*3, width: WIDTH_SCALE * 2});
+
 
                                    for ( let cind = 0 ; cind<channels.length; cind++) {
 

@@ -884,6 +884,7 @@ function getSQL2Map4Arr(sql, key) {
 
                 // logger.debug(  `The solution is: ${rows.length }  `  );
                 logger.debug(' the getSQL2Map4Arr ')
+                logger.debug(`the search sql is :   ${sql}`)
 
                 let keymap = {};
 

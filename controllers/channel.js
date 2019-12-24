@@ -528,7 +528,7 @@ router.get('/chaincodes_list.json', async function (req, res) {
     logger.debug(` ================================= ${req.query.mspid} `);
 
     if(  req.query.mspid !== undefined && req.query.mspid !== '' && req.query.mspid !== '-1' ){
-        where = where +  `and  and name in ( select chaincode_name from channel_ref_instantiatedcc where channel_id in ( select channel_id from org_ref_channel where  mspid = '${req.query.mspid}' )  )  `;
+        where = where +  `and  name in ( select chaincode_name from channel_ref_instantiatedcc where channel_id in ( select channel_id from org_ref_channel where  mspid = '${req.query.mspid}' )  )  `;
     }
 
     if (req.query.channel_id !== undefined && req.query.channel_id !== '' && req.query.channel_id !== '-1') {
@@ -957,7 +957,7 @@ router.get('/channel_detail.json', async function (req, res) {
         "code": 0,
         "msg": "",
         "channelinfo":channelinfo,
-        "count_info":{"org":3,"peer":3,"blocks":channelinfo['countblocks'],"chaincodes":channelinfo['chaincodes'],"tx":channelinfo['txcount'],"keyset":channelinfo['keysets'],"acccount":channelinfo['account_certs']},
+        "count_info":{"org":3,"peer":3,"blocknumbers":channelinfo['countblocks'],"blocks":channelinfo['countblocks'],"chaincodes":channelinfo['chaincodes'],"tx":channelinfo['txcount'],"keyset":channelinfo['keysets'],"acccount":channelinfo['account_certs']},
         "channel_share_org": sql_org_info,
         "pic_struct": pic_struct
     }
