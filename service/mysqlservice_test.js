@@ -272,7 +272,7 @@ mysql.getSQL2Map( 'select * from bc_company where id = 389','id'  ).then( update
 
 
 
-/////// ===================   getSQL2Map  ===================
+/////// ===========================================   getSQL2Map  =================================================
 
 /*
 mysql.getSQL2Map4Arr( 'select * from bc_company where id = 389','id'  ).then( updaterows=>{

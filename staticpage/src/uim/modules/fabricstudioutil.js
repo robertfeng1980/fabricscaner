@@ -37,9 +37,9 @@ layui.define(['table', 'form', 'adminutil'], function (exports) {
             name:'name'
             //结构图中节点形状
             ,pic_gorup_base_option:{
-                org: {shape: 'circle', color: '#FF9900', font:{bold:true}},
-                orderer: {shape: 'ellipse', color: "#2B7CE9"  , font:{bold:true}},
-                peer: {shape: 'database', color: "#f9cda9" , font:{bold:true}},
+                org: {shape: 'circle', color: '#FF9900', font:{bold:true,size:60}},
+                orderer: {shape: 'ellipse', color: "#cccaa9"  , font:{bold:true,size:60}},
+                peer: {shape: 'database', color: "#f9cda9" , font:{bold:true,size:50} },
                 block: {shape: 'square', color: "#5A1E5C" , font:{bold:true}},
                 fabric_ca: {shape: 'triangle', color: "#C5000B" , font:{bold:true}},
                 channel: {shape: 'box', color: "#26bcd5" , font:{bold:true}},
@@ -49,6 +49,25 @@ layui.define(['table', 'form', 'adminutil'], function (exports) {
                 account: {shape: 'image', color: "#00314f",image:"../../source/img/user.png" , font:{bold:true}},
                 transaction: {shape: 'hexagon', color: "#57693c" , font:{bold:true}},
                 keyset: {shape: 'image', color: "#71969f",image:"../../source/img/key.png", font:{bold:true}}
+
+            }
+
+
+
+
+            ,pic_gorup_sample_option:{
+                org: {shape: 'circle', color: '#FF9900', font:{bold:true,size:20}},
+                orderer: {shape: 'ellipse', color: "#cccaa9"  , font:{bold:true,size:20}},
+                peer: {shape: 'database', color: "#f9cda9" , font:{bold:true,size:20}},
+                block: {shape: 'square', color: "#5A1E5C" , font:{bold:true,size:20}},
+                fabric_ca: {shape: 'triangle', color: "#C5000B" , font:{bold:true,size:20}},
+                channel: {shape: 'box', color: "#26bcd5" , font:{bold:true,size:20}},
+                //chaincode: {shape: 'diamond', color: "#725334" , font:{bold:true}},
+                chaincodeinstall: {shape: 'diamond', color: "#725334" , font:{bold:true,size:20}},
+                chaincodeinstance: {shape: 'diamond', color: "#109618" , font:{bold:true,size:20}},
+                account: {shape: 'image', color: "#00314f",image:"../../source/img/user.png" , font:{bold:true,size:20}},
+                transaction: {shape: 'hexagon', color: "#57693c" , font:{bold:true,size:20}},
+                keyset: {shape: 'image', color: "#71969f",image:"../../source/img/key.png", font:{bold:true,size:20}}
 
             }
 
@@ -107,7 +126,7 @@ layui.define(['table', 'form', 'adminutil'], function (exports) {
                         }
                     },
 
-                    groups: fabricstudioutil.pic_gorup_base_option
+                    groups: fabricstudioutil.pic_gorup_sample_option
                 };
 
                 network1 = new vis.Network(container1, data1, options1);
@@ -189,10 +208,8 @@ layui.define(['table', 'form', 'adminutil'], function (exports) {
 
                                //状态为install的chaincode的处理
                                /*nodes.push({id: "installccs", label:"状态为install的chaincode", group: "chaincode" });
-                               edges.push({from: peer_pic_id, to: "installccs", length: LENGTH_MAIN-LENGTH_SUB*2, width: WIDTH_SCALE *4 });*/
-
-
-
+                               edges.push({from: peer_pic_id, to: "installccs", length: LENGTH_MAIN-LENGTH_SUB*2, width: WIDTH_SCALE *4 });
+                               */
 
 
                                let installccs = peer['installcc'];
@@ -200,8 +217,11 @@ layui.define(['table', 'form', 'adminutil'], function (exports) {
 
 
                                    //为了显示更加清晰，将所有的install的cc归结到一个总分类
-                                   nodes.push({id: 'installccallid', label: ``, group: 'chaincodeinstall'});
-                                   edges.push({from: peer_pic_id, to: 'installccallid', length: LENGTH_MAIN-LENGTH_SUB*3, width: WIDTH_SCALE * 2});
+                                   if(installccs.length>1){
+                                       nodes.push({id: 'installccallid', label: ``, group: 'chaincodeinstall'});
+                                       edges.push({from: peer_pic_id, to: 'installccallid', length: LENGTH_MAIN-LENGTH_SUB*3, width: WIDTH_SCALE * 2});
+
+                                   }
 
 
                                    for ( let installccind = 0 ; installccind<installccs.length; installccind++){
@@ -209,8 +229,18 @@ layui.define(['table', 'form', 'adminutil'], function (exports) {
                                        let installcc = installccs[installccind];
                                        let installcc_pic_id = installcc['id']+"##"+"chaincode"+"##"+installcc['name']+ "##" + adminutil.getRandInt(1,10000)
 
-                                       nodes.push( { id: installcc_pic_id, label:installcc['comments'], group:installcc['flag'] } );
-                                       edges.push({from: 'installccallid', to: installcc_pic_id, length: LENGTH_MAIN-LENGTH_SUB*3, width: WIDTH_SCALE * 3 });
+                                       nodes.push( { id: installcc_pic_id, label:installcc['comments']+' ['+installcc['version']+']', group:installcc['flag'] } );
+
+                                       if(installccs.length>1){
+
+                                           edges.push({from: 'installccallid' , to: installcc_pic_id , length: LENGTH_MAIN-LENGTH_SUB*3 , width: WIDTH_SCALE * 3 });
+
+                                       }else{
+
+                                           edges.push({from: peer_pic_id , to: installcc_pic_id , length: LENGTH_MAIN-LENGTH_SUB*3, width: WIDTH_SCALE * 3 });
+
+                                       }
+
 
                                    }
 
@@ -227,19 +257,30 @@ layui.define(['table', 'form', 'adminutil'], function (exports) {
 
 
                                    //为了显示更加清晰，将所有的channel的cc归结到一个总分类
-                                   nodes.push({id: 'channelallid', label: ``, group: 'channel'});
-                                   edges.push({from: peer_pic_id, to: 'channelallid', length: LENGTH_MAIN-LENGTH_SUB*3, width: WIDTH_SCALE * 2});
+                                   if( channels.length > 1  ){
+
+                                       nodes.push({id: 'channelallid', label: ``, group: 'channel'});
+                                       edges.push({from: peer_pic_id, to: 'channelallid', length: LENGTH_MAIN-LENGTH_SUB*3, width: WIDTH_SCALE * 2});
+
+                                   }
 
 
                                    for ( let cind = 0 ; cind<channels.length; cind++) {
-
 
 
                                        let channel = channels[cind];
                                        let channel_pic_id = channel['id'] + "##" + "channel" + "##" + channel['channel_id']+ "##" + adminutil.getRandInt(1,10000);
 
                                        nodes.push({id: channel_pic_id, label: channel['comments'], group: channel['flag']});
-                                       edges.push({from: "channelallid", to: channel_pic_id, length: LENGTH_MAIN-LENGTH_SUB*4, width: WIDTH_SCALE * 2});
+                                       if( channels.length > 1  ){
+
+                                           edges.push({from: "channelallid" , to: channel_pic_id, length: LENGTH_MAIN-LENGTH_SUB*4, width: WIDTH_SCALE * 2});
+
+                                       }else{
+
+                                           edges.push({from: peer_pic_id , to: channel_pic_id, length: LENGTH_MAIN-LENGTH_SUB*4, width: WIDTH_SCALE * 2});
+                                       }
+
 
 
                                        //如果存在通道的总区块数，则显示
@@ -265,7 +306,7 @@ layui.define(['table', 'form', 'adminutil'], function (exports) {
                                                if( channel_block_tx_keysets !== null && channel_block_tx_keysets !== undefined && channel_block_tx_keysets !== '' ){
 
                                                    let channel_block_tx_keysets_pic_id = adminutil.getRandInt(10000,50000); + "##" + "keysets" + "##" + channel['channel_id']+ "##" + adminutil.getRandInt(1,10000);
-                                                   nodes.push({id: channel_block_tx_keysets_pic_id, label: `keyset总数[${channel_block_tx_keysets}]`, group: 'keyset'});
+                                                   nodes.push({id: channel_block_tx_keysets_pic_id, label: `KEY[${channel_block_tx_keysets}]`, group: 'keyset'});
                                                    edges.push({from: channel_block_tx_keysets_pic_id, to: channel_block_txs_pic_id, length: LENGTH_MAIN-LENGTH_SUB*6, width: WIDTH_SCALE * 2});
 
                                                    //如果存在keyset的总数，则显示
@@ -286,10 +327,16 @@ layui.define(['table', 'form', 'adminutil'], function (exports) {
                                        if( instanceccs !== null && instanceccs !== undefined && instanceccs !== '' ){
 
 
-
+                                           //如果一个channel有多个instances cc 那么在显示的时候需要用一个节点该概括一下
                                            let instancesccallsid = channel_pic_id+"instancesccallsid"
-                                           nodes.push( { id: instancesccallsid , label:'', group:'chaincodeinstance' } );
-                                           edges.push({from: channel_pic_id , to: instancesccallsid, length: LENGTH_MAIN-LENGTH_SUB*5, width: WIDTH_SCALE * 3 });
+
+                                           if( instanceccs.length>1 ){
+
+                                               nodes.push( { id: instancesccallsid , label:'', group:'chaincodeinstance' } );
+                                               edges.push({from: channel_pic_id , to: instancesccallsid, length: LENGTH_MAIN-LENGTH_SUB*5, width: WIDTH_SCALE * 3 });
+
+
+                                           }
 
 
                                            for ( let cind = 0 ; cind<instanceccs.length; cind++) {
@@ -297,8 +344,17 @@ layui.define(['table', 'form', 'adminutil'], function (exports) {
                                                let instancecc = instanceccs[cind];
                                                let instancecc_pic_id = instancecc['id'] + "##" + "chaincode" + "##" + instancecc['name']+ "##" + adminutil.getRandInt(1,10000);
 
-                                               nodes.push( { id: instancecc_pic_id , label:instancecc['comments'] , group:instancecc['flag'] } );
-                                               edges.push({from: instancesccallsid , to: instancecc_pic_id , length: LENGTH_MAIN-LENGTH_SUB*5 , width: WIDTH_SCALE * 3 } );
+                                               nodes.push( { id: instancecc_pic_id , label:instancecc['comments']+' ['+instancecc['version']+']' , group:instancecc['flag'] } );
+
+                                               if( instanceccs.length>1 ){
+
+                                                   edges.push({from: instancesccallsid , to: instancecc_pic_id , length: LENGTH_MAIN-LENGTH_SUB*5 , width: WIDTH_SCALE * 3 } );
+
+                                               }else{
+                                                   edges.push({from: channel_pic_id , to: instancecc_pic_id , length: LENGTH_MAIN-LENGTH_SUB*5 , width: WIDTH_SCALE * 3 } );
+                                               }
+
+
 
                                            }
 
@@ -405,7 +461,7 @@ layui.define(['table', 'form', 'adminutil'], function (exports) {
                     }
 
 
-                    edges.push({from: org_pic_id, to: "orderergroups", length: LENGTH_MAIN-LENGTH_SUB*2, width: WIDTH_SCALE * 6});
+                    edges.push({from: org_pic_id, to: "orderergroups", length: LENGTH_MAIN, width: WIDTH_SCALE * 6});
 
 
                 }
@@ -430,7 +486,6 @@ layui.define(['table', 'form', 'adminutil'], function (exports) {
 
 
                 }
-
 
 
                 //容器准备

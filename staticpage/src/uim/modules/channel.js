@@ -265,7 +265,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
 
 
                 //====================绑定显示区块详细结构的弹出窗口的信息====================
-
+                /*
                 $('.layui-btn.layuiadmin-btn-list.layui-btn-sm').on('click', function () {
 
                     let type = $(this).data('type');
@@ -286,8 +286,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
                         }
                     });
 
-                });
-
+                });*/
 
 
                 // 绑定tab事件
@@ -744,13 +743,13 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
                        /* , {field: 'peer_name', title: 'peer节点'}
                         , {field: 'channel_id', title: '账本名称'}*/
                         , {field: 'name', title: '名称'}
-                        , {field: 'languages', title: '开发语言'}
                         , {field: 'comments', edit: 'text',title: '注释*'}
+                        , {field: 'languages', title: '开发语言'}
                         , {field: 'version', title: '版本'}
                         , {field: 'path', title: '路径'}
                         , {field: 'txcount', title: '交易数'}
                         , {field: 'ccstatus', title: '状态',templet: '#ccstatusTpl'}
-                        , {field: 'cccreatedt', title: '创建时间'}
+                        //, {field: 'cccreatedt', title: '创建时间'}
                         , {title: '操作', width: 80, align: 'center', fixed: 'right', toolbar: '#table-content-list'}
                     ]]
                     , page: true
@@ -766,7 +765,6 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
                     var value = obj.value //得到修改后的值
                         ,data = obj.data //得到所在行所有键值
                         ,field = obj.field; //得到字段
-
 
 
                     adminutil.ajaxreq({
@@ -2404,7 +2402,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
 
 
 
-                $('.layui-btn.layuiadmin-btn-list.layui-btn-sm').on('click', function () {
+                /*$('.layui-btn.layuiadmin-btn-list.layui-btn-sm').on('click', function () {
 
                     let type = $(this).data('type');
                     let jsonparm = '1' + ',' + 'Org1MSP'+","+type;
@@ -2425,7 +2423,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
                         }
                     });
 
-                });
+                });*/
 
 
 

@@ -20,23 +20,22 @@
  @License：APACHE2.0
 
  */
+
 var bcexplorerservice = require('./bcexplorerservice');
 
 
 /*
 var orgnamemap = bcexplorerservice.ORGNAMEMAP;
-
-console.info(  JSON.stringify( orgnamemap ) );*/
-
+console.info(  JSON.stringify( orgnamemap ) );
+*/
 
 //bcexplorerservice.testfunc('org1');
-
 //bcexplorerservice.parserOrg('Org1MSP');
 //bcexplorerservice.startUp();
 
 bcexplorerservice.parserDefaultOrg();
-//bcexplorerservice.get_fabric_channel_struct('mytestchannel4org1andorg21');
 
+//bcexplorerservice.get_fabric_channel_struct('mytestchannel4org1andorg21');
 //bcexplorerservice.get_fabric_network_struct();
 
 

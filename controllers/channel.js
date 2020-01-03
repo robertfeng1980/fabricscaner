@@ -395,13 +395,9 @@ router.get('/block_org_channel_select.json', async function (req, res) {
  *
  * chaincodes_detail.json
  *
- *
  ******************************************************************************************************************
  */
 router.get('/chaincodes_detail.json', async function (req, res) {
-
-
-
 
 
 
@@ -463,8 +459,6 @@ router.get('/chaincodes_list.json', async function (req, res) {
 
 
     /**根据客户端发送的查询参数，拼接查询条件*/
-
-
 
 
     if (req.query.peer_name !== undefined && req.query.peer_name !== '') {
@@ -532,25 +526,46 @@ router.get('/chaincodes_list.json', async function (req, res) {
     }
 
     if (req.query.channel_id !== undefined && req.query.channel_id !== '' && req.query.channel_id !== '-1') {
-
         where = where + `and name in ( select chaincode_name from channel_ref_instantiatedcc where channel_id = '${req.query.channel_id}' )  `;
-
     }
 
     logger.debug(searchparm);
     logger.debug(where);
 
-    let sql = `select  pkid, comments,DATE_FORMAT(cccreatedt,'%Y-%m-%d %H:%i:%S') as  cccreatedt, peer_name,channel_id,languages,name,version,path,escc,vscc,peers,txcount,keysets,account_certs,ccstatus from chaincodes where  ${where}  `;
+    let sql = `select  CONCAT( name,version ) as ccinstanceversion , pkid , comments , DATE_FORMAT(cccreatedt,'%Y-%m-%d %H:%i:%S') as  cccreatedt , peer_name , channel_id , languages , name , version , path , escc,vscc , peers , txcount , keysets , account_certs , ccstatus from chaincodes where  ${where}  `;
     let sql_count = ` select count(pkid) as nums from  chaincodes  where ${where} `;
 
-   /* if(  req.query.mspid != undefined && req.query.mspid != ''  && req.query.mspid !== '-1'){
+    /* if(  req.query.mspid != undefined && req.query.mspid != ''  && req.query.mspid !== '-1'){
 
         sql  = sql +  `where channel_id in ( select channel_id from org_ref_channel where  mspid = '${req.query.mspid}' ) `;
     }
-*/
+    */
 
     let chaincodes_counts = await mysql.getRowCount4Sql(sql_count, 'nums');
     let chaincodes = await mysql.getRowsBySQl(sql, searchparm, '', `${page},${limit}`);
+
+    let ccinstances_chanel_id_map = await mysql.getSQL2Map(`select channel_id , CONCAT( chaincode_name,chaincode_version ) as ccinstanceversion from  channel_ref_instantiatedcc `,'ccinstanceversion');
+
+    logger.debug(ccinstances_chanel_id_map['fabricscan_cc_09241.4']['channel_id']);
+
+
+    for (let ind = 0 ; ind < chaincodes.length ; ind++ ) {
+
+        let chaincode_item = chaincodes[ind];
+        let ccstatus = chaincode_item['ccstatus'];
+        let ccinstanceversion = chaincode_item['ccinstanceversion'];
+
+
+        if( ccstatus == 1 ){
+
+            chaincode_item['channel_id'] = ccinstances_chanel_id_map[ccinstanceversion]['channel_id'];
+
+        }
+
+
+
+    }
+
 
 
     res.send({

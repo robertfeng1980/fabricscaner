@@ -408,13 +408,15 @@ let get_fabric_org_struct = async (mspid)=>{
     let sql_channelinfo_map = await mysql.getSQL2Map(sql_channelinfo,"channel_id");
 
 
-    /**
+    /****************************************************************************
+     *
      *   let sql_cc_install = `select pkid as id , "chaincodeinstall" as flag , comments ,name, version ,peer_name from  chaincodes where  name not in (  select chaincode_name from channel_ref_instantiatedcc where channel_id in ( select  channel_id from org_ref_channel where mspid = '${mspid}') ) )    `;
-     *    let sql_cc_install_map = await mysql.getSQL2Map4Arr(sql_cc_install,"peer_name");
+     *   let sql_cc_install_map = await mysql.getSQL2Map4Arr(sql_cc_install,"peer_name");
      *
      *   let sql_cc_instance = ` select pkid as id , "chaincodeinstance" as flag , comments ,name, version , channel_id,peer_name  from  chaincodes where name  in (  select chaincode_name from channel_ref_instantiatedcc where channel_id in ( select  channel_id from org_ref_channel where mspid = '${mspid}')   )  )  `;
      *   let sql_cc_instance_info = await mysql.getRowsByFullSQl(sql_cc_instance);
      *
+     ********************************************************************
      * @type {string}
      */
 
@@ -1734,14 +1736,17 @@ let static_count = async () => {
 
 
     // org 统计
-    let org_sql = `UPDATE organization org
+    // SELECT count( DISTINCT(account_cert_md5) ) FROM trans_ref_account accs  where accs.channel_id in ( select channel_id from org_ref_channel  orefc  where orefc.mspid = org.mspid )
+    // where org.admincert != '' and org.adminkey != ''
+    let org_sql = ` UPDATE organization org
                     SET fabric_cas = ( SELECT count( pkid ) FROM fabricca ca where ca.mspid = org.mspid ),
                     peers = ( SELECT count( pkid ) FROM peer p where p.mspid = org.mspid ),
                     channels = ( SELECT count( pkid ) FROM org_ref_channel orgrc where orgrc.mspid = org.mspid ),
                     chaincodes = ( SELECT count( DISTINCT(name)) FROM chaincodes cc  where cc.channel_id in ( select channel_id from org_ref_channel  orefc  where orefc.mspid = org.mspid ) ),
                     txcount = ( SELECT count( pkid ) FROM transactions tx  where tx.channel_id in ( select channel_id from org_ref_channel  orefc  where orefc.mspid = org.mspid ) ),
                     keysets = ( SELECT count( DISTINCT (keyname) ) FROM keyset ks where  ks.channel_id in ( select channel_id from org_ref_channel  orefc  where orefc.mspid = org.mspid )),
-                    account_certs = ( SELECT count( DISTINCT(account_cert_md5) ) FROM trans_ref_account accs  where accs.channel_id in ( select channel_id from org_ref_channel  orefc  where orefc.mspid = org.mspid ) )  where org.admincert != '' and org.adminkey != ''`;
+                    account_certs = ( select count(DISTINCT(certs_md5))  from accounts acc where acc.mspid =  org.mspid  )  `;
+
 
     await sql.updateBySql( org_sql );
 
@@ -1823,7 +1828,6 @@ let parserDefaultOrg = async () => {
     //ßßßßawait mysql.closeconnection();
     //await mysql.closeconnection();
 
-
     logger.info(`   ================== ***************  ${getDateStr4Date(new Date(), 'yyyy-MM-dd hh:mm:ss.S')}   ***************** =====================   `);
 
 }
@@ -1854,7 +1858,7 @@ let parserOrg = async (orgname) => {
     let admincert = org['admincert'];
 
 
-    if (admincert != '' && admincert != undefined && adminkey != '' && adminkey != undefined) {
+    if (admincert !== '' && admincert !== undefined && adminkey !== '' && adminkey !== undefined) {
 
 
         fabricservice.inits(tempdir, adminkey, admincert);
@@ -1911,12 +1915,16 @@ let parserOrg = async (orgname) => {
         //更新每个peer上面的chaincode
         await modify_install_chaincode(peerjoinchannels, fabricservice);
 
+
+        //更新peer上面的状态为 install的 chaincode信息
+        await modify_instantiated_chaincode(peerjoinchannels, tempdir, adminkey, admincert);
+
+
         //更新channel上面的数据信息 区块链 交易 keyset
         await modify_channels(channelpeermap, fabricservice);
 
 
-        //更新peer上面的状态为 install的 chaincode信息
-        await modify_instantiated_chaincode(peerjoinchannels, tempdir, adminkey, admincert);
+
         /***/
 
         //sql.closeconnection();
@@ -2348,10 +2356,7 @@ let modify_channel_block = async (channel_id, peer, fabricservice) => {
     let blocks = channel['blocks'];
 
 
-
     if( blockheight > countblocks  ||  blockheight === 1 ) {
-
-
 
 
         let checkfalg = true;
@@ -2365,7 +2370,6 @@ let modify_channel_block = async (channel_id, peer, fabricservice) => {
             }
 
         }
-
 
         //for( ; countblocks <=blockheight && checkfalg ; countblocks++ ){
 
@@ -2491,10 +2495,13 @@ let modify_channel_block_trans = async (channel_id, peer, blockinfo, fabricservi
 
             let tx_language = '';
             let tx_cc_version = '';
+            let chaincodename = '';
 
+            //console.log( jsonstr.transactionEnvelope.payload.data.actions[0].payload.action.proposal_response_payload.extension.chaincode_id);
             if (transaction['payload']['data']['actions'] != '' && transaction['payload']['data']['actions'] != undefined) {
                 tx_language = transaction['payload']['data']['actions'][0]['payload']['chaincode_proposal_payload']['input']['chaincode_spec']['typeString'];
                 tx_cc_version = transaction['payload']['data']['actions'][0]['payload']['action']['proposal_response_payload']['extension']['chaincode_id']['version'];
+                chaincodename = transaction['payload']['data']['actions'][0]['payload']['action']['proposal_response_payload']['extension']['chaincode_id']['name'];
 
             }
 
@@ -2508,10 +2515,10 @@ let modify_channel_block_trans = async (channel_id, peer, blockinfo, fabricservi
 
             let keyset = getkeyset4Transaction(transaction);
 
-            let chaincodename = '';
 
-            if (keyset != null)
-                chaincodename = keyset['chaincode'];
+            // 这种获取方法是存在问题的
+           /* if (keyset != null)
+                chaincodename = keyset['chaincode'];*/
 
 
             /** 为了获取tx viliationCode 需要重新从账本中获取交易的详细数据 */
@@ -2556,13 +2563,77 @@ let modify_channel_block_trans = async (channel_id, peer, blockinfo, fabricservi
             };
 
 
-            let sql_update_cc_lanage = ` update chaincodes set languages = '${tx_language}' where name = '${chaincodename}' and version = '${tx_cc_version}' `;
-            await sql.updateBySql(sql_update_cc_lanage);
 
 
+            //如果当前交易是由于lscc系统内置cc发起的，那么当前交易有可能是实例化当前CC而发起的交易，目前收集到的信息看还没有其他类型的交易，暂且当做CC创建的交易处理
+
+
+            if( chaincodename === 'lscc'  ){
+
+
+                //提取当前交易的相关信息
+                let cc_results = transaction['payload']['data']['actions'][0]['payload']['action']['proposal_response_payload']['extension']['results']['ns_rwset'];
+                let cc_tx_timestamp = transaction['payload']['header']['channel_header']['timestamp'];
+                let cc_tx_channel = transaction['payload']['header']['channel_header']['channel_id'];
+                let cc_lanage = transaction['payload']['data']['actions'][0]['payload']['chaincode_proposal_payload']['input']['chaincode_spec']['typeString'];
+
+                let mysql_cc_instance_date = getDateStr4Date(new Date(cc_tx_timestamp), 'yyyy-MM-dd hh:mm:ss.S');
+
+                let lscc_ns ;
+
+                cc_results.forEach(function(item,index,arr){
+                    let  namespace = item.namespace;
+                    lscc_ns = item;
+                    if(namespace === 'lscc') return;
+                });
+
+
+                let rwset = lscc_ns['rwset'];
+
+                let rwset_reads = rwset['reads'];
+                let wrset_writes  = rwset['writes']
+
+                let rwset_reads_key = rwset_reads[0]['key'];
+                let rwset_writers_key= wrset_writes[0]['key'];
+
+                let tx_info =  wrset_writes[0]['value'];
+
+                var arr = tx_info.toString().split("\n");
+                let cc_info = arr[1];
+
+                let split_start = rwset_reads_key.length;
+                let split_end = cc_info.indexOf("escc");
+
+                let cc_instance_version = cc_info.substring(split_start+3, split_end-2).trim();
+                let cc_name = rwset_writers_key;
+
+
+                //更新cc的开发语言和开发动态信息
+                let sql_update_cc_lanage = ` update chaincodes set languages = '${tx_language}' , ifoncerun = 1  where name = '${cc_name}' and version = '${cc_instance_version}' `;
+                await sql.updateBySql(sql_update_cc_lanage);
+
+
+                //更新cc的运行状态等信息
+                let sql_update_cc_instance_info = ` update channel_ref_instantiatedcc set chaincode_createdt = '${mysql_cc_instance_date}' , instance_txhash = '${txhash}'  where  chaincode_name = '${cc_name}' and chaincode_version = '${cc_instance_version}'  and channel_id = '${cc_tx_channel}' `;
+                await sql.updateBySql( sql_update_cc_instance_info );
+
+
+                //设置交易附加属性
+
+                transactions['cc_name_created'] = cc_name;
+                transactions['cc_version_created'] = cc_instance_version;
+
+
+
+            }
+
+
+            //保存交易信息
             let transcheck = await sql.getRowByPkOne(` select pkid from transactions where txhash = '${txhash}' and  channel_id = '${channel_id}'  `)
             if (transcheck == null)
                 await sql.saveRow('transactions', transactions);
+
+
 
 
             // ==  保存交易中包含的签名账号信息 ====
@@ -2906,7 +2977,7 @@ let saveAccount = async (account) => {
     account['effective_dt'] = getDateStr4Date(new Date(account['effective_dt']), 'yyyy-MM-dd hh:mm:ss.S');
     account['invalid_dt'] = getDateStr4Date(new Date(account['invalid_dt']), 'yyyy-MM-dd hh:mm:ss.S');
 
-    account['comments'] = accounts['name'];
+    account['comments'] = account['name'];
 
 
     if ( org_check == null && (mspid !== '' && mspid !== null && mspid !== undefined ) ) {
@@ -2967,7 +3038,8 @@ let saveTxAccountRef = async (channel_id, cc_name, cc_version, transhash, accoun
 
 
 /**
- *  更新状态为INS
+ *  更新状态为Instances的chaincode
+ *
  * @param peers
  * @param tempdir
  * @param adminkey
@@ -3037,7 +3109,8 @@ let modify_instantiated_chaincode = async (peers, tempdir, adminkey, admincert) 
                     let peer_ref_chaincode = {
                         'chaincode_version': version ,
                         'chaincode_name': name ,
-                        'channel_id':channel_id
+                        'channel_id':channel_id,
+                        'peer_name':peer_name
                     };
 
                     let peer_ref_cc_result = await sql.saveRow('channel_ref_instantiatedcc', peer_ref_chaincode);
@@ -3308,6 +3381,31 @@ let base64_decode = (base64_string)=>{
 }
 
 
+
+/**
+ * 创建cc的过程中，当cc被instances的时候发产生一笔交易，通过这样的交易可以获取CC的创建时间
+ */
+
+let checktx4cccreate = (txobj)=>{
+
+
+    //发起交易的cc是 lscc
+
+    //namespace 是 lscc
+
+    //读集合和写集合的KEY相等的，这个KEY就是本次创建的CC
+
+
+}
+
+
+/**
+ *
+ */
+
+
+
+
 exports.getPeerStatus = getPeerStatus;
 exports.getOrgStatus = getOrgStatus;
 exports.getCurrPeerJoinChannels = getCurrPeerJoinChannels;
@@ -3336,6 +3434,6 @@ exports.get_fabric_keyset_struct = get_fabric_keyset_struct;
 exports.get_fabric_org_struct = get_fabric_org_struct;
 
 
-
+exports.checktx4cccreate = checktx4cccreate;
 
 
