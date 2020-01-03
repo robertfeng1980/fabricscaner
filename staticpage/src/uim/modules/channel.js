@@ -828,6 +828,16 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
                             }
                         });
 
+                    }else if( obj.event.indexOf("channel_detail") !== -1 ){
+
+
+                        let channel_arr = obj.event.split("###");
+                        if( channel_arr.length > 1 ){
+
+                            let channel_id = channel_arr[1];
+                            layer.msg(channel_id);
+                        }
+
                     }
 
                 });

@@ -544,7 +544,10 @@ router.get('/chaincodes_list.json', async function (req, res) {
     let chaincodes_counts = await mysql.getRowCount4Sql(sql_count, 'nums');
     let chaincodes = await mysql.getRowsBySQl(sql, searchparm, '', `${page},${limit}`);
 
-    let ccinstances_chanel_id_map = await mysql.getSQL2Map(`select channel_id , CONCAT( chaincode_name,chaincode_version ) as ccinstanceversion from  channel_ref_instantiatedcc `,'ccinstanceversion');
+    //let ccinstances_chanel_id_map = await mysql.getSQL2Map(`select channel_id , CONCAT( chaincode_name,chaincode_version ) as ccinstanceversion from  channel_ref_instantiatedcc `,'ccinstanceversion');
+
+    let ccinstances_chanel_id_map = await mysql.getSQL2Map4Arr(`select channel_id , CONCAT( chaincode_name,chaincode_version ) as ccinstanceversion from  channel_ref_instantiatedcc `,'ccinstanceversion');
+
 
     logger.debug(ccinstances_chanel_id_map['fabricscan_cc_09241.4']['channel_id']);
 
@@ -558,7 +561,7 @@ router.get('/chaincodes_list.json', async function (req, res) {
 
         if( ccstatus == 1 ){
 
-            chaincode_item['channel_id'] = ccinstances_chanel_id_map[ccinstanceversion]['channel_id'];
+            chaincode_item['channel_id'] = ccinstances_chanel_id_map[ccinstanceversion];
 
         }
 
