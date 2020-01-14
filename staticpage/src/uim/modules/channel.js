@@ -748,6 +748,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
                         , {field: 'version', title: '版本'}
                         , {field: 'path', title: '路径'}
                         , {field: 'txcount', title: '交易数'}
+                        , {field: 'keyset_num', title: 'KEYS'}
                         , {field: 'ccstatus', title: '状态',templet: '#ccstatusTpl'}
                         //, {field: 'cccreatedt', title: '创建时间'}
                         , {title: '操作', width: 80, align: 'center', fixed: 'right', toolbar: '#table-content-list'}

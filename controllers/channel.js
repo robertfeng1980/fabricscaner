@@ -16,7 +16,7 @@
 
  @Name：fabricscaner
  @Author：robert.feng(老冯)
- @Site：http://www.fabricscaner.com  https://www.blockchainbrother.com/
+ @Site：https://www.fabricscaner.com  https://www.blockchainbrother.com/
  @License：APACHE2.0
 
  */
@@ -369,7 +369,13 @@ router.get('/blocks_list.json', async function (req, res) {
 
 
 /**
+ *******************************************************************************************************************
+ *
+ *
  * 根据mspi选择channel
+ *
+ *
+ *******************************************************************************************************************
  */
 router.get('/block_org_channel_select.json', async function (req, res) {
 
@@ -393,7 +399,9 @@ router.get('/block_org_channel_select.json', async function (req, res) {
 /**
  ******************************************************************************************************************
  *
+ *
  * chaincodes_detail.json
+ *
  *
  ******************************************************************************************************************
  */
@@ -411,7 +419,6 @@ router.get('/chaincodes_detail.json', async function (req, res) {
 
 
     let peer_count_info = await mysql.getRowsBySQlCase(`select count(pkid) as peer from peer_ref_chaincode where chaincode_name = '${cc_name}'`)
-
 
 
     let sql_org = ` select pkid as id ,name,mspid , comments , "org" as flag from organization where  mspid in ( select mspid from org_ref_channel where channel_id = '${channel_id}' )  `;
@@ -440,6 +447,7 @@ router.get('/chaincodes_detail.json', async function (req, res) {
 /**
  ******************************************************************************************************************
  *
+ *
  * chaincodes_list.json
  *
  *
@@ -459,7 +467,6 @@ router.get('/chaincodes_list.json', async function (req, res) {
 
 
     /**根据客户端发送的查询参数，拼接查询条件*/
-
 
     if (req.query.peer_name !== undefined && req.query.peer_name !== '') {
         searchparm['peer_name'] = req.query.peer_name;
@@ -535,10 +542,13 @@ router.get('/chaincodes_list.json', async function (req, res) {
     let sql = `select  CONCAT( name,version ) as ccinstanceversion , pkid , comments , DATE_FORMAT(cccreatedt,'%Y-%m-%d %H:%i:%S') as  cccreatedt , peer_name , channel_id , languages , name , version , path , escc,vscc , peers , txcount , keysets , account_certs , ccstatus from chaincodes where  ${where}  `;
     let sql_count = ` select count(pkid) as nums from  chaincodes  where ${where} `;
 
-    /* if(  req.query.mspid != undefined && req.query.mspid != ''  && req.query.mspid !== '-1'){
+    /*
 
-        sql  = sql +  `where channel_id in ( select channel_id from org_ref_channel where  mspid = '${req.query.mspid}' ) `;
+    if(  req.query.mspid != undefined && req.query.mspid != ''  && req.query.mspid !== '-1'){
+
+        sql  = sql +  ` where channel_id in ( select channel_id from org_ref_channel where  mspid = '${req.query.mspid}' ) `;
     }
+
     */
 
     let chaincodes_counts = await mysql.getRowCount4Sql(sql_count, 'nums');
@@ -548,8 +558,29 @@ router.get('/chaincodes_list.json', async function (req, res) {
 
     let ccinstances_chanel_id_map = await mysql.getSQL2Map4Arr(`select channel_id , CONCAT( chaincode_name,chaincode_version ) as ccinstanceversion from  channel_ref_instantiatedcc `,'ccinstanceversion');
 
+    let nameversion_arr = [];
+
+    chaincodes.forEach(function (v,index,a) {
+
+        let cc_name = v['name'];
+        let cc_version = v['version'];
+        let cc_nameversion_str = cc_name + cc_version;
+        nameversion_arr.push(cc_nameversion_str);
+    })
+
+
+    let nameversion_str = nameversion_arr.join('\',\'');
+    nameversion_str = `'${nameversion_str}'`;
+
+    let nameversion_sql = `select  CONCAT( chaincode_name , chaincodeversion ) as ccinstanceversion  ,  count(pkid) as nums from  keyset  where   CONCAT( chaincode_name , chaincodeversion )  in ( ${nameversion_str}  )  group by ccinstanceversion`;
+
+
+    let cc_nameversion_keys__map = await mysql.getSQL2Map(nameversion_sql,'ccinstanceversion');
+
 
     logger.debug(ccinstances_chanel_id_map['fabricscan_cc_09241.4']['channel_id']);
+
+    logger.debug(`${nameversion_sql}`);
 
 
     for (let ind = 0 ; ind < chaincodes.length ; ind++ ) {
@@ -563,6 +594,13 @@ router.get('/chaincodes_list.json', async function (req, res) {
 
             chaincode_item['channel_id'] = ccinstances_chanel_id_map[ccinstanceversion];
 
+            if(  cc_nameversion_keys__map[ccinstanceversion] === undefined || cc_nameversion_keys__map[ccinstanceversion] === '' ){
+                chaincode_item['keyset_num'] = '';
+            }else{
+                chaincode_item['keyset_num'] = cc_nameversion_keys__map[ccinstanceversion]['nums'];
+            }
+
+
         }
 
 
@@ -572,7 +610,7 @@ router.get('/chaincodes_list.json', async function (req, res) {
 
 
     res.send({
-        "code": 0
+          "code": 0
         , "msg": ""
         , "count": chaincodes_counts
         , "data": chaincodes

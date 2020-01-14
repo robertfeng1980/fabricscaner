@@ -2498,7 +2498,8 @@ let modify_channel_block_trans = async (channel_id, peer, blockinfo, fabricservi
             let chaincodename = '';
 
             //console.log( jsonstr.transactionEnvelope.payload.data.actions[0].payload.action.proposal_response_payload.extension.chaincode_id);
-            if (transaction['payload']['data']['actions'] != '' && transaction['payload']['data']['actions'] != undefined) {
+            if (transaction['payload']['data']['actions'] !== '' && transaction['payload']['data']['actions'] !== undefined) {
+
                 tx_language = transaction['payload']['data']['actions'][0]['payload']['chaincode_proposal_payload']['input']['chaincode_spec']['typeString'];
                 tx_cc_version = transaction['payload']['data']['actions'][0]['payload']['action']['proposal_response_payload']['extension']['chaincode_id']['version'];
                 chaincodename = transaction['payload']['data']['actions'][0]['payload']['action']['proposal_response_payload']['extension']['chaincode_id']['name'];
@@ -2668,6 +2669,7 @@ let modify_channel_block_trans = async (channel_id, peer, blockinfo, fabricservi
                         'keyname': keyname,
                         'isdelete': is_delete_v,
                         'chaincode_name': chaincodename,
+                        'chaincodeversion': tx_cc_version,
                         'trandtstr': timestamp,
                         'valuess': base64_encode(value),
                         'remark': '',
@@ -2703,13 +2705,13 @@ let modify_channel_block_trans = async (channel_id, peer, blockinfo, fabricservi
                         'valuess': base64_encode(value),
                         'trandtstr': timestamp,
                         'chaincode_name': chaincodename,
+                        'chaincodeversion': tx_cc_version,
                         'remark': '',
                         'txcreatedt_str': timestamp,
                         'txcreatedt': mysql_date,
                     };
 
-                    let keysetresult1 = await sql.saveRow('keyset_history', keyset_history);
-
+                    let keysetresult1 = await sql.saveRow( 'keyset_history' , keyset_history );
 
                 }
 
