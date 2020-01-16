@@ -1236,10 +1236,27 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
 
                         $('#cc_name_div_element').html(chaincode_info['name']);
                         $('#cc_path_div_element').html(chaincode_info['path']);
-                        $('#cc_channel_div_element').html(chaincode_info['channel_id']);
-                        $('#cc_status__div_element').html(chaincode_info['ccstatus']);
+                        $('#cc_version').html(chaincode_info['version']);
+
+                        //$('#cc_channel_div_element').html(chaincode_info['channel_id']);
+                        //$('#cc_status__div_element').html(chaincode_info['ccstatus']);
                         //$('#cc_chare_org').html(chaincode_info['tx']);
                         //$('#cc_endorstor').html(chaincode_info['keyset']);
+
+                        //cc状态数据
+                        var getTpl = $('#cc_status_item_tpl').html();
+                        laytpl(getTpl).render( chaincode_info['ccstatus'] , function (html) {
+                            $('#cc_status__div_element').html(html);
+                        });
+
+                        // cc被instance后，加入的channel数目
+                        var getTpl = $('#cc_instance_channel_tpl').html();
+                        laytpl(getTpl).render( chaincode_info , function (html) {
+                            $('#cc_channel_div_element').html(html);
+                        });
+
+
+
 
 
                     }
@@ -2321,7 +2338,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
 
 
 
-                /*绑定批量删除和添加等按钮的操作事件*/
+                /*初始化网络中的组织*/
                 adminutil.ajaxreq({
 
                     url: layui.setter.base + '../json/channel/channel_org_select.json'
@@ -2340,7 +2357,6 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
                         laytpl(getTpl).render(response.data, function (html) {
                             $('#channellist_org_select').html(html);
                         });
-
 
                         form.render('select');
 

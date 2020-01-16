@@ -303,7 +303,6 @@ router.get('/block_struct_json.json', async function (req, res) {
  *
  * blocks_list.json
  *
- *
  ******************************************************************************************************************
  */
 router.get('/blocks_list.json', async function (req, res) {
@@ -399,9 +398,7 @@ router.get('/block_org_channel_select.json', async function (req, res) {
 /**
  ******************************************************************************************************************
  *
- *
  * chaincodes_detail.json
- *
  *
  ******************************************************************************************************************
  */
@@ -416,23 +413,31 @@ router.get('/chaincodes_detail.json', async function (req, res) {
 
     let channel_id = sql_cc_info['channel_id'];
     let cc_name = sql_cc_info['name'];
+    let cc_version = sql_cc_info['version'];
 
 
     let peer_count_info = await mysql.getRowsBySQlCase(`select count(pkid) as peer from peer_ref_chaincode where chaincode_name = '${cc_name}'`)
 
-
     let sql_org = ` select pkid as id ,name,mspid , comments , "org" as flag from organization where  mspid in ( select mspid from org_ref_channel where channel_id = '${channel_id}' )  `;
     let sql_org_info = await mysql.getRowsByFullSQl(sql_org);
 
-
     let pic_struct = await bcexplorerservice.get_fabric_cc_struct(chaincodes_pkid);
+
+    /**
+     *
+     * let sql = `select  CONCAT( name,version ) as ccinstanceversion , pkid , comments , DATE_FORMAT(cccreatedt,'%Y-%m-%d %H:%i:%S') as  cccreatedt , peer_name , channel_id , languages , name , version , path , escc,vscc , peers , txcount , keysets , account_certs , ccstatus from chaincodes where  ${where}  `;
+
+     */
+    let ccinstances_chanel_id_map = await mysql.getSQL2Map4Arr(`select channel_id , CONCAT( chaincode_name,chaincode_version ) as ccinstanceversion from  channel_ref_instantiatedcc `,'ccinstanceversion');
+    let cc_name_verison = cc_name+cc_version;
+    let cc_instanced_channel = ccinstances_chanel_id_map[cc_name_verison];
 
 
 
     res.send({
             "code": 0,
             "msg": "",
-            "chaincode_info": {"pkid":"121","channel_id": sql_cc_info['channel_id'],"languages": sql_cc_info[''],"name": sql_cc_info['name'],"version": sql_cc_info['version'],"path": sql_cc_info['path'],"escc":sql_cc_info['escc'],"vscc":sql_cc_info['vscc'],"txcount":sql_cc_info['txcount'],"ccstatus":sql_cc_info['ccstatus']},
+            "chaincode_info": {"pkid":"121","channel_id": cc_instanced_channel ,"languages": sql_cc_info[''],"name": sql_cc_info['name'],"version": sql_cc_info['version'],"path": sql_cc_info['path'],"escc":sql_cc_info['escc'],"vscc":sql_cc_info['vscc'],"txcount":sql_cc_info['txcount'],"ccstatus":sql_cc_info['ccstatus']},
             "count_info":{"peer":peer_count_info['peer'],"tx":sql_cc_info['txcount'],"keyset":121,"acccount":7},
             "pic_struct":pic_struct
         }

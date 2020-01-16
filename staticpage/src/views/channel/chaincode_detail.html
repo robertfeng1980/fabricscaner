@@ -46,12 +46,31 @@
                 <td><p class="layuiadmin-big-font layadming-big-font-detailshow" id="cc_path_div_element"></p></td>
               <td>channel</td>
               <td><p class="layuiadmin-big-font layadming-big-font-detailshow" id="cc_channel_div_element"></p></td>
+
+                <script type="text/html" id="cc_instance_channel_tpl">
+                    {{#  if(d.ccstatus==0){ }}
+                    {{#  } else { }}
+                    {{#  layui.each( d.channel_id, function(index, item){ }}
+                    <button class="layui-btn layui-btn-xs layui-btn-normal" style="background:#26bcd5" lay-event="channel_detail###{{ item.channel_id }}" >{{ item.channel_id }}</button>
+                    {{#  }); }}
+                    {{#  } }}
+                </script>
+
               <td>状态</td>
               <td><p class="layuiadmin-big-font layadming-big-font-detailshow" id="cc_status__div_element"></p></td>
+                <script type="text/html" id="cc_status_item_tpl">
+                    {{#  if(d==0){ }}
+                    <button class="layui-btn  layui-btn-xs" style="background:#725334;">install</button>
+                    {{#  } else { }}
+                    <button class="layui-btn layui-btn-xs" style="background:#109618">instance</button>
+                    {{#  } }}
+                </script>
             </tr>
             <tr>
                 <td>背书账号</td>
-                <td  colspan="7"><p class="layuiadmin-big-font layadming-big-font-detailshow" id="cc_endorstor"></p></td>
+                <td><p class="layuiadmin-big-font layadming-big-font-detailshow" id="cc_version"></p></td>
+                <td>背书账号</td>
+                <td  colspan="6"><p class="layuiadmin-big-font layadming-big-font-detailshow" id="cc_endorstor"></p></td>
             </tr>
 
             </tbody>

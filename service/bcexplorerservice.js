@@ -951,7 +951,10 @@ let get_fabric_cc_struct = async ( chaincodes_pkid )=>{
     let sql_cc = ` select * from chaincodes where pkid = '${chaincodes_pkid}' `;
     let sql_cc_info = await mysql.getRowsBySQlCase(sql_cc);
     let channel_id = sql_cc_info['channel_id'];
+    let cc_name = sql_cc_info['name'];
+    let peer_name = sql_cc_info[''];
 
+    let sql1111 = `select mspid from peer where  name in   (select peer_name from peer_ref_chaincode where chaincode_name = '${cc_name}) `
 
     let sql_org = ` select pkid as id ,name,mspid , comments , "org" as flag from organization where  mspid in ( select mspid from org_ref_channel where channel_id = '${channel_id}' )  `;
     let sql_org_info = await mysql.getRowsByFullSQl(sql_org);
