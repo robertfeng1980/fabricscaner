@@ -952,36 +952,44 @@ let get_fabric_cc_struct = async ( chaincodes_pkid )=>{
     let sql_cc_info = await mysql.getRowsBySQlCase(sql_cc);
     let channel_id = sql_cc_info['channel_id'];
     let cc_name = sql_cc_info['name'];
-    let peer_name = sql_cc_info[''];
 
-    let sql1111 = `select mspid from peer where  name in   (select peer_name from peer_ref_chaincode where chaincode_name = '${cc_name}) `
 
-    let sql_org = ` select pkid as id ,name,mspid , comments , "org" as flag from organization where  mspid in ( select mspid from org_ref_channel where channel_id = '${channel_id}' )  `;
+    let sql_cc_org_condtion = `select mspid from peer where  name in   (select peer_name from peer_ref_chaincode where chaincode_name = '${cc_name}') `
+
+    let sql_org = ` select pkid as id ,name,mspid , comments , "org" as flag from organization where  mspid in ( ${sql_cc_org_condtion} )  `;
     let sql_org_info = await mysql.getRowsByFullSQl(sql_org);
 
     let sql_orderer = `select  pkid as id ,orderer_mspid as name ,"orderer" as flag from  orderer  `;
     let sql_orderer_info = await mysql.getRowsByFullSQl(sql_orderer);
 
-    let sql_peer = ` select  pkid as id ,mspid,name ,"peer" as flag from  peer  where name in ( select peer_name from peer_ref_channel where channel_id = '${channel_id}' ) `;
+    let sql_peer = ` select  pkid as id ,mspid,name ,"peer" as flag from  peer  where name in ( select peer_name from peer_ref_chaincode where chaincode_name = '${cc_name}' ) `;
     let sql_peer_map = await mysql.getSQL2Map4Arr(sql_peer,"mspid");
 
-    let sql_channel = ` select  peer_name,channel_id,"channel" as flag from  peer_ref_channel where channel_id = '${channel_id}'  `;
+
+    let sql_cc_instance_channel_condtion = `select channel_id from channel_ref_instantiatedcc where chaincode_name = '${cc_name}'`;
+    let sql_channel = ` select  peer_name,channel_id,"channel" as flag from  peer_ref_channel where channel_id in (${ sql_cc_instance_channel_condtion })  `;
     let sql_channel_map = await mysql.getSQL2Map4Arr(sql_channel,"peer_name");
 
-    let sql_channelinfo = ` select blocks, pkid as id , comments  ,channel_id,originate_dt,"channel" as flag from  channel where channel_id = '${channel_id}'   `;
+    let sql_channelinfo = ` select  txcount as  txnums , blocks, pkid as id , comments  ,channel_id,originate_dt,"channel" as flag from  channel where channel_id in (${ sql_cc_instance_channel_condtion })   `;
     let sql_channelinfo_map = await mysql.getSQL2Map(sql_channelinfo,"channel_id");
 
-    let sql_cc_install = `select pkid as id , "chaincodeinstall" as flag , comments ,name, version ,peer_name from  chaincodes where ccstatus = 0 and channel_id = '${channel_id}' `;
+    let sql_cc_install = `select pkid as id , "chaincodeinstall" as flag , comments ,name, version ,peer_name from  chaincodes where ccstatus = 0 and name = '${cc_name}' `;
     let sql_cc_install_map = await mysql.getSQL2Map4Arr(sql_cc_install,"peer_name");
 
-    let sql_cc_instance = ` select pkid as id , "chaincodeinstance" as flag , comments ,name, version , channel_id,peer_name  from  chaincodes where ccstatus = 1 and channel_id = '${channel_id}'  `;
+
+    let sql_cc_instance_detail = ` select pkid as id , "chaincodeinstance" as flag , comments ,name, version ,CONCAT( name,version ) as cc_name_version , channel_id,peer_name  from  chaincodes where ccstatus = 1  and name = '${cc_name}' `;
+    //let sql_cc_instance = ` select pkid as id , "chaincodeinstance" as flag , comments ,name, version , channel_id,peer_name  from  chaincodes where ccstatus = 1  and name = '${cc_name}' `;
+    let sql_cc_instance = ` select * from channel_ref_instantiatedcc where  chaincode_name = '${cc_name}' `
+
     let sql_cc_instance_info = await mysql.getRowsByFullSQl(sql_cc_instance);
+    let sql_cc_instance_detail_map = await mysql.getSQL2Map(sql_cc_instance_detail,'cc_name_version');
 
-    let sql_tx_count = `select channel_id , count(pkid) as txnums from transactions  where channel_id = '${channel_id}'  group by channel_id     `;
+
+    let sql_tx_count = `select channel_id , count(pkid) as txnums from transactions  where channel_id in (${ sql_cc_instance_channel_condtion })   group by channel_id     `;
     let sql_tx_count_map = await mysql.getSQL2Map(sql_tx_count,"channel_id");
-    //=====
 
-    let sql_keyset_count = `select channel_id , count(pkid) as keysetnums from keyset  where channel_id = '${channel_id}'  group by channel_id   `;
+    //=====
+    let sql_keyset_count = `select channel_id , count(pkid) as keysetnums from keyset  where channel_id in (${ sql_cc_instance_channel_condtion })   group by channel_id   `;
     let sql_keyset_count_map = await mysql.getSQL2Map(sql_keyset_count,"channel_id");
 
 
@@ -993,27 +1001,35 @@ let get_fabric_cc_struct = async ( chaincodes_pkid )=>{
     if( sql_cc_instance_info !== null && sql_cc_instance_info!== '' || sql_cc_instance_info !== undefined ){
 
 
-        for( let ccinstanceind = 0 ; ccinstanceind < sql_cc_instance_info.length;ccinstanceind++ ){
+        for( let ccinstanceind = 0 ; ccinstanceind < sql_cc_instance_info.length;ccinstanceind++ ) {
 
             let cc_instance = sql_cc_instance_info[ccinstanceind];
             let cc_peer = cc_instance['peer_name'];
             let cc_channel_id = cc_instance['channel_id'];
+            let cc_name = cc_instance['chaincode_name'];
+            let cc_version = cc_instance['chaincode_version'];
+
+
+            let cc_name_version = `${cc_name}${cc_version}`;
+            let cc_instance_detail = sql_cc_instance_detail_map[cc_name_version];
+
+
 
             let cc_peer_channels = cc_instance_map[cc_peer];
 
-            if( cc_peer_channels === '' || cc_peer_channels === '' || cc_peer_channels === undefined  ){
+            if (cc_peer_channels === '' || cc_peer_channels === '' || cc_peer_channels === undefined) {
                 cc_peer_channels = {};
 
             }
 
             let cc_peer_channels_cc = cc_peer_channels[cc_channel_id];
 
-            if( cc_peer_channels_cc === '' || cc_peer_channels_cc === '' || cc_peer_channels_cc === undefined  ){
+            if (cc_peer_channels_cc === '' || cc_peer_channels_cc === '' || cc_peer_channels_cc === undefined) {
                 cc_peer_channels_cc = [];
 
             }
 
-            cc_peer_channels_cc.push(cc_instance);
+            cc_peer_channels_cc.push( cc_instance_detail );
             cc_peer_channels[cc_channel_id] = cc_peer_channels_cc;
 
             cc_instance_map[cc_peer] = cc_peer_channels;
@@ -1068,11 +1084,15 @@ let get_fabric_cc_struct = async ( chaincodes_pkid )=>{
 
 
                         let channel_detail = sql_channelinfo_map[channel_id];
-                        channel['id'] = channel_detail['id'];
-                        channel['blocknumbers'] = channel_detail['blocks'];
-                        channel['comments'] = channel_detail['comments'];
 
-                        channel['txnums'] = sql_tx_count_map[channel_id]['txnums'];
+                        if( channel_detail !==undefined && channel_detail !== '' ){
+                            channel['id'] = channel_detail['id'];
+                            //channel['blocknumbers'] = channel_detail['blocks'];
+                            channel['comments'] = channel_detail['comments'];
+                            //channel['txnums'] = sql_tx_count_map[channel_id]['txnums'];
+
+                        }
+
 
                         let parm_channel_id =  sql_keyset_count_map[channel_id];
                         if( parm_channel_id !== null && parm_channel_id !== '' && parm_channel_id !== undefined  )

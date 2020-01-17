@@ -421,7 +421,7 @@ router.get('/chaincodes_detail.json', async function (req, res) {
     let sql_org = ` select pkid as id ,name,mspid , comments , "org" as flag from organization where  mspid in ( select mspid from org_ref_channel where channel_id = '${channel_id}' )  `;
     let sql_org_info = await mysql.getRowsByFullSQl(sql_org);
 
-    let pic_struct = await bcexplorerservice.get_fabric_cc_struct(chaincodes_pkid);
+    let pic_struct = await bcexplorerservice.get_fabric_cc_struct( chaincodes_pkid );
 
     /**
      *
