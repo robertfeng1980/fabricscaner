@@ -5,7 +5,8 @@
     <title>营商环境评价分析系统</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="../../uim/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="../../uim/style/admin.css" media="all">
 </head>
@@ -20,153 +21,121 @@
     <div class="layui-card">
         <div class="layui-card-header">更新peer节点</div>
         <div class="layui-card-body" style="padding: 15px;">
-            <form class="layui-form" wid100 action=""  lay-filter="LAY-peer-form" id="LAY-peer-form"  style="padding: 20px 30px 0 0;">
-                <input type="text" name="pkid"  class="layui-input  layui-hide">
-                <input type="text" name="checkv"  class="layui-input  layui-hide">
+            <form class="layui-form" wid100 action="" lay-filter="LAY-peer-form" id="LAY-peer-form"
+                  style="padding: 20px 30px 0 0;">
+                <input type="text" name="pkid" class="layui-input  layui-hide">
+                <input type="text" name="checkv" class="layui-input  layui-hide">
 
-
-
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">组织编号</label>
-                        <div class="layui-col-md6">
-                            <input type="text" name="mspid" placeholder="请输入组织编号" autocomplete="off" class="layui-input">
-                        </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">组织编号</label>
+                    <div class="layui-col-md6">
+                        <input type="text" name="mspid" placeholder="请输入组织编号" autocomplete="off" class="layui-input">
                     </div>
+                </div>
 
-
-
-
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">名称</label>
-                        <div class="layui-col-md6">
-                            <input type="text" name="name" placeholder="请输入名称" autocomplete="off" class="layui-input">
-                        </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">名称</label>
+                    <div class="layui-col-md6">
+                        <input type="text" name="name" placeholder="请输入名称" autocomplete="off" class="layui-input">
                     </div>
+                </div>
 
 
-
-
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">请求地址</label>
-                        <div class="layui-col-md6">
-                            <input type="text" name="requests" placeholder="请输入请求地址" autocomplete="off" class="layui-input">
-                        </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">别名</label>
+                    <div class="layui-col-md6">
+                        <input type="text" name="comments" placeholder="请输入别名" autocomplete="off" class="layui-input">
                     </div>
+                </div>
 
 
-
-
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">事件</label>
-                        <div class="layui-col-md6">
-                            <input type="text" name="events" placeholder="请输入事件" autocomplete="off" class="layui-input">
-                        </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">请求地址</label>
+                    <div class="layui-col-md6">
+                        <input type="text" name="requests" placeholder="请输入请求地址" autocomplete="off" class="layui-input">
                     </div>
+                </div>
 
 
-
-
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">serverhostname</label>
-                        <div class="layui-col-md6">
-                            <input type="text" name="serverhostname" placeholder="请输入serverhostname" autocomplete="off" class="layui-input">
-                        </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">事件</label>
+                    <div class="layui-col-md6">
+                        <input type="text" name="events" placeholder="请输入事件" autocomplete="off" class="layui-input">
                     </div>
+                </div>
 
 
-
-
-
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">TLS通信证书</label>
-                            <div class="layui-col-md6">
-                                <textarea name="tls_cacerts" id="tls_cacerts"  autocomplete="off" class="layui-textarea"></textarea>
-                            </div>
-                        </div>
-
-
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">peer配置文件路径</label>
-                        <div class="layui-col-md6">
-                            <input type="text" name="peer_config" placeholder="请输入peer配置文件路径" autocomplete="off" class="layui-input">
-                        </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">serverhostname</label>
+                    <div class="layui-col-md6">
+                        <input type="text" name="serverhostname" placeholder="请输入serverhostname" autocomplete="off"
+                               class="layui-input">
                     </div>
+                </div>
 
 
-
-
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">运行方式(0-bin 1-docker)</label>
-                        <div class="layui-col-md6">
-                            <input type="text" name="runtype" placeholder="请输入运行方式(0-bin 1-docker)" autocomplete="off" class="layui-input">
-                        </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">TLS通信证书</label>
+                    <div class="layui-col-md6">
+                        <textarea name="tls_cacerts" id="tls_cacerts" autocomplete="off" class="layui-textarea"></textarea>
                     </div>
+                </div>
 
 
-
-
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">docker镜像名称</label>
-                        <div class="layui-col-md6">
-                            <input type="text" name="docker_images" placeholder="请输入docker镜像名称" autocomplete="off" class="layui-input">
-                        </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">peer配置文件路径</label>
+                    <div class="layui-col-md6">
+                        <input type="text" name="peer_config" placeholder="请输入peer配置文件路径" autocomplete="off" class="layui-input">
                     </div>
+                </div>
 
 
-
-
-
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">docker镜镜像配置信息</label>
-                            <div class="layui-col-md6">
-                                <textarea name="docker_images_config" id="docker_images_config"  autocomplete="off" class="layui-textarea"></textarea>
-                            </div>
-                        </div>
-
-
-
-
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">运行服务器</label>
-                        <div class="layui-col-md6">
-                            <input type="text" name="server_ipaddress" placeholder="请输入运行服务器" autocomplete="off" class="layui-input">
-                        </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">运行方式(0-bin 1-docker)</label>
+                    <div class="layui-col-md6">
+                        <input type="text" name="runtype" placeholder="请输入运行方式(0-bin 1-docker)" autocomplete="off" class="layui-input">
                     </div>
+                </div>
 
 
-
-
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">content地址</label>
-                        <div class="layui-col-md6">
-                            <input type="text" name="docker_ipaddress" placeholder="请输入content地址" autocomplete="off" class="layui-input">
-                        </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">docker镜像名称</label>
+                    <div class="layui-col-md6">
+                        <input type="text" name="docker_images" placeholder="请输入docker镜像名称" autocomplete="off" class="layui-input">
                     </div>
+                </div>
 
 
+                <div class="layui-form-item">
+                    <label class="layui-form-label">docker镜镜像配置信息</label>
+                    <div class="layui-col-md6">
+                        <textarea name="docker_images_config" id="docker_images_config" autocomplete="off" class="layui-textarea"></textarea>
+                    </div>
+                </div>
 
 
-
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">备注</label>
-                            <div class="layui-col-md6">
-                                <textarea name="remark" id="remark"  autocomplete="off" class="layui-textarea"></textarea>
-                            </div>
-                        </div>
-
+                <div class="layui-form-item">
+                    <label class="layui-form-label">运行服务器</label>
+                    <div class="layui-col-md6">
+                        <input type="text" name="server_ipaddress" placeholder="请输入运行服务器" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
 
 
+                <div class="layui-form-item">
+                    <label class="layui-form-label">content地址</label>
+                    <div class="layui-col-md6">
+                        <input type="text" name="docker_ipaddress" placeholder="请输入content地址" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
 
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">备注</label>
+                    <div class="layui-col-md6">
+                        <textarea name="remark" id="remark" autocomplete="off" class="layui-textarea"></textarea>
+                    </div>
+                </div>
 
 
                 <div class="layui-form-item layui-hide">

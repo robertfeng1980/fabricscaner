@@ -299,6 +299,15 @@
                       </div>
                       <div class="layui-card-body">
                           <table id="LAY-accounts-list" lay-filter="LAY-accounts-list"></table>
+                          <script type="text/html" id="account_typeTpl">
+                              {{#  if( d.account_type ==0  ){ }}
+                              <button class="layui-btn  layui-btn-xs" lay-event="public">背书</button>
+                              {{#  } else if (d.account_type ==1)  { }}
+                              <button class="layui-btn layui-btn-normal layui-btn-xs" lay-event="public">发起交易</button>
+                              {{#  } else { }}
+                              <button class="layui-btn layui-btn-warm layui-btn-xs" lay-event="public">排序</button>
+                              {{#  } }}
+                          </script>
                       </div>
 
                   </div>

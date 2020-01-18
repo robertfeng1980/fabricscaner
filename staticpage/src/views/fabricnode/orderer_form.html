@@ -11,9 +11,7 @@
     <link rel="stylesheet" href="../../uim/style/admin.css" media="all">
 
     <style>
-        .layui-form[wid100] .layui-form-label {
-            width: 15%;
-        }
+        .layui-form[wid100] .layui-form-label {width: 15%;}
     </style>
 
 </head>
@@ -21,21 +19,26 @@
 
 <div class="layui-fluid">
     <div class="layui-card">
-        <div class="layui-card-header">更新orderer节点打包服务</div>
+        <div class="layui-card-header">更新orderer节点信息</div>
         <div class="layui-card-body" style="padding: 15px;">
-            <form class="layui-form" wid100 action="" lay-filter="LAY-orderer-form" id="LAY-orderer-form"
-                  style="padding: 20px 30px 0 0;">
+            <form class="layui-form" wid100 action="" lay-filter="LAY-orderer-form" id="LAY-orderer-form" style="padding: 20px 30px 0 0;">
+
                 <input type="text" name="pkid" class="layui-input  layui-hide">
                 <input type="text" name="checkv" class="layui-input  layui-hide">
 
-
                 <div class="layui-form-item">
-                    <label class="layui-form-label">id</label>
+                    <label class="layui-form-label">orderer名称</label>
                     <div class="layui-col-md6">
-                        <input type="text" name="id" placeholder="请输入id" autocomplete="off" class="layui-input">
+                        <input type="text" name="orderer_name" placeholder="请输入orderer名称" autocomplete="off" class="layui-input">
                     </div>
                 </div>
 
+                <div class="layui-form-item">
+                    <label class="layui-form-label">注释</label>
+                    <div class="layui-col-md6">
+                        <input type="text" name="comments" placeholder="请输入orderer注释" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
 
                 <div class="layui-form-item">
                     <label class="layui-form-label">配置文件</label>
@@ -43,15 +46,6 @@
                         <textarea name="orderer_config" id="orderer_config"  autocomplete="off" class="layui-textarea"></textarea>
                     </div>
                 </div>
-
-
-                <div class="layui-form-item">
-                    <label class="layui-form-label">创建时间</label>
-                    <div class="layui-input-inline">
-                        <input type="text" name="createdt" class="layui-input" id="createdt" placeholder="yyyy-MM-dd HH:mm:ss">
-                    </div>
-                </div>
-
 
                 <div class="layui-form-item">
                     <label class="layui-form-label">访问地址</label>

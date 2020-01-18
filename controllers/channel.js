@@ -138,7 +138,7 @@ router.get('/accounts_list.json', async function (req, res) {
       /*  let tx = await mysql.getRowByPk('transactions', 'txhash', 'pkid', keysetpkid);
         let txhash = tx['txhash'];
         where = where + `  and certs_md5 in (select DISTINCT(account_cert_md5) from trans_ref_account where transhash  = '${txhash}' ) `;
-*/
+      */
 
         let keyset = await mysql.getRowByPk( 'keyset', 'transactionhash,channel_id,chaincode_name', 'pkid', keysetpkid );
         let txhash = keyset['transactionhash'];
@@ -188,9 +188,10 @@ router.get('/accounts_list.json', async function (req, res) {
         logger.debug(`${req.query.chaincodes_pkid}`);
         let chaincode = await mysql.getRowByPk('chaincodes', '*', 'pkid', req.query.chaincodes_pkid );
         let chaincode_name = chaincode['name'];
+        let cc_version = chaincode['version']
 
 
-        where = where + `and certs_md5 in (select DISTINCT(account_cert_md5) from trans_ref_account where chaincode_name = '${chaincode_name}' ) `;
+        where = where + `and certs_md5 in (select DISTINCT(account_cert_md5) from trans_ref_account where chaincode_name = '${chaincode_name}' and cc_version = '${cc_version}'  ) `;
 
 
     }
@@ -414,6 +415,7 @@ router.get('/chaincodes_detail.json', async function (req, res) {
     let channel_id = sql_cc_info['channel_id'];
     let cc_name = sql_cc_info['name'];
     let cc_version = sql_cc_info['version'];
+    let ccstatus = sql_cc_info['ccstatus'];
 
 
     let peer_count_info = await mysql.getRowsBySQlCase(`select count(pkid) as peer from peer_ref_chaincode where chaincode_name = '${cc_name}'`)
@@ -434,11 +436,29 @@ router.get('/chaincodes_detail.json', async function (req, res) {
 
 
 
+    let cc_tx_count = 0;
+    let cc_keyset_count = 0 ;
+    let cc_account_count = 0;
+
+
+    if( ccstatus === '1'){
+
+        cc_tx_count = sql_cc_info['txcount'];
+        cc_keyset_count = sql_cc_info['keysets'];
+        cc_account_count = sql_cc_info['account_certs'];
+
+
+    }
+
+
+
+
+
     res.send({
             "code": 0,
             "msg": "",
             "chaincode_info": {"pkid":"121","channel_id": cc_instanced_channel ,"languages": sql_cc_info[''],"name": sql_cc_info['name'],"version": sql_cc_info['version'],"path": sql_cc_info['path'],"escc":sql_cc_info['escc'],"vscc":sql_cc_info['vscc'],"txcount":sql_cc_info['txcount'],"ccstatus":sql_cc_info['ccstatus']},
-            "count_info":{"peer":peer_count_info['peer'],"tx":sql_cc_info['txcount'],"keyset":121,"acccount":7},
+            "count_info":{"peer":peer_count_info['peer'],"tx":cc_tx_count,"keyset":cc_keyset_count,"acccount":cc_account_count},
             "pic_struct":pic_struct
         }
 
@@ -681,8 +701,9 @@ router.get('/transaction_list.json', async function (req, res) {
         let chaincode = await mysql.getRowByPk('chaincodes', '*', 'pkid', req.query.chaincodes_pkid );
         let chaincode_name = chaincode['name'];
         let channel_id = chaincode['channel_id'];
+        let cc_version = chaincode['version']
 
-        where = where + `and channel_id = '${channel_id}' and chaincode_name = '${chaincode_name}' `;
+        where = where + ` and chaincode_name = '${chaincode_name}' and chaincodeversion  =  '${cc_version}'  `;
 
     }
 
@@ -1285,9 +1306,10 @@ router.get('/keyset_list.json', async function (req, res) {
         let chaincode = await mysql.getRowByPk('chaincodes', '*', 'pkid', req.query.chaincodes_pkid );
         let chaincode_name = chaincode['name'];
         let channel_id = chaincode['channel_id'];
+        let cc_version = chaincode['version']
 
 
-        where = where + `and channel_id = '${channel_id}' and chaincode_name = '${chaincode_name}' `;
+        where = where + `and  chaincode_name = '${chaincode_name}' and chaincodeversion = '${cc_version}' `;
 
 
     }

@@ -31,6 +31,7 @@ var logger = log4js.getLogger('console');
 
 var mysql = require('../db/mysqlservice4pool')
 
+var bcexplorerservice = require('../service/bcexplorerservice');
 
 
 /***  ====================================   peer  ============================================ */
@@ -144,11 +145,10 @@ router.get('/peer_list.json', async function (req, res) {
 
 
 
-
     logger.debug(searchparm);
     logger.debug(where);
 
-    let sql = `select  pkid,mspid,name,requests,events,serverhostname,peer_config,createdt,runtype,docker_images,server_ipaddress,docker_ipaddress from peer  where ${where} `;
+    let sql = `select  pkid,mspid,name,comments,requests,events,serverhostname,peer_config,createdt,runtype,docker_images,server_ipaddress,docker_ipaddress from peer  where ${where} `;
     let sql_count = ` select count(pkid) as nums from  peer  where ${where} `;
 
     logger.debug(sql_count);
@@ -158,7 +158,7 @@ router.get('/peer_list.json', async function (req, res) {
 
 
     res.send({
-        "code": 0
+          "code": 0
         , "msg": ""
         , "count": peer_counts
         , "data": peer});
@@ -226,6 +226,8 @@ router.post('/peer_save.json' ,async function(req, res) {
         'mspid':req.body.mspid,
 
         'name':req.body.name,
+
+        'comments':req.body.comments,
 
         'requests':req.body.requests,
 
@@ -478,12 +480,10 @@ router.get('/orderer_list.json', async function (req, res) {
     }
 
 
-
-
     logger.debug(searchparm);
     logger.debug(where);
 
-    let sql = `select  pkid,createdt,url,runtype,docker_images,server_ipaddress,docker_ipaddress from orderer  `;
+    let sql = `select  comments,orderer_name,pkid,createdt,url,runtype,docker_images,server_ipaddress,docker_ipaddress from orderer  `;
     let sql_count = ` select count(pkid) as nums from  orderer  where ${where} `;
 
     let orderer_counts = await mysql.getRowCount4Sql(sql_count,'nums');
@@ -556,8 +556,9 @@ router.post('/orderer_save.json' ,async function(req, res) {
 
     var orderer = {
 
+        'orderer_name':req.body.orderer_name,
         'orderer_config':req.body.orderer_config,
-        'createdt':req.body.createdt,
+        'comments':req.body.comments,
         'url':req.body.url,
         'tls_cacerts':req.body.tls_cacerts,
         'runtype':req.body.runtype,
@@ -573,6 +574,7 @@ router.post('/orderer_save.json' ,async function(req, res) {
 
     if( pkid == undefined || pkid == '' ) {
 
+        /*orderer[''] = bcexplorerservice.getDateStr4Date(new Date(), 'yyyy-MM-dd hh:mm:ss.S');*/
         let updateresutl = await mysql.saveRow('orderer', orderer);
 
     }else{
@@ -730,7 +732,7 @@ router.get('/fabricca_list.json', async function (req, res) {
     logger.debug(searchparm);
     logger.debug(where);
 
-    let sql = `select  pkid,mspid,org_name,ca_name,ca_request,ca_config_path,createdt,runtype,docker_images,server_ipaddress,docker_ipaddress from fabricca  `;
+    let sql = `select  pkid,mspid,org_name,ca_name,comments,ca_request,ca_config_path,createdt,runtype,docker_images,server_ipaddress,docker_ipaddress from fabricca  `;
     let sql_count = ` select count(pkid) as nums from  fabricca  where ${where} `;
 
     let fabricca_counts = await mysql.getRowCount4Sql(sql_count,'nums');

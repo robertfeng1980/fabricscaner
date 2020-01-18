@@ -66,10 +66,11 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','channel','fabri
                     elem: '#LAY-peer-list'
                     , url: tablesearchurl /**模拟接口*/
                     , cols: [[
-                        {type: 'checkbox', fixed: 'left'}
+                          {type: 'checkbox', fixed: 'left'}
                         , {field: 'pkid', title: 'PKID', hide: true}
                         , {field: 'mspid', title: '组织编号'}
                         , {field: 'name', title: '名称'}
+                        , {field: 'comments', edit: 'text',title: '注释*'}
                         , {field: 'requests', title: '请求地址'}
                         , {field: 'events', title: '事件地址'}
                         , {field: 'serverhostname', title: 'peer服务器主机名'}
@@ -83,6 +84,38 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','channel','fabri
                     , text: {none: '暂无相关数据'}
                 });
 
+
+                //快速编辑别名
+                table.on('edit(LAY-peer-list)', function(obj){
+                    var value = obj.value //得到修改后的值
+                        ,data = obj.data //得到所在行所有键值
+                        ,field = obj.field; //得到字段
+
+
+                    adminutil.ajaxreq({
+
+                        url: layui.setter.base + '../json/manager/com_update.json?pkid=' + data.pkid+"&fildvalue="+value+"&module=peer"
+                        , type: 'GET'
+                        , dataType: 'json'
+                        //,data:JSON.stringify(data.field)
+                        //,data: data.field
+
+                        , error: function (e) {
+                            layer.msg('系统错误');
+                        }
+
+                        , success: function (response) {
+
+                            let dataType = response.data;
+                            layer.msg('[ID: '+ data.pkid +'] ' + field + ' 字段更改为：'+ value, {offset: '15px'});
+
+                        }
+
+                    });
+
+
+
+                });
 
                 /*监听工具条事件（绑定表格内针对某一条数据的具体操作，比如：编辑或者改变状态，该事见中会自动传入当前操作的数据，所以和通常所见的通过?id=xxx的方式不一样）*/
                 table.on('tool(LAY-peer-list)', function (obj) {
@@ -292,6 +325,11 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','channel','fabri
                     var type = $(this).data('type');
                     active[type] ? active[type].call(this) : '';
                 });
+
+
+
+
+
 
             }
 
@@ -679,7 +717,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','channel','fabri
 
 
             /**
-             *  ==================================orderer节点打包服务列表所需要的代码把看，(views/fabricnode/orderer_list.html)==============================
+             *  ==================================orderer节点打包服务列表所需要的代码，(views/fabricnode/orderer_list.html)==============================
              *  ========================================================================================================================================================================================================
              *  ========================================================================================================================================================================================================
              *  ========================================================================================================================================================================================================
@@ -707,6 +745,8 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','channel','fabri
                     , cols: [[
                         {type: 'checkbox', fixed: 'left'}
                         , {field: 'pkid', title: 'PKID', hide: true}
+                        , {field: 'orderer_name', title: '名称'}
+                        , {field: 'comments', edit: 'text',title: '注释*'}
                         , {field: 'url', title: '访问地址'}
                         , {field: 'runtype', title: '运行方式'}
                         , {field: 'docker_images', title: 'docker镜像名称'}
@@ -721,6 +761,39 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','channel','fabri
                     , text: {none: '暂无相关数据'}
                 });
 
+
+
+                //快速编辑注释
+                table.on('edit(LAY-orderer-list)', function(obj){
+                    var value = obj.value //得到修改后的值
+                        ,data = obj.data //得到所在行所有键值
+                        ,field = obj.field; //得到字段
+
+
+                    adminutil.ajaxreq({
+
+                        url: layui.setter.base + '../json/manager/com_update.json?pkid=' + data.pkid+"&fildvalue="+value+"&module=orderer"
+                        , type: 'GET'
+                        , dataType: 'json'
+                        //,data:JSON.stringify(data.field)
+                        //,data: data.field
+
+                        , error: function (e) {
+                            layer.msg('系统错误');
+                        }
+
+                        , success: function (response) {
+
+                            let dataType = response.data;
+                            layer.msg('[ID: '+ data.pkid +'] ' + field + ' 字段更改为：'+ value, {offset: '15px'});
+
+                        }
+
+                    });
+
+
+
+                });
 
                 /*监听工具条事件（绑定表格内针对某一条数据的具体操作，比如：编辑或者改变状态，该事见中会自动传入当前操作的数据，所以和通常所见的通过?id=xxx的方式不一样）*/
                 table.on('tool(LAY-orderer-list)', function (obj) {
@@ -1168,6 +1241,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','channel','fabri
                         , {field: 'pkid', title: 'PKID', hide: true}
                         , {field: 'org_name', title: '组织名称'}
                         , {field: 'ca_name', title: 'ca名称'}
+                        , {field: 'comments', edit: 'text',title: '注释*'}
                         , {field: 'ca_request', title: 'ca请求路径'}
                         , {field: 'ca_config_path', title: 'ca配置文件'}
                         , {field: 'createdt', title: '创建时间'}
@@ -1181,6 +1255,39 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','channel','fabri
                     , text: {none: '暂无相关数据'}
                 });
 
+
+
+                //快速编辑注释
+                table.on('edit(LAY-fabricca-list)', function(obj){
+                    var value = obj.value //得到修改后的值
+                        ,data = obj.data //得到所在行所有键值
+                        ,field = obj.field; //得到字段
+
+
+                    adminutil.ajaxreq({
+
+                        url: layui.setter.base + '../json/manager/com_update.json?pkid=' + data.pkid+"&fildvalue="+value+"&module=fabricca"
+                        , type: 'GET'
+                        , dataType: 'json'
+                        //,data:JSON.stringify(data.field)
+                        //,data: data.field
+
+                        , error: function (e) {
+                            layer.msg('系统错误');
+                        }
+
+                        , success: function (response) {
+
+                            let dataType = response.data;
+                            layer.msg('[ID: '+ data.pkid +'] ' + field + ' 字段更改为：'+ value, {offset: '15px'});
+
+                        }
+
+                    });
+
+
+
+                });
 
                 /*监听工具条事件（绑定表格内针对某一条数据的具体操作，比如：编辑或者改变状态，该事见中会自动传入当前操作的数据，所以和通常所见的通过?id=xxx的方式不一样）*/
                 table.on('tool(LAY-fabricca-list)', function (obj) {

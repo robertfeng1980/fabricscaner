@@ -427,7 +427,21 @@ router.get('/com_update.json' ,async function(req, res) {
 
         sql_update =   ` update accounts set comments= '${fildvalue}' where pkid = ${pkid}  `;
 
+    }else if ( module === 'peer'){
+
+        sql_update =   ` update peer set comments= '${fildvalue}' where pkid = ${pkid}  `;
+
+    }else if ( module === 'orderer'){
+
+        sql_update =   ` update orderer set comments= '${fildvalue}' where pkid = ${pkid}  `;
+
+    }else if ( module === 'fabricca'){
+
+        sql_update =   ` update fabricca set comments= '${fildvalue}' where pkid = ${pkid}  `;
+
     }
+
+
 
 
     logger.debug(req.query);

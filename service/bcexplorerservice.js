@@ -1724,9 +1724,9 @@ let static_count = async () => {
     let chaincode_sql = `UPDATE chaincodes cc
                             SET 
                             peers = ( select count(pkid) from peer_ref_chaincode prefcc where prefcc.chaincode_name = cc.name ),
-                            txcount = ( SELECT count( pkid ) FROM transactions ts where ts.chaincode_name = cc.name ),
-                            keysets = ( SELECT count( pkid ) FROM keyset ks where ks.chaincode_name = cc.name ),
-                            account_certs = ( SELECT count( DISTINCT(account_cert_md5) ) FROM trans_ref_account trefacc where trefacc.chaincode_name = cc.name) `;
+                            txcount = ( SELECT count( pkid ) FROM transactions ts where ts.chaincode_name = cc.name and ts.chaincodeversion = cc.version  ),
+                            keysets = ( SELECT count( pkid ) FROM keyset ks where ks.chaincode_name = cc.name and ks.chaincodeversion = cc.version  ),
+                            account_certs = ( SELECT count( DISTINCT(account_cert_md5) ) FROM trans_ref_account trefacc where trefacc.chaincode_name = cc.name and trefacc.cc_version = cc.version )`;
 
     await sql.updateBySql(chaincode_sql);
 
@@ -3461,4 +3461,5 @@ exports.get_fabric_org_struct = get_fabric_org_struct;
 
 exports.checktx4cccreate = checktx4cccreate;
 
+exports.getDateStr4Date = getDateStr4Date;
 

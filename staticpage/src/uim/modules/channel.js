@@ -740,7 +740,7 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
                     , cols: [[
 
                          {field: 'pkid', title: 'PKID', hide: true}
-                       /* , {field: 'peer_name', title: 'peer节点'}
+                        /* , {field: 'peer_name', title: 'peer节点'}
                         , {field: 'channel_id', title: '账本名称'}*/
                         , {field: 'name', title: '名称'}
                         , {field: 'comments', edit: 'text',title: '注释*'}
@@ -942,12 +942,8 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
             , chaincodes_detail: function () {
 
 
-
-
                 // peer节点编号
                 let chaincodes_id = adminutil.getUrlParam("pkid");
-
-
 
 
                 // ==========  显示图例和当前组织的网络图谱  ======================
@@ -980,7 +976,6 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
                 });*/
 
 
-
                 // 绑定tab事件
                 element.render();
 
@@ -996,7 +991,6 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
 
 
                         channel.chaincodes_detail_peer(chaincodes_id);
-
 
 
                     }else if (obj.index === 2) {
@@ -2334,8 +2328,6 @@ layui.define(['table', 'form', 'laytpl', 'adminutil', 'laydate','fabricstudiouti
                     elem: '#blockcreatedt'
                     , range: true
                 });
-
-
 
 
                 /*初始化网络中的组织*/
