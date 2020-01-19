@@ -255,9 +255,6 @@ router.post('/servers_batchdel.json' ,async function(req, res) {
 
 
 
-
-
-
 /*router.get('/tpl.json', async function (req, res) {
 
     //logger.debug(req.query);
@@ -433,7 +430,7 @@ router.get('/com_update.json' ,async function(req, res) {
 
     }else if ( module === 'orderer'){
 
-        sql_update =   ` update orderer set comments= '${fildvalue}' where pkid = ${pkid}  `;
+        sql_update =   ` update orderer set comments= '${fildvalue}' where pkid = ${pkid} `;
 
     }else if ( module === 'fabricca'){
 

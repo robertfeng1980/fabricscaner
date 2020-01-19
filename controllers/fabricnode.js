@@ -235,6 +235,8 @@ router.post('/peer_save.json' ,async function(req, res) {
 
         'serverhostname':req.body.serverhostname,
 
+        'tls_value':req.body.tls_value,
+
         'tls_cacerts':req.body.tls_cacerts,
 
         'peer_config':req.body.peer_config,
@@ -326,16 +328,19 @@ router.post('/peer_batchdel.json' ,async function(req, res) {
 /**
  * peer节点详情
  */
-router.get('/peer_detail.json', function(req, res) {
+router.get('/peer_detail.json', async function(req, res) {
 
 
     //=========  =============
     var peerid = req.query.peerid;
 
+    var peer_info = await mysql.getRowByPk('peer', '*', 'pkid', peerid);
+
+
     res.send({
         "code": 0,
         "msg": "",
-        "peer_info": {"peerid":"peer0.org1.qklszzn.com","name": "peer0","requests": "peer0.org1.qklszzn.com:7051","events": "peer0.org1.qklszzn.com:7052","tls":"1"},
+        "peer_info": {"peerid":peer_info['serverhostname'],"name": peer_info['name'] , "requests":peer_info['requests'] , "events":peer_info['events'],"tls":peer_info['tls_value']},
         "count_info":{"org":3,"orderer":1,"fabric_ca":1,"peer":3,"channel":2,"blocks":20,"chaincodes_install":12,"chaincodes_instance":14,"tx":113,"keyset":121,"acccount":7},
         "pic_struct": {
             "orgs": [

@@ -56,6 +56,16 @@
                 <button class="layui-btn layui-btn-primary layui-btn-xs" lay-event="premodify">Docker</button>
                 {{#  } }}
             </script>
+
+            <script type="text/html" id="tlsvalueTpl">
+                {{#  if(d.tls_value==1){ }}
+                <button class="layui-btn layui-btn-xs" lay-event="public">是</button>
+                {{#  } else { }}
+                <button class="layui-btn layui-btn-primary layui-btn-xs" lay-event="premodify">否</button>
+                {{#  } }}
+            </script>
+
+
             <script type="text/html" id="table-content-list">
                 <a class="layui-btn layui-btn-xs" lay-event="detail">详情</a>
                 <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit">编辑</a>
