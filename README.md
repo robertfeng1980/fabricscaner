@@ -1,1 +1,10 @@
 # fabricscaner
+
+/*"gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0 ",
+    "gulp-header": "^1.8.8",
+    "gulp-if": "^2.0.1",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.6.1",
+    "gulp-uglify": "^1.5.4",*/

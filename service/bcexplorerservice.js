@@ -25,7 +25,7 @@ let bcconfig = require('../config.json');
 let fabricservice = require('./fabricservice');
 let sql = require('../db/mysqlservice4pool')
 let mysql = require('../db/mysqlservice4pool')
-
+let x509 = require('@ghaiklor/x509');
 
 let config = require('../config.json');
 let log4js = require('log4js');
@@ -2275,7 +2275,7 @@ let modify_channel_contant_orgs = async (channel_id, peer, fabricservice) => {
         let orgmspidmap = blockInfo['data']['data'][0]['payload']['data']['config']['channel_group']['groups']['Application']['groups'];
 
 
-        let x509 = require('x509');
+        //let x509 = require('x509');
 
         Object.keys(orgmspidmap).forEach((key) => {
 

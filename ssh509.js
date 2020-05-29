@@ -23,11 +23,12 @@ A0gAMEUCIQCPrUCFcyph7dkKRst7BcwYfQ0wM/Ait2hlbABLgFb8gwIgVQv8VlPL
 
 ////////
 
-var  x509 = require('x509');
+//var  x509 = require('x509');
+var  x509 = require('@ghaiklor/x509');
 /////var subject = x509.getSubject(cert);
 var cert_ojb = x509.parseCert(cert);
 
 
 
-console.log(cert_ojb)
-//console.log(JSON.stringify(cert_ojb))
+//console.log(cert_ojb)
+console.log(JSON.stringify(cert_ojb))

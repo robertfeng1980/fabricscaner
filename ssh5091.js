@@ -1,0 +1,33 @@
+
+
+
+
+var cert = `-----BEGIN CERTIFICATE-----
+MIIChjCCAiygAwIBAgIRAIu6TkpIcntBmwXbMHXjLIowCgYIKoZIzj0EAwIwgYwx
+CzAJBgNVBAYTAkNOMREwDwYDVQQIEwhTaGFuZ2hhaTERMA8GA1UEBxMIU2hhbmdo
+YWkxGTAXBgNVBAoTEG9yZzIucWtsc3p6bi5jb20xDTALBgNVBAsTBE9yZzIxLTAr
+BgNVBAMTJGNhLm9yZzIucWtsc3p6bi5jb20ub3JnMi5xa2xzenpuLmNvbTAeFw0y
+MDA0MzAxMDEwMDBaFw0zMDA0MjgxMDEwMDBaMIGMMQswCQYDVQQGEwJDTjERMA8G
+A1UECBMIU2hhbmdoYWkxETAPBgNVBAcTCFNoYW5naGFpMRkwFwYDVQQKExBvcmcy
+LnFrbHN6em4uY29tMQ0wCwYDVQQLEwRPcmcyMS0wKwYDVQQDEyRjYS5vcmcyLnFr
+bHN6em4uY29tLm9yZzIucWtsc3p6bi5jb20wWTATBgcqhkjOPQIBBggqhkjOPQMB
+BwNCAAS4KGmipll8Wc+YUZSnW8c05Ign7UM7AkadfjyuLPBxn9LvamRhx2cMW5Tt
+MDQl3xnz8YzIBzNP4vFSrpfj+3uko20wazAOBgNVHQ8BAf8EBAMCAaYwHQYDVR0l
+BBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMBMA8GA1UdEwEB/wQFMAMBAf8wKQYDVR0O
+BCIEINEwDU/nHmiSHV208sAITNXo/t7+yPLvnE5mDniq1oa8MAoGCCqGSM49BAMC
+A0gAMEUCIQCPrUCFcyph7dkKRst7BcwYfQ0wM/Ait2hlbABLgFb8gwIgVQv8VlPL
+8rmZZw1f7JUDp8N7pD3jcqPByLi+3bBofC0=
+-----END CERTIFICATE-----
+
+`;
+
+////////
+
+const x509 = require('@ghaiklor/x509');
+let cert_ojb = x509.parseCert(cert);
+
+//forge.pki.certificateFromPem(cert)
+
+
+console.log(cert_ojb)
+console.log(JSON.stringify(cert_ojb))

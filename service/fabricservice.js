@@ -30,6 +30,7 @@ var log4js = require('log4js');
 log4js.configure(config.log4jsconfig);
 var logger = log4js.getLogger('console');
 
+var x509 = require('@ghaiklor/x509');
 
 var hfc = require('fabric-client');
 
@@ -619,7 +620,7 @@ var parserEndorserAccount4Tx = ( tx )=>{
 
         let cert_md5 = md5(cert);
 
-        var x509 = require('x509');
+        //var x509 = require('x509');
         //var subject = x509.getSubject(cert);
         var certs_json = x509.parseCert(cert);
 
@@ -661,7 +662,7 @@ var parserCreateAccount4Tx = ( tx )=>{
 
     let cert_md5 = md5(cert);
 
-    var x509 = require('x509');
+    //var x509 = require('x509');
     //var subject = x509.getSubject(cert);
     var certs_json = x509.parseCert(cert);
 
@@ -700,7 +701,7 @@ var parserSignatureAccount4Tx = ( tx )=>{
     var md5 = require('md5-node');
     let cert_md5 = md5(cert);
 
-    var x509 = require('x509');
+    //var x509 = require('x509');
     //var subject = x509.getSubject(cert);
     var certs_json = x509.parseCert(cert);
 
@@ -758,7 +759,7 @@ var parserEndorserAccount4BlockTx = ( tx )=>{
 
             let cert_md5 = md5(cert);
 
-            var x509 = require('x509');
+            //var x509 = require('x509');
             //var subject = x509.getSubject(cert);
             var certs_json = x509.parseCert(cert);
 
@@ -808,7 +809,7 @@ var parserCreateAccount4BlockTx = ( tx )=>{
 
         let cert_md5 = md5(cert);
 
-        var x509 = require('x509');
+        //var x509 = require('x509');
         //var subject = x509.getSubject(cert);
         var certs_json = x509.parseCert(cert);
 
@@ -851,7 +852,7 @@ var parserSignatureAccount4BlockTx = ( tx )=>{
     var md5 = require('md5-node');
     let cert_md5 = md5(cert);
 
-    var x509 = require('x509');
+    //var x509 = require('x509');
     //var subject = x509.getSubject(cert);
     var certs_json = x509.parseCert(cert);
 
