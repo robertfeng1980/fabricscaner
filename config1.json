@@ -1,0 +1,57 @@
+{
+
+  "orgs": [{
+    "name": "org1",
+    "mspid": "Org1MSP",
+    "peers": [
+      {
+        "name": "peer1",
+        "requests": "121.89.160.115:7051",
+        "events": "121.89.160.115:7053",
+        "serverhostname": "peer0.org1.example.com",
+        "tls_cacerts": "/project/fabric/fabric_1.4/fabricconfig/crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt"
+      }
+
+    ],
+    "admin": {
+      "key": "/project/fabric-samples/fabric-samples/first-network/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/keystore",
+      "cert": "/project/fabric-samples/fabric-samples/first-network/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/signcerts"
+    }
+  }],
+
+  "orderer": [{
+    "url": "121.89.160.115:7050",
+    "serverhostname": "orderer.example.com",
+    "tls_cacerts": "/project/huohu/fabric/fabricconfig/crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/tls/ca.crt"
+  }],
+
+
+  "host": "localhost",
+  "port": "8828",
+  "keyValueStore": "/var/ionchian/yundaopoc/fabricscaner/fabricscaner",
+  "eventWaitTime": "30000",
+  "enableTls": false,
+  "ifautospider":false,
+  "spiderRate":20000,
+  "mysql": {
+    "host": "localhost",
+    "port": "3306",
+    "database": "fabric_studio",
+    "username": "root",
+    "passwd": "123456"
+  },
+  "log4jsconfig": {
+
+    "levels": {
+      "console" : "DEBUG"
+    },
+    "appenders": [
+      {
+        "type": "console",
+        "category": "console"
+      }
+    ],
+    "replaceConsole": true
+
+  }
+}
