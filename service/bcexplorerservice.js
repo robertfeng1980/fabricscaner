@@ -2288,7 +2288,10 @@ let modify_channel_contant_orgs = async (channel_id, peer, fabricservice) => {
             let cacerts_json = JSON.stringify(x509.parseCert(cacerts));
 
             let admins_scert = orgmspinfo['values']['MSP']['value']['config']['admins'][0];
-            let admins_scert_json = JSON.stringify(x509.parseCert(admins_scert));
+
+            let admins_scert_json = ''
+            if( admins_scert !== undefined  )
+                 admins_scert_json = JSON.stringify(x509.parseCert(admins_scert));
 
             let tls_root_certs = orgmspinfo['values']['MSP']['value']['config']['tls_root_certs'][0];
             let tls_root_certs_json = JSON.stringify(x509.parseCert(tls_root_certs));
@@ -2605,11 +2608,19 @@ let modify_channel_block_trans = async (channel_id, peer, blockinfo, fabricservi
 
                 let lscc_ns ;
 
-                cc_results.forEach(function(item,index,arr){
+               /* cc_results.forEach(function(item,index,arr){
                     let  namespace = item.namespace;
                     lscc_ns = item;
                     if(namespace === 'lscc') return;
+                });*/
+
+
+                cc_results.some(function(item){
+                    let  namespace = item.namespace;
+                    lscc_ns = item;
+                    if(namespace === 'lscc') return true;
                 });
+
 
 
                 let rwset = lscc_ns['rwset'];

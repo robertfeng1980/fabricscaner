@@ -99,9 +99,11 @@ if( config.ifautospider ){
 
 
 //注册异常处理器
+/*
 process.on('unhandledRejection', function (err) {
     console.error(err.stack);
 });
 process.on(`uncaughtException`, console.error);
+*/
 
 

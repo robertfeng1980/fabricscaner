@@ -53,8 +53,6 @@ layui.define(['table', 'form', 'adminutil'], function (exports) {
             }
 
 
-
-
             ,pic_gorup_sample_option:{
                 org: {shape: 'circle', color: '#FF9900', font:{bold:true,size:20}},
                 orderer: {shape: 'ellipse', color: "#cccaa9"  , font:{bold:true,size:20}},

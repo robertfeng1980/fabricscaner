@@ -14,8 +14,8 @@
 
     ],
     "admin": {
-      "key": "/project/fabric-samples/fabric-samples/first-network/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/keystore",
-      "cert": "/project/fabric-samples/fabric-samples/first-network/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/signcerts"
+      "key": "/Users/fengxiang/project/temp/115/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/keystore",
+      "cert": "/Users/fengxiang/project/temp/115/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/signcerts"
     }
   }],
 
