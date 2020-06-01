@@ -48,7 +48,7 @@ layui.define(['table', 'form', 'adminutil'], function (exports) {
                 chaincodeinstance: {shape: 'diamond', color: "#109618" , font:{bold:true}},
                 account: {shape: 'image', color: "#00314f",image:"../../source/img/user.png" , font:{bold:true}},
                 transaction: {shape: 'hexagon', color: "#57693c" , font:{bold:true}},
-                keyset: {shape: 'image', color: "#71969f",image:"../../source/img/key.png", font:{bold:true}}
+                keyset: {shape: 'image', color: "#71969f",image:"../../source/img/Key.png", font:{bold:true}}
 
             }
 

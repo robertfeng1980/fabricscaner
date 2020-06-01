@@ -31,7 +31,7 @@ console.info(  JSON.stringify( orgnamemap ) );
 
 //bcexplorerservice.testfunc('org1');
 //bcexplorerservice.parserOrg('Org1MSP');
-//bcexplorerservice.startUp();
+bcexplorerservice.startUp();
 
 bcexplorerservice.parserDefaultOrg();
 

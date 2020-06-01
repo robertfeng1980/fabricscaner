@@ -1,5 +1,4 @@
 {
-
   "orgs": [{
     "name": "org1",
     "mspid": "Org1MSP",
@@ -9,20 +8,20 @@
         "requests": "10.211.55.5:7051",
         "events": "10.211.55.5:7053",
         "serverhostname": "peer0.org1.qklszzn.com",
-        "tls_cacerts": "/project/fabric/fabric_1.4/fabricconfig/crypto-config/peerOrganizations/org1.qklszzn.com/peers/peer0.org1.qklszzn.com/tls/ca.crt"
+        "tls_cacerts": "~/project/fabric/fabric_1.4/fabricconfig/crypto-config/peerOrganizations/org1.qklszzn.com/peers/peer0.org1.qklszzn.com/tls/ca.crt"
       }
 
     ],
     "admin": {
-      "key": "/project/fabric/fabric1.4_network/org1/10.211.55.5/fabricconfig/crypto-config/peerOrganizations/org1.qklszzn.com/users/Admin@org1.qklszzn.com/msp/keystore",
-      "cert": "/project/fabric/fabric1.4_network/org1/10.211.55.5/fabricconfig/crypto-config/peerOrganizations/org1.qklszzn.com/users/Admin@org1.qklszzn.com/msp/signcerts"
+      "key": "~/project/fabric/fabric1.4_network/org1/10.211.55.5/fabricconfig/crypto-config/peerOrganizations/org1.qklszzn.com/users/Admin@org1.qklszzn.com/msp/keystore",
+      "cert": "~/project/fabric/fabric1.4_network/org1/10.211.55.5/fabricconfig/crypto-config/peerOrganizations/org1.qklszzn.com/users/Admin@org1.qklszzn.com/msp/signcerts"
     }
   }],
 
   "orderer": [{
     "url": "10.211.55.5:7050",
     "serverhostname": "orderer.qklszzn.com",
-    "tls_cacerts": "/project/huohu/fabric/fabricconfig/crypto-config/ordererOrganizations/qklszzn.com/orderers/orderer.qklszzn.com/tls/ca.crt"
+    "tls_cacerts": "~/project/huohu/fabric/fabricconfig/crypto-config/ordererOrganizations/qklszzn.com/orderers/orderer.qklszzn.com/tls/ca.crt"
   }],
 
 
