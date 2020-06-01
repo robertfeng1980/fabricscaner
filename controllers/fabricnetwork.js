@@ -83,6 +83,7 @@ router.get('/fabricnetwork_struct.json', async function (req, res) {
 
 
     let count_info = sql_count_info[0];
+
     count_info['org'] = sql_org_info.length;
     count_info['orderer'] = sql_orderer_info == null ? 0 : sql_orderer_info.length;
 

@@ -603,7 +603,7 @@ router.get('/chaincodes_list.json', async function (req, res) {
     let cc_nameversion_keys__map = await mysql.getSQL2Map(nameversion_sql,'ccinstanceversion');
 
 
-    logger.debug(ccinstances_chanel_id_map['fabricscan_cc_09241.4']['channel_id']);
+    //logger.debug(ccinstances_chanel_id_map['fabricscan_cc_09241.4']['channel_id']);
 
     logger.debug(`${nameversion_sql}`);
 
