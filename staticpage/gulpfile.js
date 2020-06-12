@@ -1,8 +1,8 @@
 /**
- uim std 构建
+ layuiAdmin std 构建
  */
 
-var pkg = require('../package.json');
+var pkg = require('./package.json');
 var inds = pkg.independents;
 
 var gulp = require('gulp');
@@ -30,7 +30,7 @@ var argv = require('minimist')(process.argv.slice(2), {
 ]
 
     ,destDir = './dist' //构建的目标目录
-    ,releaseDir = '../pack/uim.pack/'+ pkg.name +'-v' + pkg.version //发行版本目录
+    ,releaseDir = '../pack/layuiAdmin.pack/'+ pkg.name +'-v' + pkg.version //发行版本目录
 
 //任务
     ,task = {
@@ -38,7 +38,6 @@ var argv = require('minimist')(process.argv.slice(2), {
     minjs: function(){
         var src = [
             './src/uim/**/*.js'
-            ,'!./src/uim/json/**/*.js'
             ,'!./src/uim/layui/**/*.js'
             ,'!./src/uim/config.js'
             ,'!./src/uim/lib/extend/echarts.js'
@@ -68,7 +67,8 @@ var argv = require('minimist')(process.argv.slice(2), {
 
     //复制文件夹
     ,mv: function(){
-
+        gulp.src('./src/uim/json/**/*')
+            .pipe(gulp.dest(destDir + '/uim/json'));
 
         gulp.src('./src/uim/lib/extend/echarts.js')
             .pipe(gulp.dest(destDir + '/uim/lib/extend'));
@@ -121,7 +121,7 @@ gulp.task('default', ['clear', 'src'], function(){ //命令：gulp
     }
 });
 
-//发行 - uim 官方使用
+//发行 - layuiAdmin 官方使用
 gulp.task('release', ['layui'], function(){ //命令：gulp && gulp release
 
     //复制核心文件
@@ -132,8 +132,8 @@ gulp.task('release', ['layui'], function(){ //命令：gulp && gulp release
         .pipe(gulp.dest(releaseDir + '/src'));
 
     //复制帮助文件
-   /* gulp.src([
-        './帮助/!*'
+    gulp.src([
+        './帮助/*'
         ,'!./帮助/说明.txt'
     ]).pipe(gulp.dest(releaseDir + '/帮助'));
 
@@ -143,7 +143,7 @@ gulp.task('release', ['layui'], function(){ //命令：gulp && gulp release
 
     //说明
     gulp.src('../pack/说明.txt')
-        .pipe(gulp.dest('../pack/uim.pack'));*/
+        .pipe(gulp.dest('../pack/uim.pack'));
 
     //复制 gulpfile
     return gulp.src([
@@ -151,9 +151,3 @@ gulp.task('release', ['layui'], function(){ //命令：gulp && gulp release
         ,'package.json'
     ]).pipe(gulp.dest(releaseDir));
 });
-
-
-
-
-
-
