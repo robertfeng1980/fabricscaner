@@ -27,7 +27,7 @@
 
 
   "host": "localhost",
-  "port": "8829",
+  "port": "8828",
   "keyValueStore": "/Users/fengxiang/project/ws_nodejs/fabricscaner/fabric-client-kvs",
   "eventWaitTime": "30000",
   "enableTls": false,

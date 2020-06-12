@@ -4,9 +4,9 @@
  @Author：贤心
  @Site：http://www.layui.com/admin/
  @License：LPPL（layui付费产品协议）
-    
+
  */
- 
+
 layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
   exports('setter', {
     container: 'LAY_app' //容器ID
@@ -128,10 +128,10 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
         ,header: '#009688'
         ,alias: 'green-header' //墨绿头
       }]
-      
+
       //初始的颜色索引，对应上面的配色方案数组索引
       //如果本地已经有主题色记录，则以本地记录为优先，除非请求本地数据（localStorage）
-      ,initColorIndex: 0
+      ,initColorIndex: 10
     }
   });
 });
